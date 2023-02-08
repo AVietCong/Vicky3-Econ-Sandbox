@@ -1,5 +1,6 @@
 package model;
 
+
 public class Goods {
     // This class represents the resources, goods and services that are traded in a market
     // (e.g: Iron, Grocery, Services).
@@ -48,6 +49,7 @@ public class Goods {
         return shortage;
     }
 
+    // setters
     public void setSupply(int supply) {
         this.supply = supply;
     }
@@ -75,8 +77,17 @@ public class Goods {
         } else if (supply == 0) {
             shortage = true;
             return (int) (basePrice * UPPER_PRICE_CAP);
+        } else if (demand == 0) {
+            shortage = false;
+            return (int) (basePrice * LOWER_PRICE_CAP);
         } else {
-            double priceModifier = demand * 1.0 / supply;
+            double priceModifier;
+            if (demand >= supply) {
+                priceModifier = 1.0 + (0.75 * (demand - supply) / supply);
+            } else {
+                priceModifier = 1.0 + (0.75 * (demand - supply) / demand);
+            }
+
             if (priceModifier >= UPPER_PRICE_CAP) {
                 shortage = true;
                 return (int) (basePrice * UPPER_PRICE_CAP);

@@ -1,5 +1,6 @@
-package model;
+package test;
 
+import model.Goods;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -70,18 +71,38 @@ public class GoodsTest {
     }
 
     @Test
+    public void testdeterminePriceNoSupply() {
+        furniture.setDemand(50);
+        assertEquals(0, furniture.getSupply());
+
+        assertEquals((int) (upperPriceCap * furniture.getBasePrice()), furniture.determinePrice());
+    }
+
+    @Test
+    public void testdeterminePriceNoDemand() {
+        furniture.setSupply(70);
+        assertEquals(0, furniture.getDemand());
+
+        assertEquals((int) (lowerPriceCap * furniture.getBasePrice()), furniture.determinePrice());
+    }
+
+    @Test
     public void testdeterminePriceDemandGreaterNoShortage() {
         furniture.setSupply(100);
         furniture.setDemand(174);
-        assertEquals((int) (1.74 * furniture.getBasePrice()), furniture.determinePrice());
+        int actualFurniturePrice = (int) (30 * (1.0 + (0.75 * (174 - 100) / 100)));
+        assertEquals(actualFurniturePrice, furniture.determinePrice());
         assertFalse(furniture.isShortage());
 
         iron.setSupply(200);
         iron.setDemand(300);
-        assertEquals((int) ((3 * 1.0 / 2) * iron.getBasePrice()), iron.determinePrice());
+        int actualIronPrice = (int) (40 * (1.0 + (0.75 * (300 - 200) / 200)));
+        assertEquals(actualIronPrice, iron.determinePrice());
         assertFalse(iron.isShortage());
     }
 
+
+    // TODO: fix this test
     @Test
     public void testdeterminePriceDemandGreaterYesShortage() {
         furniture.setSupply(200);
@@ -96,6 +117,7 @@ public class GoodsTest {
         assertTrue(tools.isShortage());
     }
 
+    // TODO: fix this test
     @Test
     public void testdeterminePriceSupplyGreater() {
         furniture.setSupply(500);
