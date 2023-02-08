@@ -9,8 +9,8 @@ public class Goods {
 
     public static final double UPPER_PRICE_CAP = 1.75;
     public static final double LOWER_PRICE_CAP = 0.25;
-    public final String name;
-    public final int basePrice;
+    private final String name;
+    private final int basePrice;
 
     private int supply;
     private int demand;
