@@ -11,6 +11,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// TODO: add tests-
+
 public class MarketTest {
 
     Market market;
@@ -118,7 +120,7 @@ public class MarketTest {
         wood.setDemand(50);
         wood.setSupply(400);
 
-        List expected = Arrays.asList(((125 * 1.0) / 100), 0.25, 1.75);
+        List expected = Arrays.asList((0.75 * (125 - 100) / 100), 0.25, 1.75);
         List actual = market.getPriceModifiers();
         assertEquals(expected, actual);
     }
