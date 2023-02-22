@@ -15,8 +15,6 @@ public class Goods {
 
     private int supply;
     private int demand;
-    private double priceModifier;
-
     private boolean shortage;
 
     // EFFECTS: construct a resource with given name, base price and 0 supply & demand and no shortage
@@ -45,8 +43,6 @@ public class Goods {
         return demand;
     }
 
-    public double getPriceModifier() {return priceModifier;}
-
     // setters
     public void setSupply(int supply) {
         this.supply = supply;
@@ -56,11 +52,7 @@ public class Goods {
         this.demand = demand;
     }
 
-    public void setShortageStatus(boolean s) {
-        shortage = s;
-    }
-
-    public void setPriceModifier(double modifier) {priceModifier = modifier;}
+    public void setShortage(boolean s) {shortage = s;}
 
 
     // MODIFIES: this
@@ -75,9 +67,15 @@ public class Goods {
            return LOWER_PRICE_CAP;
         } else {
             if (demand >= supply) {
-                modifier = 1.0 + (0.75 * (demand - supply) / supply);
+                modifier = 1.0 + ((0.75 * (demand - supply)) / supply);
+                if (modifier >= UPPER_PRICE_CAP) {
+                    return UPPER_PRICE_CAP;
+                }
             } else {
                 modifier = 1.0 + (0.75 * (demand - supply) / demand);
+                if (modifier <= LOWER_PRICE_CAP) {
+                    return LOWER_PRICE_CAP;
+                }
             }
         }
         return modifier;
@@ -87,17 +85,14 @@ public class Goods {
     // MODIFIES: this
     // EFFECTS: return the price of goods from supply & demand
     public int determinePrice() {
-        return (int) (basePrice * priceModifier);
+        return (int) (basePrice * determinePriceModifier());
     }
 
 
     // MODIFIES: this
     // EFFECTS: determine and return whether a good is in shortage
     public boolean isShortage() {
-        if (priceModifier > UPPER_PRICE_CAP) {
-            return true;
-        }
-        return false;
+        return shortage;
     }
 
 }

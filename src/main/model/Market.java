@@ -10,64 +10,100 @@ public class Market {
 
 
     private List<Goods> market;
-    private double gdp;
+    private int gdp;
 
     // EFFECTS: create a market with no goods
     public Market() {
-        //stub
+        market = new ArrayList<>();
+        gdp = 0;
     }
 
     // getters
     public double getGDP() {
-        return 1;
+        return gdp;
     }
 
+    // INVARIANT: returnList.size() == market.size()
+    // EFFECTS: return the name of goods in corresponding position
     public List<String> getAvailableGoods() {
-        return new LinkedList<String>();
+        List<String> ListOfGoods = new ArrayList<>();
+        for (Goods goods : market) {
+            ListOfGoods.add(goods.getName());
+        }
+        return ListOfGoods;
     }
 
+    // INVARIANT: returnList.size() == market.size()
+    // EFFECTS: return the supply of goods in corresponding position
     public List<Integer> getSupplyOfGoods() {
-        return new LinkedList<Integer>();
+        List<Integer> ListOfSupply = new ArrayList<>();
+        for (Goods goods : market) {
+            ListOfSupply.add(goods.getSupply());
+        }
+        return ListOfSupply;
     }
 
+    // INVARIANT: returnList.size() == market.size()
+    // EFFECTS: return the demand of goods in corresponding position
     public List<Integer> getDemandOfGoods() {
-        return new LinkedList<Integer>();
+        List<Integer> ListOfDemand = new ArrayList<>();
+        for (Goods goods : market) {
+            ListOfDemand.add(goods.getDemand());
+        }
+        return ListOfDemand;
     }
 
+    // INVARIANT: returnList.size() == market.size()
+    // EFFECTS: return the price modifiers of goods in corresponding position
     public List<Double> getPriceModifiers() {
-        return new LinkedList<Double>();
+        List<Double> ListOfModifiers = new ArrayList<>();
+        for (Goods goods : market) {
+            ListOfModifiers.add(goods.determinePriceModifier());
+        }
+        return ListOfModifiers;
     }
 
     // REQUIRES: Goods of same name isn't already in market;
     // MODIFIES: this
     // EFFECTS: add goods to the market
     public void addGoods(Goods g) {
-        // void
+        market.add(g);
     }
 
     // MODIFIES: this
     // EFFECTS: return true if successfully removed goods from the market otherwise return false
-    public boolean removeGoods(String g) {
+    public boolean removeGoods(Goods g) {
+        if (market.contains(g)) {
+            market.remove(g);
+            return true;
+        }
         return false;
     }
 
-
-    public void setGDP(double gdp) {
-        // stub
+    // EFFECTS: set the GDP of the market
+    public void setGDP(int gdp) {
+        this.gdp = gdp;
     }
 
-    public List<Integer> getMarketPrices() {
-        return new LinkedList<Integer>();
+    // EFFECTS: return prices corresponding to goods in market
+    // INVARIANT: List<Integer>.size() == market.size();
+    public List<Integer> getPrices() {
+        List<Integer> ListOfPrices = new ArrayList<>();
+        for (Goods goods : market) {
+            ListOfPrices.add(goods.determinePrice());
+        }
+        return ListOfPrices;
     }
 
-    public void setMarketPrices() {
-        // stub
-    }
 
     public int determineGDP() {
-        return 0;
+        int marketValue = 0;
+        for (Goods goods : market) {
+            marketValue += goods.getDemand() * goods.determinePrice();
+        }
+        return marketValue;
     }
 
     // EFFECTS: return the number of goods in the market
-    public int size() {return 0;}
+    public int size() {return market.size();}
 }
