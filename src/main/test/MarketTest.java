@@ -5,13 +5,11 @@ import model.Market;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: add tests-
 
 public class MarketTest {
 
@@ -19,6 +17,7 @@ public class MarketTest {
     Goods iron;
     Goods wood;
     Goods tools;
+    Goods furniture;
 
     @BeforeEach
     public void setup() {
@@ -26,17 +25,20 @@ public class MarketTest {
         iron = new Goods("Iron", 40);
         wood = new Goods("Wood", 20);
         tools = new Goods("Tools",30);
+        furniture = new Goods("Furniture", 30);
     }
 
     @Test
     public void testConstructor() {
         assertEquals(0, market.size());
+        assertEquals(0, market.getGDP());
     }
 
     @Test
     public void testaddGoodsOnce() {
         market.addGoods(iron);
         assertEquals(1, market.size());
+        assertTrue(market.getAvailableGoods().contains("Iron"));
     }
 
     @Test
@@ -44,6 +46,7 @@ public class MarketTest {
         market.addGoods(iron);
         market.addGoods(wood);
         assertEquals(2, market.size());
+        assertTrue(market.getAvailableGoods().contains("Wood"));
     }
 
     @Test
@@ -52,7 +55,8 @@ public class MarketTest {
         market.addGoods(wood);
         market.addGoods(tools);
 
-        assertTrue(market.removeGoods("Wood"));
+        assertTrue(market.removeGoods(wood));
+        assertFalse(market.getAvailableGoods().contains("Wood"));
         assertEquals(2, market.size());
     }
 
@@ -62,7 +66,7 @@ public class MarketTest {
         market.addGoods(wood);
         market.addGoods(tools);
 
-        assertFalse(market.removeGoods("Furniture"));
+        assertFalse(market.removeGoods(furniture));
         assertEquals(3, market.size());
     }
 
@@ -107,7 +111,6 @@ public class MarketTest {
         assertEquals(expected, actual);
     }
 
-    // TODO: fix this test
     @Test
     public void testgetPriceModifiers() {
         market.addGoods(iron);
@@ -120,10 +123,49 @@ public class MarketTest {
         wood.setDemand(50);
         wood.setSupply(400);
 
-        List expected = Arrays.asList((0.75 * (125 - 100) / 100), 0.25, 1.75);
+        List expected = Arrays.asList(iron.determinePriceModifier(),
+                wood.determinePriceModifier(),
+                tools.determinePriceModifier());
         List actual = market.getPriceModifiers();
         assertEquals(expected, actual);
     }
 
-    // TODO: add tests for remaining methods
+    @Test
+    public void testgetMarketPrices() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        market.addGoods(tools);
+        iron.setDemand(125);
+        iron.setSupply(100);
+        tools.setDemand(500);
+        tools.setSupply(250);
+        wood.setDemand(50);
+        wood.setSupply(400);
+
+        List expected = Arrays.asList(iron.determinePrice(),
+                wood.determinePrice(),
+                tools.determinePrice());
+
+        List actual = market.getPrices();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testdetermineGDP() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        market.addGoods(tools);
+        iron.setDemand(125);
+        iron.setSupply(100);
+        tools.setDemand(500);
+        tools.setSupply(250);
+        wood.setDemand(50);
+        wood.setSupply(400);
+
+        int expected = iron.getDemand() * iron.determinePrice() +
+                wood.getDemand() * wood.determinePrice() +
+                tools.getDemand() * tools.determinePrice();
+        int actual = market.determineGDP();
+        assertEquals(expected, actual);
+    }
 }

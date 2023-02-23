@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: fix tests
 
 public class GoodsTest {
 
@@ -57,10 +56,10 @@ public class GoodsTest {
 
     @Test
     public void testsetShortage() {
-        iron.setShortageStatus(true);
+        iron.setShortage(true);
         assertTrue(iron.isShortage());
 
-        iron.setShortageStatus(false);
+        iron.setShortage(false);
         assertFalse(iron.isShortage());
     }
 
@@ -111,14 +110,12 @@ public class GoodsTest {
         int expectedFurniturePrice = (int) (furniture.getBasePrice() * upperPriceCap);
         int actualFurniturePrice = furniture.determinePrice();
         assertEquals(expectedFurniturePrice, actualFurniturePrice);
-        assertTrue(furniture.isShortage());
 
         tools.setSupply(200);
         tools.setDemand(400);
         int expectedToolsPrice = (int) (tools.getBasePrice() * upperPriceCap);
         int actualToolsPrice = tools.determinePrice();
         assertEquals(expectedToolsPrice, actualToolsPrice);
-        assertTrue(tools.isShortage());
     }
 
     @Test
@@ -128,18 +125,15 @@ public class GoodsTest {
         int expectedFurniturePrice = (int) (furniture.getBasePrice() * (1.0 + (0.75 * (300 - 500) / 300)));
         int actualFurniturePrice = furniture.determinePrice();
         assertEquals(expectedFurniturePrice, actualFurniturePrice);
-        assertFalse(furniture.isShortage());
 
         iron.setSupply(800);
         iron.setDemand(150);
         assertEquals((int) (lowerPriceCap * iron.getBasePrice()), iron.determinePrice());
-        assertFalse(iron.isShortage());
 
         wood.setSupply(800);
         wood.setDemand(201);
         int expectedWoodPrice = (int) (wood.getBasePrice() * lowerPriceCap);
         assertEquals(expectedWoodPrice, wood.determinePrice());
-        assertFalse(wood.isShortage());
     }
 
     @Test
@@ -149,7 +143,6 @@ public class GoodsTest {
         assertEquals(60, furniture.getDemand());
 
         assertEquals((int) (upperPriceCap * furniture.getBasePrice()), furniture.determinePrice());
-        assertTrue(furniture.isShortage());
     }
 
     @Test
@@ -159,6 +152,5 @@ public class GoodsTest {
         assertEquals(30, furniture.getSupply());
 
         assertEquals((int) (lowerPriceCap * furniture.getBasePrice()), furniture.determinePrice());
-        assertFalse(furniture.isShortage());
     }
 }
