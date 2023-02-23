@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Market {
@@ -11,6 +12,7 @@ public class Market {
     private List<Goods> market;
     private double gdp;
 
+    // EFFECTS: create a market with no goods
     public Market() {
         //stub
     }
@@ -21,19 +23,19 @@ public class Market {
     }
 
     public List<String> getAvailableGoods() {
-        return new ArrayList<String>();
+        return new LinkedList<String>();
     }
 
     public List<Integer> getSupplyOfGoods() {
-        return new ArrayList<Integer>();
+        return new LinkedList<Integer>();
     }
 
     public List<Integer> getDemandOfGoods() {
-        return new ArrayList<Integer>();
+        return new LinkedList<Integer>();
     }
 
     public List<Double> getPriceModifiers() {
-        return new ArrayList<Double>();
+        return new LinkedList<Double>();
     }
 
     // REQUIRES: Goods of same name isn't already in market;
@@ -45,7 +47,7 @@ public class Market {
 
     // MODIFIES: this
     // EFFECTS: return true if successfully removed goods from the market otherwise return false
-    public boolean removeGoods(Goods g) {
+    public boolean removeGoods(String g) {
         return false;
     }
 
@@ -55,7 +57,7 @@ public class Market {
     }
 
     public List<Integer> getMarketPrices() {
-        return new ArrayList<Integer>();
+        return new LinkedList<Integer>();
     }
 
     public void setMarketPrices() {
@@ -65,4 +67,7 @@ public class Market {
     public int determineGDP() {
         return 0;
     }
+
+    // EFFECTS: return the number of goods in the market
+    public int size() {return 0;}
 }
