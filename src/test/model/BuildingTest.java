@@ -248,6 +248,15 @@ public class BuildingTest {
     }
 
     @Test
+    public void testdownsizeInvalid() {
+        for (int i = 0; i < 9; i++) {
+            steelMill.expand();
+        }
+        assertFalse(steelMill.downsize(11));
+        assertEquals(10, steelMill.getSize());
+    }
+
+    @Test
     public void testdetermineEoSLevelOne() {
         assertEquals(1.0, chemicalPlant.determineEoS());
     }

@@ -36,7 +36,23 @@ public class GoodsTest {
     }
 
     @Test
+    public void testsetDemand() {
+        iron.setDemand(100);
+        assertEquals(100, iron.getDemand());
+        iron.setDemand(80);
+        assertEquals(80, iron.getDemand());
+    }
+
+    @Test
     public void testsetSupply() {
+        iron.setSupply(200);
+        assertEquals(200, iron.getSupply());
+        iron.setSupply(90);
+        assertEquals(90, iron.getSupply());
+    }
+
+    @Test
+    public void testaddSupply() {
         wood.addSupply(2000);
         assertEquals(2000, wood.getSupply());
 
@@ -45,7 +61,7 @@ public class GoodsTest {
     }
 
     @Test
-    public void testsetDemand() {
+    public void testaddDemand() {
         tools.addDemand(1700);
         assertEquals(1700, tools.getDemand());
 
