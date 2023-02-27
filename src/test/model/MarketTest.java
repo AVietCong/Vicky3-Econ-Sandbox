@@ -171,12 +171,13 @@ public class MarketTest {
         market.addGoods(iron);
         market.addGoods(wood);
         market.addGoods(tools);
-        iron.addDemand(125);
+        market.addGoods(furniture);
         iron.addSupply(100);
         tools.addDemand(500);
-        tools.addSupply(250);
+        furniture.addSupply(200);
+        furniture.addDemand(250);
 
         market.removeInactiveGoods();
-        assertEquals(Arrays.asList("Iron", "Tools"), market.getAvailableGoods());
+        assertEquals(Arrays.asList("Iron", "Tools", "Furniture"), market.getAvailableGoods());
     }
 }
