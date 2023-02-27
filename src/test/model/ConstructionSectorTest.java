@@ -1,8 +1,5 @@
-package test;
+package model;
 
-import model.Building;
-import model.ConstructionSector;
-import model.Goods;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
