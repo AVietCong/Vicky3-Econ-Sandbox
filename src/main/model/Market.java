@@ -1,66 +1,59 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Market {
     // The Market is where prices of goods are determined, bought and sold this is represented as a list of Goods.
-    // GDP represents the total value of the market
 
 
     private List<Goods> market;
-    private int gdp;
 
     // EFFECTS: create a market with no goods
     public Market() {
         market = new ArrayList<>();
-        gdp = 0;
     }
 
-    // getters
-    public double getGDP() {
-        return gdp;
-    }
 
     // INVARIANT: returnList.size() == market.size()
     // EFFECTS: return the name of goods in corresponding position
     public List<String> getAvailableGoods() {
-        List<String> ListOfGoods = new ArrayList<>();
+        List<String> listOfGoods = new ArrayList<>();
         for (Goods goods : market) {
-            ListOfGoods.add(goods.getName());
+            listOfGoods.add(goods.getName());
         }
-        return ListOfGoods;
+        return listOfGoods;
     }
 
     // INVARIANT: returnList.size() == market.size()
     // EFFECTS: return the supply of goods in corresponding position
     public List<Integer> getSupplyOfGoods() {
-        List<Integer> ListOfSupply = new ArrayList<>();
+        List<Integer> listOfSupply = new ArrayList<>();
         for (Goods goods : market) {
-            ListOfSupply.add(goods.getSupply());
+            listOfSupply.add(goods.getSupply());
         }
-        return ListOfSupply;
+        return listOfSupply;
     }
 
     // INVARIANT: returnList.size() == market.size()
     // EFFECTS: return the demand of goods in corresponding position
     public List<Integer> getDemandOfGoods() {
-        List<Integer> ListOfDemand = new ArrayList<>();
+        List<Integer> listOfDemand = new ArrayList<>();
         for (Goods goods : market) {
-            ListOfDemand.add(goods.getDemand());
+            listOfDemand.add(goods.getDemand());
         }
-        return ListOfDemand;
+        return listOfDemand;
     }
 
     // INVARIANT: returnList.size() == market.size()
     // EFFECTS: return the price modifiers of goods in corresponding position
     public List<Double> getPriceModifiers() {
-        List<Double> ListOfModifiers = new ArrayList<>();
+        List<Double> listOfModifiers = new ArrayList<>();
         for (Goods goods : market) {
-            ListOfModifiers.add(goods.determinePriceModifier());
+            listOfModifiers.add(goods.determinePriceModifier());
         }
-        return ListOfModifiers;
+        return listOfModifiers;
     }
 
     // REQUIRES: Goods of same name isn't already in market;
@@ -80,22 +73,17 @@ public class Market {
         return false;
     }
 
-    // EFFECTS: set the GDP of the market
-    public void setGDP(int gdp) {
-        this.gdp = gdp;
-    }
-
     // EFFECTS: return prices corresponding to goods in market
     // INVARIANT: List<Integer>.size() == market.size();
     public List<Integer> getPrices() {
-        List<Integer> ListOfPrices = new ArrayList<>();
+        List<Integer> listOfPrices = new ArrayList<>();
         for (Goods goods : market) {
-            ListOfPrices.add(goods.determinePrice());
+            listOfPrices.add(goods.determinePrice());
         }
-        return ListOfPrices;
+        return listOfPrices;
     }
 
-
+    // EFFECTS: return gdp or total value of the market
     public int determineGDP() {
         int marketValue = 0;
         for (Goods goods : market) {
@@ -105,5 +93,18 @@ public class Market {
     }
 
     // EFFECTS: return the number of goods in the market
-    public int size() {return market.size();}
+    public int numberOfGoods() {
+        return market.size();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: remove all goods that are considered "inactive" (no demand and supply)
+    public void removeInactiveGoods() {
+        for (Iterator<Goods> iterator = market.iterator(); iterator.hasNext();) {
+            Goods goods = iterator.next();
+            if (goods.getDemand() == 0 && goods.getSupply() == 0) {
+                iterator.remove();
+            }
+        }
+    }
 }

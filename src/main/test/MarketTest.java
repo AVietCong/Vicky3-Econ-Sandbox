@@ -30,14 +30,13 @@ public class MarketTest {
 
     @Test
     public void testConstructor() {
-        assertEquals(0, market.size());
-        assertEquals(0, market.getGDP());
+        assertEquals(0, market.numberOfGoods());
     }
 
     @Test
     public void testaddGoodsOnce() {
         market.addGoods(iron);
-        assertEquals(1, market.size());
+        assertEquals(1, market.numberOfGoods());
         assertTrue(market.getAvailableGoods().contains("Iron"));
     }
 
@@ -45,7 +44,7 @@ public class MarketTest {
     public void testaddGoodsTwice() {
         market.addGoods(iron);
         market.addGoods(wood);
-        assertEquals(2, market.size());
+        assertEquals(2, market.numberOfGoods());
         assertTrue(market.getAvailableGoods().contains("Wood"));
     }
 
@@ -57,7 +56,7 @@ public class MarketTest {
 
         assertTrue(market.removeGoods(wood));
         assertFalse(market.getAvailableGoods().contains("Wood"));
-        assertEquals(2, market.size());
+        assertEquals(2, market.numberOfGoods());
     }
 
     @Test
@@ -67,7 +66,7 @@ public class MarketTest {
         market.addGoods(tools);
 
         assertFalse(market.removeGoods(furniture));
-        assertEquals(3, market.size());
+        assertEquals(3, market.numberOfGoods());
     }
 
     @Test
@@ -86,9 +85,9 @@ public class MarketTest {
         market.addGoods(iron);
         market.addGoods(wood);
         market.addGoods(tools);
-        tools.setSupply(250);
-        wood.setSupply(400);
-        iron.setSupply(100);
+        tools.addSupply(250);
+        wood.addSupply(400);
+        iron.addSupply(100);
 
 
         List expected = Arrays.asList(100, 400, 250);
@@ -101,9 +100,9 @@ public class MarketTest {
         market.addGoods(iron);
         market.addGoods(wood);
         market.addGoods(tools);
-        iron.setDemand(125);
-        tools.setDemand(500);
-        wood.setDemand(300);
+        iron.addDemand(125);
+        tools.addDemand(500);
+        wood.addDemand(300);
 
 
         List expected = Arrays.asList(125, 300, 500);
@@ -116,12 +115,12 @@ public class MarketTest {
         market.addGoods(iron);
         market.addGoods(wood);
         market.addGoods(tools);
-        iron.setDemand(125);
-        iron.setSupply(100);
-        tools.setDemand(500);
-        tools.setSupply(250);
-        wood.setDemand(50);
-        wood.setSupply(400);
+        iron.addDemand(125);
+        iron.addSupply(100);
+        tools.addDemand(500);
+        tools.addSupply(250);
+        wood.addDemand(50);
+        wood.addSupply(400);
 
         List expected = Arrays.asList(iron.determinePriceModifier(),
                 wood.determinePriceModifier(),
@@ -135,12 +134,12 @@ public class MarketTest {
         market.addGoods(iron);
         market.addGoods(wood);
         market.addGoods(tools);
-        iron.setDemand(125);
-        iron.setSupply(100);
-        tools.setDemand(500);
-        tools.setSupply(250);
-        wood.setDemand(50);
-        wood.setSupply(400);
+        iron.addDemand(125);
+        iron.addSupply(100);
+        tools.addDemand(500);
+        tools.addSupply(250);
+        wood.addDemand(50);
+        wood.addSupply(400);
 
         List expected = Arrays.asList(iron.determinePrice(),
                 wood.determinePrice(),
@@ -155,17 +154,31 @@ public class MarketTest {
         market.addGoods(iron);
         market.addGoods(wood);
         market.addGoods(tools);
-        iron.setDemand(125);
-        iron.setSupply(100);
-        tools.setDemand(500);
-        tools.setSupply(250);
-        wood.setDemand(50);
-        wood.setSupply(400);
+        iron.addDemand(125);
+        iron.addSupply(100);
+        tools.addDemand(500);
+        tools.addSupply(250);
+        wood.addDemand(50);
+        wood.addSupply(400);
 
-        int expected = iron.getDemand() * iron.determinePrice() +
-                wood.getDemand() * wood.determinePrice() +
-                tools.getDemand() * tools.determinePrice();
+        int expected = iron.getDemand() * iron.determinePrice()
+                + wood.getDemand() * wood.determinePrice()
+                + tools.getDemand() * tools.determinePrice();
         int actual = market.determineGDP();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testremoveInactiveGoods() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        market.addGoods(tools);
+        iron.addDemand(125);
+        iron.addSupply(100);
+        tools.addDemand(500);
+        tools.addSupply(250);
+
+        market.removeInactiveGoods();
+        assertEquals(Arrays.asList("Iron", "Tools"), market.getAvailableGoods());
     }
 }

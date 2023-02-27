@@ -38,20 +38,20 @@ public class GoodsTest {
 
     @Test
     public void testsetSupply() {
-        wood.setSupply(2000);
+        wood.addSupply(2000);
         assertEquals(2000, wood.getSupply());
 
-        wood.setSupply(1800);
-        assertEquals(1800, wood.getSupply());
+        wood.addSupply(1800);
+        assertEquals(2000 + 1800, wood.getSupply());
     }
 
     @Test
     public void testsetDemand() {
-        tools.setDemand(1700);
+        tools.addDemand(1700);
         assertEquals(1700, tools.getDemand());
 
-        tools.setDemand(1800);
-        assertEquals(1800, tools.getDemand());
+        tools.addDemand(1800);
+        assertEquals(1700 + 1800, tools.getDemand());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class GoodsTest {
 
     @Test
     public void testdeterminePriceNoSupply() {
-        furniture.setDemand(50);
+        furniture.addDemand(50);
         assertEquals(0, furniture.getSupply());
 
         assertEquals((int) (upperPriceCap * furniture.getBasePrice()), furniture.determinePrice());
@@ -81,7 +81,7 @@ public class GoodsTest {
 
     @Test
     public void testdeterminePriceNoDemand() {
-        furniture.setSupply(70);
+        furniture.addSupply(70);
         assertEquals(0, furniture.getDemand());
 
         assertEquals((int) (lowerPriceCap * furniture.getBasePrice()), furniture.determinePrice());
@@ -89,14 +89,14 @@ public class GoodsTest {
 
     @Test
     public void testdeterminePriceDemandGreaterNoShortage() {
-        furniture.setSupply(100);
-        furniture.setDemand(174);
+        furniture.addSupply(100);
+        furniture.addDemand(174);
         int actualFurniturePrice = (int) (furniture.getBasePrice() * (1.0 + (0.75 * (174 - 100) / 100)));
         assertEquals(actualFurniturePrice, furniture.determinePrice());
         assertFalse(furniture.isShortage());
 
-        iron.setSupply(200);
-        iron.setDemand(300);
+        iron.addSupply(200);
+        iron.addDemand(300);
         int actualIronPrice = (int) (iron.getBasePrice() * (1.0 + (0.75 * (300 - 200) / 200)));
         assertEquals(actualIronPrice, iron.determinePrice());
         assertFalse(iron.isShortage());
@@ -105,14 +105,14 @@ public class GoodsTest {
 
     @Test
     public void testdeterminePriceDemandGreaterYesShortage() {
-        furniture.setSupply(100);
-        furniture.setDemand(350);
+        furniture.addSupply(100);
+        furniture.addDemand(350);
         int expectedFurniturePrice = (int) (furniture.getBasePrice() * upperPriceCap);
         int actualFurniturePrice = furniture.determinePrice();
         assertEquals(expectedFurniturePrice, actualFurniturePrice);
 
-        tools.setSupply(200);
-        tools.setDemand(400);
+        tools.addSupply(200);
+        tools.addDemand(400);
         int expectedToolsPrice = (int) (tools.getBasePrice() * upperPriceCap);
         int actualToolsPrice = tools.determinePrice();
         assertEquals(expectedToolsPrice, actualToolsPrice);
@@ -120,25 +120,25 @@ public class GoodsTest {
 
     @Test
     public void testdeterminePriceSupplyGreater() {
-        furniture.setSupply(500);
-        furniture.setDemand(300);
+        furniture.addSupply(500);
+        furniture.addDemand(300);
         int expectedFurniturePrice = (int) (furniture.getBasePrice() * (1.0 + (0.75 * (300 - 500) / 300)));
         int actualFurniturePrice = furniture.determinePrice();
         assertEquals(expectedFurniturePrice, actualFurniturePrice);
 
-        iron.setSupply(800);
-        iron.setDemand(150);
+        iron.addSupply(800);
+        iron.addDemand(150);
         assertEquals((int) (lowerPriceCap * iron.getBasePrice()), iron.determinePrice());
 
-        wood.setSupply(800);
-        wood.setDemand(201);
+        wood.addSupply(800);
+        wood.addDemand(201);
         int expectedWoodPrice = (int) (wood.getBasePrice() * lowerPriceCap);
         assertEquals(expectedWoodPrice, wood.determinePrice());
     }
 
     @Test
     public void testdeterminePriceDemandNoSupply() {
-        furniture.setDemand(60);
+        furniture.addDemand(60);
         assertEquals(0, furniture.getSupply());
         assertEquals(60, furniture.getDemand());
 
@@ -147,7 +147,7 @@ public class GoodsTest {
 
     @Test
     public void testdeterminePriceSupplyNoDemand() {
-        furniture.setSupply(30);
+        furniture.addSupply(30);
         assertEquals(0, furniture.getDemand());
         assertEquals(30, furniture.getSupply());
 

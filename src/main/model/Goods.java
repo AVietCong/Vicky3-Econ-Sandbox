@@ -6,7 +6,7 @@ public class Goods {
     // (e.g: Iron, Grocery, Services).
     // Every good has a base price, that is the price if supply = demand that people are willing to pay
     // goods also have supply and demand to determine how cheaper or more expensive its price is.
-    // A good is in shortage if demand > price_cap * supply
+    // A good is in shortage if price >= UPPER_PRICE_CAP * basePrice
 
     public static final double UPPER_PRICE_CAP = 1.75;
     public static final double LOWER_PRICE_CAP = 0.25;
@@ -44,19 +44,35 @@ public class Goods {
     }
 
     // setters
-    public void setSupply(int supply) {
-        this.supply = supply;
+    public void setSupply(int amount) {
+        supply = amount;
     }
 
-    public void setDemand(int demand) {
-        this.demand = demand;
+    public void setShortage(boolean s) {
+        shortage = s;
     }
 
-    public void setShortage(boolean s) {shortage = s;}
+    public void setDemand(int amount) {
+        demand = amount;
+    }
+
+    // REQUIRES: amount >= 0
+    // MODIFIES: this
+    // EFFECTS: increase supply by amount
+    public void addSupply(int amount) {
+        supply += amount;
+    }
+
+    // REQUIRES: amount >= 0
+    // MODIFIES: this
+    // EFFECTS: increase demand by amount
+    public void addDemand(int amount) {
+        demand += amount;
+    }
 
 
     // MODIFIES: this
-    // EFFECTS: determine and return price modifier based on f(supply,demand)
+    // EFFECTS: determine and return price modifier based on 1 + {0.75 * [(demand - supply) / MIN(demand,supply)]}
     public double determinePriceModifier() {
         double modifier;
         if (supply == 0 && demand == 0) {
@@ -64,7 +80,7 @@ public class Goods {
         } else if (supply == 0) {
             return UPPER_PRICE_CAP;
         } else if (demand == 0) {
-           return LOWER_PRICE_CAP;
+            return LOWER_PRICE_CAP;
         } else {
             if (demand >= supply) {
                 modifier = 1.0 + ((0.75 * (demand - supply)) / supply);

@@ -27,7 +27,6 @@ Although I'm planning on majoring Computer Science, I have always had an interes
 
 - As a user, I want to be able to add buildings to my construction queue.
 - As a user, I want to be able to see a list of supply and demand or each good in the market.
-- As a user, I want to be able to mark a building as a key industry in my list of industries.
 - As a user, I want to be able to click on a building and see its balance.
 - As a user, I want to be able to remove buildings from my construction queue.
 - As a user, I want to be able to view a report of price changes in my market.
