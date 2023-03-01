@@ -145,6 +145,10 @@ public class Building {
         return bonus;
     }
 
+    public int determineProfit() {
+        return (getIncome() - getExpense());
+    }
+
     // EFFECTS: determine if building is profitable; return true if income >= expense; otherwise return false
     public boolean isProfitable() {
         if (income >= expense) {

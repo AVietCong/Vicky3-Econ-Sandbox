@@ -1,0 +1,203 @@
+<html>
+<head>
+<title>MarketTest.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MarketTest.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">org.junit.jupiter.api.BeforeEach</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.junit.jupiter.api.Test</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.Arrays</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">org.junit.jupiter.api.Assertions.*</span><span class="s0">;</span>
+
+
+<span class="s0">public class </span><span class="s1">MarketTest {</span>
+
+    <span class="s1">Market market</span><span class="s0">;</span>
+    <span class="s1">Goods iron</span><span class="s0">;</span>
+    <span class="s1">Goods wood</span><span class="s0">;</span>
+    <span class="s1">Goods tools</span><span class="s0">;</span>
+    <span class="s1">Goods furniture</span><span class="s0">;</span>
+
+    <span class="s1">@BeforeEach</span>
+    <span class="s0">public void </span><span class="s1">setup() {</span>
+        <span class="s1">market = </span><span class="s0">new </span><span class="s1">Market()</span><span class="s0">;</span>
+        <span class="s1">iron = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Iron&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Wood&quot;</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Tools&quot;</span><span class="s0">,</span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Furniture&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testConstructor() {</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">market.numberOfGoods())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testaddGoodsOnce() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">1</span><span class="s0">, </span><span class="s1">market.numberOfGoods())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(market.getAvailableGoods().contains(</span><span class="s2">&quot;Iron&quot;</span><span class="s1">))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testaddGoodsTwice() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2</span><span class="s0">, </span><span class="s1">market.numberOfGoods())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(market.getAvailableGoods().contains(</span><span class="s2">&quot;Wood&quot;</span><span class="s1">))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveGoodsInMarket() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+
+        <span class="s1">assertTrue(market.removeGoods(wood))</span><span class="s0">;</span>
+        <span class="s1">assertFalse(market.getAvailableGoods().contains(</span><span class="s2">&quot;Wood&quot;</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2</span><span class="s0">, </span><span class="s1">market.numberOfGoods())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveGoodsNotInMarket() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+
+        <span class="s1">assertFalse(market.removeGoods(furniture))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">3</span><span class="s0">, </span><span class="s1">market.numberOfGoods())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testgetAvailableGoods() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+
+        <span class="s1">List expected = Arrays.asList(</span><span class="s2">&quot;Iron&quot;</span><span class="s0">, </span><span class="s2">&quot;Wood&quot;</span><span class="s0">, </span><span class="s2">&quot;Tools&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">List actual = market.getAvailableGoods()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">actual)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testgetSupplyOfGoods() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+        <span class="s1">tools.addSupply(</span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addSupply(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.addSupply(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+
+
+        <span class="s1">List expected = Arrays.asList(</span><span class="s3">100</span><span class="s0">, </span><span class="s3">400</span><span class="s0">, </span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">List actual = market.getSupplyOfGoods()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">actual)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testgetDemandOfGoods() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+        <span class="s1">iron.addDemand(</span><span class="s3">125</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addDemand(</span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addDemand(</span><span class="s3">300</span><span class="s1">)</span><span class="s0">;</span>
+
+
+        <span class="s1">List expected = Arrays.asList(</span><span class="s3">125</span><span class="s0">, </span><span class="s3">300</span><span class="s0">, </span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">List actual = market.getDemandOfGoods()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">actual)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testgetPriceModifiers() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+        <span class="s1">iron.addDemand(</span><span class="s3">125</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.addSupply(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addDemand(</span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addSupply(</span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addDemand(</span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addSupply(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">List expected = Arrays.asList(iron.determinePriceModifier()</span><span class="s0">,</span>
+                <span class="s1">wood.determinePriceModifier()</span><span class="s0">,</span>
+                <span class="s1">tools.determinePriceModifier())</span><span class="s0">;</span>
+        <span class="s1">List actual = market.getPriceModifiers()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">actual)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testgetMarketPrices() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+        <span class="s1">iron.addDemand(</span><span class="s3">125</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.addSupply(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addDemand(</span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addSupply(</span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addDemand(</span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addSupply(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">List expected = Arrays.asList(iron.determinePrice()</span><span class="s0">,</span>
+                <span class="s1">wood.determinePrice()</span><span class="s0">,</span>
+                <span class="s1">tools.determinePrice())</span><span class="s0">;</span>
+
+        <span class="s1">List actual = market.getPrices()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">actual)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdetermineGDP() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+        <span class="s1">iron.addDemand(</span><span class="s3">125</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.addSupply(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addDemand(</span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addSupply(</span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addDemand(</span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addSupply(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">expected = iron.getDemand() * iron.determinePrice()</span>
+                <span class="s1">+ wood.getDemand() * wood.determinePrice()</span>
+                <span class="s1">+ tools.getDemand() * tools.determinePrice()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">actual = market.determineGDP()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">actual)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveInactiveGoods() {</span>
+        <span class="s1">market.addGoods(iron)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(wood)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(tools)</span><span class="s0">;</span>
+        <span class="s1">market.addGoods(furniture)</span><span class="s0">;</span>
+        <span class="s1">iron.addSupply(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addDemand(</span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture.addSupply(</span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture.addDemand(</span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">market.removeInactiveGoods()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s2">&quot;Iron&quot;</span><span class="s0">, </span><span class="s2">&quot;Tools&quot;</span><span class="s0">, </span><span class="s2">&quot;Furniture&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s1">market.getAvailableGoods())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

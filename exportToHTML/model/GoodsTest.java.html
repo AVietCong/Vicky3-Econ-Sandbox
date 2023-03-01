@@ -1,0 +1,191 @@
+<html>
+<head>
+<title>GoodsTest.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GoodsTest.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">org.junit.jupiter.api.BeforeEach</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.junit.jupiter.api.Test</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">org.junit.jupiter.api.Assertions.*</span><span class="s0">;</span>
+
+
+<span class="s0">public class </span><span class="s1">GoodsTest {</span>
+
+    <span class="s1">Goods iron</span><span class="s0">;</span>
+    <span class="s1">Goods wood</span><span class="s0">;</span>
+    <span class="s1">Goods tools</span><span class="s0">;</span>
+    <span class="s1">Goods furniture</span><span class="s0">;</span>
+    <span class="s0">double </span><span class="s1">upperPriceCap</span><span class="s0">;</span>
+    <span class="s0">double </span><span class="s1">lowerPriceCap</span><span class="s0">;</span>
+
+
+    <span class="s1">@BeforeEach</span>
+    <span class="s0">public void </span><span class="s1">setup() {</span>
+        <span class="s1">iron = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Iron&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Wood&quot;</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Tools&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Furniture&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">upperPriceCap = Goods.UPPER_PRICE_CAP</span><span class="s0">;</span>
+        <span class="s1">lowerPriceCap = Goods.LOWER_PRICE_CAP</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testConstructor() {</span>
+        <span class="s1">assertEquals(</span><span class="s2">&quot;Iron&quot;</span><span class="s0">, </span><span class="s1">iron.getName())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">40</span><span class="s0">, </span><span class="s1">iron.getBasePrice())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">iron.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">iron.getSupply())</span><span class="s0">;</span>
+        <span class="s1">assertFalse(iron.isShortage())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testsetDemand() {</span>
+        <span class="s1">iron.setDemand(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">100</span><span class="s0">, </span><span class="s1">iron.getDemand())</span><span class="s0">;</span>
+        <span class="s1">iron.setDemand(</span><span class="s3">80</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">80</span><span class="s0">, </span><span class="s1">iron.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testsetSupply() {</span>
+        <span class="s1">iron.setSupply(</span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">200</span><span class="s0">, </span><span class="s1">iron.getSupply())</span><span class="s0">;</span>
+        <span class="s1">iron.setSupply(</span><span class="s3">90</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">90</span><span class="s0">, </span><span class="s1">iron.getSupply())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testaddSupply() {</span>
+        <span class="s1">wood.addSupply(</span><span class="s3">2000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2000</span><span class="s0">, </span><span class="s1">wood.getSupply())</span><span class="s0">;</span>
+
+        <span class="s1">wood.addSupply(</span><span class="s3">1800</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2000 </span><span class="s1">+ </span><span class="s3">1800</span><span class="s0">, </span><span class="s1">wood.getSupply())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testaddDemand() {</span>
+        <span class="s1">tools.addDemand(</span><span class="s3">1700</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">1700</span><span class="s0">, </span><span class="s1">tools.getDemand())</span><span class="s0">;</span>
+
+        <span class="s1">tools.addDemand(</span><span class="s3">1800</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">1700 </span><span class="s1">+ </span><span class="s3">1800</span><span class="s0">, </span><span class="s1">tools.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testsetShortage() {</span>
+        <span class="s1">iron.setShortage(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertTrue(iron.isShortage())</span><span class="s0">;</span>
+
+        <span class="s1">iron.setShortage(</span><span class="s0">false</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertFalse(iron.isShortage())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdeterminePriceNoSupplyDemand() {</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">furniture.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">furniture.getSupply())</span><span class="s0">;</span>
+
+        <span class="s1">assertEquals(</span><span class="s3">30</span><span class="s0">, </span><span class="s1">furniture.determinePrice())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdeterminePriceNoSupply() {</span>
+        <span class="s1">furniture.addDemand(</span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">furniture.getSupply())</span><span class="s0">;</span>
+
+        <span class="s1">assertEquals((</span><span class="s0">int</span><span class="s1">) (upperPriceCap * furniture.getBasePrice())</span><span class="s0">, </span><span class="s1">furniture.determinePrice())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdeterminePriceNoDemand() {</span>
+        <span class="s1">furniture.addSupply(</span><span class="s3">70</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">furniture.getDemand())</span><span class="s0">;</span>
+
+        <span class="s1">assertEquals((</span><span class="s0">int</span><span class="s1">) (lowerPriceCap * furniture.getBasePrice())</span><span class="s0">, </span><span class="s1">furniture.determinePrice())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdeterminePriceDemandGreaterNoShortage() {</span>
+        <span class="s1">furniture.addSupply(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture.addDemand(</span><span class="s3">174</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">actualFurniturePrice = (</span><span class="s0">int</span><span class="s1">) (furniture.getBasePrice() * (</span><span class="s3">1.0 </span><span class="s1">+ (</span><span class="s3">0.75 </span><span class="s1">* (</span><span class="s3">174 </span><span class="s1">- </span><span class="s3">100</span><span class="s1">) / </span><span class="s3">100</span><span class="s1">)))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(actualFurniturePrice</span><span class="s0">, </span><span class="s1">furniture.determinePrice())</span><span class="s0">;</span>
+        <span class="s1">assertFalse(furniture.isShortage())</span><span class="s0">;</span>
+
+        <span class="s1">iron.addSupply(</span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.addDemand(</span><span class="s3">300</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">actualIronPrice = (</span><span class="s0">int</span><span class="s1">) (iron.getBasePrice() * (</span><span class="s3">1.0 </span><span class="s1">+ (</span><span class="s3">0.75 </span><span class="s1">* (</span><span class="s3">300 </span><span class="s1">- </span><span class="s3">200</span><span class="s1">) / </span><span class="s3">200</span><span class="s1">)))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(actualIronPrice</span><span class="s0">, </span><span class="s1">iron.determinePrice())</span><span class="s0">;</span>
+        <span class="s1">assertFalse(iron.isShortage())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdeterminePriceDemandGreaterYesShortage() {</span>
+        <span class="s1">furniture.addSupply(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture.addDemand(</span><span class="s3">350</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expectedFurniturePrice = (</span><span class="s0">int</span><span class="s1">) (furniture.getBasePrice() * upperPriceCap)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">actualFurniturePrice = furniture.determinePrice()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedFurniturePrice</span><span class="s0">, </span><span class="s1">actualFurniturePrice)</span><span class="s0">;</span>
+
+        <span class="s1">tools.addSupply(</span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools.addDemand(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expectedToolsPrice = (</span><span class="s0">int</span><span class="s1">) (tools.getBasePrice() * upperPriceCap)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">actualToolsPrice = tools.determinePrice()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedToolsPrice</span><span class="s0">, </span><span class="s1">actualToolsPrice)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdeterminePriceSupplyGreater() {</span>
+        <span class="s1">furniture.addSupply(</span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture.addDemand(</span><span class="s3">300</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expectedFurniturePrice = (</span><span class="s0">int</span><span class="s1">) (furniture.getBasePrice() * (</span><span class="s3">1.0 </span><span class="s1">+ (</span><span class="s3">0.75 </span><span class="s1">* (</span><span class="s3">300 </span><span class="s1">- </span><span class="s3">500</span><span class="s1">) / </span><span class="s3">300</span><span class="s1">)))</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">actualFurniturePrice = furniture.determinePrice()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedFurniturePrice</span><span class="s0">, </span><span class="s1">actualFurniturePrice)</span><span class="s0">;</span>
+
+        <span class="s1">iron.addSupply(</span><span class="s3">800</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.addDemand(</span><span class="s3">150</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals((</span><span class="s0">int</span><span class="s1">) (lowerPriceCap * iron.getBasePrice())</span><span class="s0">, </span><span class="s1">iron.determinePrice())</span><span class="s0">;</span>
+
+        <span class="s1">wood.addSupply(</span><span class="s3">800</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood.addDemand(</span><span class="s3">201</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expectedWoodPrice = (</span><span class="s0">int</span><span class="s1">) (wood.getBasePrice() * lowerPriceCap)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expectedWoodPrice</span><span class="s0">, </span><span class="s1">wood.determinePrice())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdeterminePriceDemandNoSupply() {</span>
+        <span class="s1">furniture.addDemand(</span><span class="s3">60</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">furniture.getSupply())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">60</span><span class="s0">, </span><span class="s1">furniture.getDemand())</span><span class="s0">;</span>
+
+        <span class="s1">assertEquals((</span><span class="s0">int</span><span class="s1">) (upperPriceCap * furniture.getBasePrice())</span><span class="s0">, </span><span class="s1">furniture.determinePrice())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdeterminePriceSupplyNoDemand() {</span>
+        <span class="s1">furniture.addSupply(</span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">furniture.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">30</span><span class="s0">, </span><span class="s1">furniture.getSupply())</span><span class="s0">;</span>
+
+        <span class="s1">assertEquals((</span><span class="s0">int</span><span class="s1">) (lowerPriceCap * furniture.getBasePrice())</span><span class="s0">, </span><span class="s1">furniture.determinePrice())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

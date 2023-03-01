@@ -1,0 +1,382 @@
+<html>
+<head>
+<title>BuildingTest.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BuildingTest.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">org.junit.jupiter.api.BeforeEach</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.junit.jupiter.api.Test</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.Arrays</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">org.junit.jupiter.api.Assertions.*</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">BuildingTest {</span>
+
+    <span class="s1">Building farm</span><span class="s0">;</span>
+    <span class="s1">Goods fertilizer</span><span class="s0">;</span>
+    <span class="s1">Goods grain</span><span class="s0">;</span>
+
+    <span class="s1">Building steelMill</span><span class="s0">;</span>
+    <span class="s1">Goods iron</span><span class="s0">;</span>
+    <span class="s1">Goods coal</span><span class="s0">;</span>
+    <span class="s1">Goods steel</span><span class="s0">;</span>
+
+    <span class="s1">Building chemicalPlant</span><span class="s0">;</span>
+    <span class="s1">Goods sulphur</span><span class="s0">;</span>
+    <span class="s1">Goods explosives</span><span class="s0">;</span>
+
+    <span class="s0">int </span><span class="s1">wagePerLevel</span><span class="s0">;</span>
+
+    <span class="s1">@BeforeEach</span>
+    <span class="s0">public void </span><span class="s1">setup() {</span>
+        <span class="s1">fertilizer = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Fertilizer&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">grain = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Grain&quot;</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s2">&quot;Farm&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s0">, </span><span class="s1">Arrays.asList(fertilizer)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">15</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(grain)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">90</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s1">iron = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Iron&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Coal&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">steel = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Steel&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">steelMill = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s2">&quot;Steel Mill&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">, </span><span class="s1">Arrays.asList(iron</span><span class="s0">,</span><span class="s1">coal)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">90</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(steel)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">120</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s1">sulphur = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Sulphur&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">explosives = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Explosives&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">chemicalPlant = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s2">&quot;Chemical Plant&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(sulphur</span><span class="s0">, </span><span class="s1">iron</span><span class="s0">, </span><span class="s1">coal)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">60</span><span class="s0">, </span><span class="s3">30</span><span class="s0">, </span><span class="s3">15</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(fertilizer</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">110</span><span class="s0">, </span><span class="s3">70</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s1">wagePerLevel = farm.WAGES_PER_LEVEL</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testConstructor() {</span>
+        <span class="s1">assertEquals(</span><span class="s2">&quot;Farm&quot;</span><span class="s0">, </span><span class="s1">farm.getName())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">50</span><span class="s0">, </span><span class="s1">farm.getConstructionCost())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">1</span><span class="s0">, </span><span class="s1">farm.getSize())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">farm.getIncome())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">farm.getExpense())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(fertilizer)</span><span class="s0">, </span><span class="s1">farm.getInputGoods())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(grain)</span><span class="s0">, </span><span class="s1">farm.getOutputGoods())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">15</span><span class="s1">)</span><span class="s0">, </span><span class="s1">farm.getInputAmount())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">90</span><span class="s1">)</span><span class="s0">, </span><span class="s1">farm.getOutputAmount())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testsetSize() {</span>
+        <span class="s1">farm.setSize(</span><span class="s3">10</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">10</span><span class="s0">, </span><span class="s1">farm.getSize())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconsumeOnce() {</span>
+        <span class="s1">farm.consume()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">15</span><span class="s0">, </span><span class="s1">fertilizer.getDemand())</span><span class="s0">;</span>
+
+        <span class="s1">steelMill.consume()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">90</span><span class="s0">, </span><span class="s1">iron.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">30</span><span class="s0">, </span><span class="s1">coal.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconsumeTwice() {</span>
+        <span class="s1">steelMill.consume()</span><span class="s0">;</span>
+        <span class="s1">steelMill.consume()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2 </span><span class="s1">* </span><span class="s3">90</span><span class="s0">, </span><span class="s1">iron.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2 </span><span class="s1">* </span><span class="s3">30</span><span class="s0">, </span><span class="s1">coal.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconsumeTwoBuildingsSameResource() {</span>
+        <span class="s1">steelMill.consume()</span><span class="s0">;</span>
+        <span class="s1">chemicalPlant.consume()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">120</span><span class="s0">, </span><span class="s1">iron.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconsumeLevel51() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">50</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">farm.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">assertEquals(</span><span class="s3">51</span><span class="s0">, </span><span class="s1">farm.getSize())</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = (</span><span class="s0">int</span><span class="s1">) ((</span><span class="s3">1 </span><span class="s1">+ (</span><span class="s3">51 </span><span class="s1">- </span><span class="s3">1</span><span class="s1">) * </span><span class="s3">0.01</span><span class="s1">) * </span><span class="s3">51 </span><span class="s1">* </span><span class="s3">15</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm.consume()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">fertilizer.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconsumeMaxEoS() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">60</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">farm.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">assertEquals(</span><span class="s3">61</span><span class="s0">, </span><span class="s1">farm.getSize())</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = (</span><span class="s0">int</span><span class="s1">) (</span><span class="s3">1.5 </span><span class="s1">* </span><span class="s3">61 </span><span class="s1">* </span><span class="s3">15</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm.consume()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">fertilizer.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconsumeNormalLevel() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">30</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">farm.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">assertEquals(</span><span class="s3">31</span><span class="s0">, </span><span class="s1">farm.getSize())</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = (</span><span class="s0">int</span><span class="s1">) (</span><span class="s3">1.3 </span><span class="s1">* </span><span class="s3">31 </span><span class="s1">* </span><span class="s3">15</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm.consume()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">fertilizer.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testproduceOnce() {</span>
+        <span class="s1">farm.produce()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">90</span><span class="s0">, </span><span class="s1">grain.getSupply())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testproduceTwice() {</span>
+        <span class="s1">farm.produce()</span><span class="s0">;</span>
+        <span class="s1">farm.produce()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2 </span><span class="s1">* </span><span class="s3">90</span><span class="s0">, </span><span class="s1">grain.getSupply())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testproduceLevel51() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">50</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">farm.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">assertEquals(</span><span class="s3">51</span><span class="s0">, </span><span class="s1">farm.getSize())</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = (</span><span class="s0">int</span><span class="s1">) ((</span><span class="s3">1 </span><span class="s1">+ (</span><span class="s3">51 </span><span class="s1">- </span><span class="s3">1</span><span class="s1">) * </span><span class="s3">0.01</span><span class="s1">) * </span><span class="s3">51 </span><span class="s1">* </span><span class="s3">90</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm.produce()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">grain.getSupply())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testproduceMaxEoS() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">60</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">farm.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">assertEquals(</span><span class="s3">61</span><span class="s0">, </span><span class="s1">farm.getSize())</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = (</span><span class="s0">int</span><span class="s1">) (</span><span class="s3">1.5 </span><span class="s1">* </span><span class="s3">61 </span><span class="s1">* </span><span class="s3">90</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm.produce()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">grain.getSupply())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testproduceNormalLevel() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">30</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">farm.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">assertEquals(</span><span class="s3">31</span><span class="s0">, </span><span class="s1">farm.getSize())</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = (</span><span class="s0">int</span><span class="s1">) (</span><span class="s3">1.3 </span><span class="s1">* </span><span class="s3">31 </span><span class="s1">* </span><span class="s3">90</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm.produce()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">grain.getSupply())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testisProfitable() {</span>
+        <span class="s4">// Cheap Input -&gt; Expensive Output | Expected to be profitable</span>
+        <span class="s1">fertilizer.setDemand(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">fertilizer.setSupply(</span><span class="s3">125</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">grain.setDemand(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">grain.setSupply(</span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">fertilizerPrice = fertilizer.determinePrice()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">grainPrice = grain.determinePrice()</span><span class="s0">;</span>
+
+        <span class="s0">boolean </span><span class="s1">expected = (grainPrice * </span><span class="s3">90</span><span class="s1">) &gt;= (fertilizerPrice * </span><span class="s3">15 </span><span class="s1">+ wagePerLevel)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">farm.isProfitable())</span><span class="s0">;</span>
+
+        <span class="s4">// Expensive Input -&gt; Cheap Output | Expected to be unprofitable</span>
+        <span class="s1">iron.setDemand(</span><span class="s3">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.setSupply(</span><span class="s3">300</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal.setDemand(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal.setSupply(</span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">steel.setSupply(</span><span class="s3">120</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">steel.setDemand(</span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">expense = </span><span class="s3">90 </span><span class="s1">* iron.determinePrice() + </span><span class="s3">30 </span><span class="s1">* coal.determinePrice() + wagePerLevel</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">income = </span><span class="s3">120 </span><span class="s1">* steel.determinePrice()</span><span class="s0">;</span>
+        <span class="s1">steelMill.buyGoods()</span><span class="s0">;</span>
+        <span class="s1">steelMill.sellGoods()</span><span class="s0">;</span>
+        <span class="s1">assertFalse(steelMill.isProfitable())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testexpandOnce() {</span>
+        <span class="s1">assertEquals(</span><span class="s3">1</span><span class="s0">, </span><span class="s1">steelMill.getSize())</span><span class="s0">;</span>
+        <span class="s1">steelMill.expand()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2</span><span class="s0">, </span><span class="s1">steelMill.getSize())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testexpandTwice() {</span>
+        <span class="s1">steelMill.expand()</span><span class="s0">;</span>
+        <span class="s1">steelMill.expand()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">3</span><span class="s0">, </span><span class="s1">steelMill.getSize())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdownsizeNormal() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">9</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">steelMill.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">assertTrue(steelMill.downsize(</span><span class="s3">5</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">5</span><span class="s0">, </span><span class="s1">steelMill.getSize())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdownsizeOneLevel() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">9</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">steelMill.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">assertTrue(steelMill.downsize(</span><span class="s3">1</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">9</span><span class="s0">, </span><span class="s1">steelMill.getSize())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdownsizeToZero() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">9</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">steelMill.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">assertTrue(steelMill.downsize(</span><span class="s3">10</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">steelMill.getSize())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdownsizeInvalid() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">9</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">steelMill.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">assertFalse(steelMill.downsize(</span><span class="s3">11</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">10</span><span class="s0">, </span><span class="s1">steelMill.getSize())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdetermineEoSLevelOne() {</span>
+        <span class="s1">assertEquals(</span><span class="s3">1.0</span><span class="s0">, </span><span class="s1">chemicalPlant.determineEoS())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdetermineEoSNormal() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">10</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">chemicalPlant.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">assertEquals(</span><span class="s3">1.1</span><span class="s0">, </span><span class="s1">chemicalPlant.determineEoS())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testdetermineEoSMaxLevel() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">51</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">chemicalPlant.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">assertEquals(</span><span class="s3">1.5</span><span class="s0">, </span><span class="s1">chemicalPlant.determineEoS())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testpayExpenseOnce() {</span>
+        <span class="s1">farm.payExpense()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">15 </span><span class="s1">* </span><span class="s3">30 </span><span class="s1">+ wagePerLevel</span><span class="s0">, </span><span class="s1">farm.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testpayExpenseTwice() {</span>
+        <span class="s1">farm.payExpense()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">15 </span><span class="s1">* </span><span class="s3">30 </span><span class="s1">+ wagePerLevel</span><span class="s0">, </span><span class="s1">farm.getExpense())</span><span class="s0">;</span>
+        <span class="s1">farm.payExpense()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">15 </span><span class="s1">* </span><span class="s3">30 </span><span class="s1">+ wagePerLevel</span><span class="s0">, </span><span class="s1">farm.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testpayExpenseSize11() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">10</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">farm.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">double </span><span class="s1">economyOfScale = farm.determineEoS()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = (</span><span class="s0">int</span><span class="s1">) (</span><span class="s3">11 </span><span class="s1">* </span><span class="s3">15 </span><span class="s1">* </span><span class="s3">30 </span><span class="s1">* economyOfScale + wagePerLevel * </span><span class="s3">11</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm.payExpense()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">farm.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testgainIncome() {</span>
+        <span class="s1">farm.gainIncome()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">90 </span><span class="s1">* </span><span class="s3">20</span><span class="s0">, </span><span class="s1">farm.getIncome())</span><span class="s0">;</span>
+        <span class="s1">farm.gainIncome()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">90 </span><span class="s1">* </span><span class="s3">20</span><span class="s0">, </span><span class="s1">farm.getIncome())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testpayWagesSize1() {</span>
+        <span class="s1">chemicalPlant.payWages()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(wagePerLevel</span><span class="s0">, </span><span class="s1">chemicalPlant.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testpayWagesSize11() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">10</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">chemicalPlant.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">chemicalPlant.payWages()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(wagePerLevel * </span><span class="s3">11</span><span class="s0">, </span><span class="s1">chemicalPlant.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testbuyGoodsSize1() {</span>
+        <span class="s1">iron.setDemand(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.setSupply(</span><span class="s3">300</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal.setDemand(</span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal.setSupply(</span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">ironPrice = iron.determinePrice()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">coalPrice = coal.determinePrice()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = ironPrice * </span><span class="s3">90 </span><span class="s1">+ coalPrice * </span><span class="s3">30</span><span class="s0">;</span>
+        <span class="s1">steelMill.buyGoods()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">steelMill.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testbuyGoodsSize11() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">10</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">steelMill.expand()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">iron.setDemand(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron.setSupply(</span><span class="s3">300</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal.setDemand(</span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal.setSupply(</span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s0">double </span><span class="s1">economyOfScale = steelMill.determineEoS()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">ironPrice = iron.determinePrice()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">coalPrice = coal.determinePrice()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">expected = (</span><span class="s0">int</span><span class="s1">) (ironPrice * </span><span class="s3">90 </span><span class="s1">* </span><span class="s3">11 </span><span class="s1">* economyOfScale + coalPrice * </span><span class="s3">11 </span><span class="s1">* </span><span class="s3">30 </span><span class="s1">* economyOfScale)</span><span class="s0">;</span>
+        <span class="s1">steelMill.buyGoods()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">steelMill.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

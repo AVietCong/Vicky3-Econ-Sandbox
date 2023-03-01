@@ -1,0 +1,137 @@
+<html>
+<head>
+<title>ConstructionSector.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ConstructionSector.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">ConstructionSector {</span>
+    <span class="s2">// This class represents where buildings are queued to be built</span>
+    <span class="s2">// and also consume goods and pay expenses like buildings</span>
+    <span class="s0">public static final int </span><span class="s1">WAGES = </span><span class="s3">5000</span><span class="s0">;</span>
+
+    <span class="s0">private </span><span class="s1">List&lt;Building&gt; constructionQueue</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Integer&gt; constructionValue</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Goods&gt; inputGoods</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Integer&gt; inputAmount</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">expense</span><span class="s0">;</span>
+
+    <span class="s2">// EFFECTS: create a new construction sector with size 1, empty construction queue</span>
+    <span class="s0">public </span><span class="s1">ConstructionSector(List&lt;Goods&gt; inputGoods</span><span class="s0">, </span><span class="s1">List&lt;Integer&gt; inputAmount) {</span>
+        <span class="s1">constructionQueue = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">constructionValue = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">expense = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.inputGoods = inputGoods</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.inputAmount = inputAmount</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">//getters</span>
+    <span class="s0">public int </span><span class="s1">getExpense() {</span>
+        <span class="s0">return </span><span class="s1">expense</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Goods&gt; getInputGoods() {</span>
+        <span class="s0">return </span><span class="s1">inputGoods</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getInputAmount() {</span>
+        <span class="s0">return </span><span class="s1">inputAmount</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Building&gt; getConstructionQueue() {</span>
+        <span class="s0">return </span><span class="s1">constructionQueue</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getConstructionValue() {</span>
+        <span class="s0">return </span><span class="s1">constructionValue</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: set expenses to cover costs of operation</span>
+    <span class="s0">public void </span><span class="s1">payExpense() {</span>
+        <span class="s1">expense = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">buyGoods()</span><span class="s0">;</span>
+        <span class="s1">payWages()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: inputGoods</span>
+    <span class="s2">// EFFECTS: increase the demand for input goods</span>
+    <span class="s0">public void </span><span class="s1">consume() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; inputGoods.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">inputGoods.get(i).addDemand((inputAmount.get(i)))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: increases expenses to buy goods</span>
+    <span class="s0">public void </span><span class="s1">buyGoods() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; inputGoods.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">expense += inputGoods.get(i).determinePrice() * (inputAmount.get(i))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: increase expenses to pay wages</span>
+    <span class="s0">public void </span><span class="s1">payWages() {</span>
+        <span class="s1">expense += WAGES</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return lists of buildings that are fully constructed and reduce remaining the construction value. Remove</span>
+    <span class="s2">// the constructed building. the return list could be empty but never null</span>
+    <span class="s0">public </span><span class="s1">List&lt;Building&gt; construct() {</span>
+        <span class="s0">int </span><span class="s1">pointsAvailable = </span><span class="s3">150</span><span class="s0">;</span>
+        <span class="s1">List&lt;Building&gt; constructed = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">while </span><span class="s1">(pointsAvailable &gt; </span><span class="s3">0 </span><span class="s1">&amp;&amp; constructionQueue.size() &gt; </span><span class="s3">0</span><span class="s1">) {</span>
+            <span class="s1">Building currentBuilding = constructionQueue.get(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(pointsAvailable &gt;= constructionValue.get(</span><span class="s3">0</span><span class="s1">)) {</span>
+                <span class="s1">pointsAvailable -= constructionValue.get(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">constructed.add(constructionQueue.get(</span><span class="s3">0</span><span class="s1">))</span><span class="s0">;</span>
+                <span class="s1">constructionQueue.remove(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">constructionValue.remove(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">constructionValue.set(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">constructionValue.get(</span><span class="s3">0</span><span class="s1">) - pointsAvailable)</span><span class="s0">;</span>
+                <span class="s1">pointsAvailable = </span><span class="s3">0</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">constructed</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: add building to the end of construction queue and add corresponding building's construction value to</span>
+    <span class="s2">// constructionValue list</span>
+    <span class="s0">public void </span><span class="s1">build(Building b) {</span>
+        <span class="s1">constructionQueue.add(b)</span><span class="s0">;</span>
+        <span class="s1">constructionValue.add(b.getConstructionCost())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: remove first instance of building in construction queue and return true; otherwise return false;</span>
+    <span class="s0">public boolean </span><span class="s1">remove(Building b) {</span>
+        <span class="s0">int </span><span class="s1">index = constructionQueue.indexOf(b)</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(index == -</span><span class="s3">1</span><span class="s1">) {</span>
+            <span class="s0">return false;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">constructionQueue.remove(index)</span><span class="s0">;</span>
+            <span class="s1">constructionValue.remove(index)</span><span class="s0">;</span>
+            <span class="s0">return true;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

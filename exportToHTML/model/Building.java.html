@@ -1,0 +1,192 @@
+<html>
+<head>
+<title>Building.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Building.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Building {</span>
+
+    <span class="s2">//This class represents the industries of a nation. Buildings take in resources and convert them into more valuable</span>
+    <span class="s2">//resources that can be consumed by the population or other buildings. Buildings have income and expenses that</span>
+    <span class="s2">//is determined by prices of input and output goods and building size.</span>
+
+    <span class="s2">// INVARIANT: inputGoods.size() == inputAmount.size(), outputGoods.size() == outputAmount.size()</span>
+    <span class="s2">// a building consume a good in inputGoods with corresponding amount in inputAmount</span>
+    <span class="s0">public static final int </span><span class="s1">WAGES_PER_LEVEL = </span><span class="s3">500</span><span class="s0">;</span>
+    <span class="s0">public static final double </span><span class="s1">MAXIMUM_EOS_BONUS = </span><span class="s3">1.5</span><span class="s0">;</span>
+    <span class="s0">protected </span><span class="s1">String name</span><span class="s0">;</span>
+    <span class="s0">protected int </span><span class="s1">size</span><span class="s0">;</span>
+    <span class="s0">protected int </span><span class="s1">income</span><span class="s0">;</span>
+    <span class="s0">protected int </span><span class="s1">expense</span><span class="s0">;</span>
+    <span class="s0">protected int </span><span class="s1">constructionCost</span><span class="s0">;</span>
+    <span class="s0">protected </span><span class="s1">List&lt;Goods&gt; inputGoods</span><span class="s0">;</span>
+    <span class="s0">protected </span><span class="s1">List&lt;Integer&gt; inputAmount</span><span class="s0">;</span>
+    <span class="s0">protected </span><span class="s1">List&lt;Goods&gt; outputGoods</span><span class="s0">;</span>
+    <span class="s0">protected </span><span class="s1">List&lt;Integer&gt; outputAmount</span><span class="s0">;</span>
+
+    <span class="s2">// REQUIRES: constructionCost &gt; 0, all lists != null and size() &gt; 0</span>
+    <span class="s2">// EFFECTS: create building with given name, input and output process and construction cost</span>
+    <span class="s0">public </span><span class="s1">Building(String name</span><span class="s0">, int </span><span class="s1">constructionCost</span><span class="s0">,</span>
+                    <span class="s1">List&lt;Goods&gt; inputGoods</span><span class="s0">, </span><span class="s1">List&lt;Integer&gt; inputAmount</span><span class="s0">,</span>
+                    <span class="s1">List&lt;Goods&gt; outputGoods</span><span class="s0">, </span><span class="s1">List&lt;Integer&gt; outputAmount) {</span>
+        <span class="s0">this</span><span class="s1">.name = name</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.constructionCost = constructionCost</span><span class="s0">;</span>
+        <span class="s1">size = </span><span class="s3">1</span><span class="s0">;</span>
+        <span class="s1">income = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">expense = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.inputGoods = inputGoods</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.inputAmount = inputAmount</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.outputGoods = outputGoods</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.outputAmount = outputAmount</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// getters</span>
+    <span class="s0">public int </span><span class="s1">getExpense() {</span>
+        <span class="s0">return </span><span class="s1">expense</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getIncome() {</span>
+        <span class="s0">return </span><span class="s1">income</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">String getName() {</span>
+        <span class="s0">return </span><span class="s1">name</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getSize() {</span>
+        <span class="s0">return </span><span class="s1">size</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getConstructionCost() {</span>
+        <span class="s0">return </span><span class="s1">constructionCost</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Goods&gt; getInputGoods() {</span>
+        <span class="s0">return </span><span class="s1">inputGoods</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Goods&gt; getOutputGoods() {</span>
+        <span class="s0">return </span><span class="s1">outputGoods</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getInputAmount() {</span>
+        <span class="s0">return </span><span class="s1">inputAmount</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getOutputAmount() {</span>
+        <span class="s0">return </span><span class="s1">outputAmount</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// setters</span>
+    <span class="s2">// REQUIRES: size &gt;= 0</span>
+    <span class="s0">public void </span><span class="s1">setSize(</span><span class="s0">int </span><span class="s1">size) {</span>
+        <span class="s0">this</span><span class="s1">.size = size</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: inputGoods</span>
+    <span class="s2">// EFFECTS: increase the demand of input goods in market</span>
+    <span class="s0">public void </span><span class="s1">consume() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; inputGoods.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">inputGoods.get(i).addDemand((</span><span class="s0">int</span><span class="s1">) (inputAmount.get(i) * size * determineEoS()))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: outputGoods</span>
+    <span class="s2">// EFFECTS: increase the supply of output goods in market</span>
+    <span class="s0">public void </span><span class="s1">produce() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; outputGoods.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">outputGoods.get(i).addSupply((</span><span class="s0">int</span><span class="s1">) (outputAmount.get(i) * size * determineEoS()))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: set expenses to cover costs of operations</span>
+    <span class="s0">public void </span><span class="s1">payExpense() {</span>
+        <span class="s1">expense = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">buyGoods()</span><span class="s0">;</span>
+        <span class="s1">payWages()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: determine income from selling goods or subsidies</span>
+    <span class="s0">public void </span><span class="s1">gainIncome() {</span>
+        <span class="s1">income = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">sellGoods()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: increase expenses to buy goods</span>
+    <span class="s0">public void </span><span class="s1">buyGoods() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; inputGoods.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">expense += (</span><span class="s0">int</span><span class="s1">) (inputGoods.get(i).determinePrice() * (inputAmount.get(i) * size * determineEoS()))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: increase expenses to pay wages</span>
+    <span class="s0">public void </span><span class="s1">payWages() {</span>
+        <span class="s1">expense += WAGES_PER_LEVEL * size</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: increase income by selling goods</span>
+    <span class="s0">public void </span><span class="s1">sellGoods() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; outputGoods.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">income += (</span><span class="s0">int</span><span class="s1">) (outputGoods.get(i).determinePrice() * (outputAmount.get(i) * size * determineEoS()))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// REQUIRES: size &gt; 0</span>
+    <span class="s2">// EFFECTS: return the economy of scale bonus for building object</span>
+    <span class="s0">public double </span><span class="s1">determineEoS() {</span>
+        <span class="s0">double </span><span class="s1">bonus = (</span><span class="s3">1 </span><span class="s1">+ (size - </span><span class="s3">1</span><span class="s1">) * </span><span class="s3">0.01</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(bonus &gt; MAXIMUM_EOS_BONUS) {</span>
+            <span class="s0">return </span><span class="s1">MAXIMUM_EOS_BONUS</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">bonus</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: determine if building is profitable; return true if income &gt;= expense; otherwise return false</span>
+    <span class="s0">public boolean </span><span class="s1">isProfitable() {</span>
+        <span class="s0">if </span><span class="s1">(income &gt;= expense) {</span>
+            <span class="s0">return true;</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: increase the size of building by 1</span>
+    <span class="s0">public void </span><span class="s1">expand() {</span>
+        <span class="s1">size += </span><span class="s3">1</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// REQUIRES: level &lt;= size</span>
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: decrease the size of building by amount and return true if successful</span>
+    <span class="s0">public boolean </span><span class="s1">downsize(</span><span class="s0">int </span><span class="s1">level) {</span>
+        <span class="s0">if </span><span class="s1">(level &lt;= size) {</span>
+            <span class="s1">size -= level</span><span class="s0">;</span>
+            <span class="s0">return true;</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

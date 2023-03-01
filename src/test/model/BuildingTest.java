@@ -358,4 +358,9 @@ public class BuildingTest {
         steelMill.buyGoods();
         assertEquals(expected, steelMill.getExpense());
     }
+
+    @Test
+    public void testDetermineProfitNoProfit() {
+
+    }
 }

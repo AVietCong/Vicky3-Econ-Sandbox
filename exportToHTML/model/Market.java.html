@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>Market.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Market.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Iterator</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Market {</span>
+    <span class="s2">// The Market is where prices of goods are determined, bought and sold this is represented as a list of Goods.</span>
+
+
+    <span class="s0">private </span><span class="s1">List&lt;Goods&gt; market</span><span class="s0">;</span>
+
+    <span class="s2">// EFFECTS: create a market with no goods</span>
+    <span class="s0">public </span><span class="s1">Market() {</span>
+        <span class="s1">market = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s2">// INVARIANT: returnList.size() == market.size()</span>
+    <span class="s2">// EFFECTS: return the name of goods in corresponding position</span>
+    <span class="s0">public </span><span class="s1">List&lt;String&gt; getAvailableGoods() {</span>
+        <span class="s1">List&lt;String&gt; listOfGoods = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Goods goods : market) {</span>
+            <span class="s1">listOfGoods.add(goods.getName())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">listOfGoods</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// INVARIANT: returnList.size() == market.size()</span>
+    <span class="s2">// EFFECTS: return the supply of goods in corresponding position</span>
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getSupplyOfGoods() {</span>
+        <span class="s1">List&lt;Integer&gt; listOfSupply = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Goods goods : market) {</span>
+            <span class="s1">listOfSupply.add(goods.getSupply())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">listOfSupply</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// INVARIANT: returnList.size() == market.size()</span>
+    <span class="s2">// EFFECTS: return the demand of goods in corresponding position</span>
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getDemandOfGoods() {</span>
+        <span class="s1">List&lt;Integer&gt; listOfDemand = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Goods goods : market) {</span>
+            <span class="s1">listOfDemand.add(goods.getDemand())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">listOfDemand</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// INVARIANT: returnList.size() == market.size()</span>
+    <span class="s2">// EFFECTS: return the price modifiers of goods in corresponding position</span>
+    <span class="s0">public </span><span class="s1">List&lt;Double&gt; getPriceModifiers() {</span>
+        <span class="s1">List&lt;Double&gt; listOfModifiers = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Goods goods : market) {</span>
+            <span class="s1">listOfModifiers.add(goods.determinePriceModifier())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">listOfModifiers</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// REQUIRES: Goods of same name isn't already in market;</span>
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: add goods to the market</span>
+    <span class="s0">public void </span><span class="s1">addGoods(Goods g) {</span>
+        <span class="s1">market.add(g)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: return true if successfully removed goods from the market otherwise return false</span>
+    <span class="s0">public boolean </span><span class="s1">removeGoods(Goods g) {</span>
+        <span class="s0">if </span><span class="s1">(market.contains(g)) {</span>
+            <span class="s1">market.remove(g)</span><span class="s0">;</span>
+            <span class="s0">return true;</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return prices corresponding to goods in market</span>
+    <span class="s2">// INVARIANT: List&lt;Integer&gt;.size() == market.size();</span>
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getPrices() {</span>
+        <span class="s1">List&lt;Integer&gt; listOfPrices = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Goods goods : market) {</span>
+            <span class="s1">listOfPrices.add(goods.determinePrice())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">listOfPrices</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return gdp or total value of the market</span>
+    <span class="s0">public int </span><span class="s1">determineGDP() {</span>
+        <span class="s0">int </span><span class="s1">marketValue = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Goods goods : market) {</span>
+            <span class="s1">marketValue += goods.getDemand() * goods.determinePrice()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">marketValue</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return the number of goods in the market</span>
+    <span class="s0">public int </span><span class="s1">numberOfGoods() {</span>
+        <span class="s0">return </span><span class="s1">market.size()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: remove all goods that are considered &quot;inactive&quot; (no demand and supply)</span>
+    <span class="s0">public void </span><span class="s1">removeInactiveGoods() {</span>
+        <span class="s0">for </span><span class="s1">(Iterator&lt;Goods&gt; iterator = market.iterator()</span><span class="s0">; </span><span class="s1">iterator.hasNext()</span><span class="s0">;</span><span class="s1">) {</span>
+            <span class="s1">Goods goods = iterator.next()</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(goods.getDemand() == </span><span class="s3">0 </span><span class="s1">&amp;&amp; goods.getSupply() == </span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s1">iterator.remove()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

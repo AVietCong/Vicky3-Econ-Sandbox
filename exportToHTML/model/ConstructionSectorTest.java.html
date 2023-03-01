@@ -1,0 +1,270 @@
+<html>
+<head>
+<title>ConstructionSectorTest.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ConstructionSectorTest.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">org.junit.jupiter.api.BeforeEach</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.junit.jupiter.api.Test</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Arrays</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">org.junit.jupiter.api.Assertions.*</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">ConstructionSectorTest {</span>
+
+    <span class="s1">ConstructionSector constructionSector</span><span class="s0">;</span>
+    <span class="s1">Goods steel</span><span class="s0">;</span>
+    <span class="s1">Goods explosives</span><span class="s0">;</span>
+    <span class="s1">Goods tools</span><span class="s0">;</span>
+    <span class="s1">Goods fertilizer</span><span class="s0">;</span>
+    <span class="s1">Goods grain</span><span class="s0">;</span>
+    <span class="s1">Goods groceries</span><span class="s0">;</span>
+    <span class="s1">Goods iron</span><span class="s0">;</span>
+    <span class="s1">Goods coal</span><span class="s0">;</span>
+    <span class="s1">Building farm</span><span class="s0">;</span>
+    <span class="s1">Building ironMine</span><span class="s0">;</span>
+    <span class="s1">Building foodIndustry</span><span class="s0">;</span>
+    <span class="s0">int </span><span class="s1">wages</span><span class="s0">;</span>
+
+    <span class="s1">@BeforeEach</span>
+    <span class="s0">public void </span><span class="s1">setup() {</span>
+        <span class="s1">wages = constructionSector.WAGES</span><span class="s0">;</span>
+        <span class="s1">fertilizer = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Fertilizer&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">grain = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Grain&quot;</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">groceries = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Groceries&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">steel = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Steel&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Iron&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Coal&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">explosives = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Explosives&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s2">&quot;Tools&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s2">&quot;Farm&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s0">, </span><span class="s1">Arrays.asList(fertilizer)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">15</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(grain)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">90</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">ironMine = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s2">&quot;Iron Mine&quot;</span><span class="s0">, </span><span class="s3">300</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools</span><span class="s0">, </span><span class="s1">coal</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">15</span><span class="s0">, </span><span class="s3">15</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(iron)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">80</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">foodIndustry = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s2">&quot;Food Industry&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(grain</span><span class="s0">, </span><span class="s1">iron)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">20</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(groceries)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">65</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s1">constructionSector = </span><span class="s0">new </span><span class="s1">ConstructionSector(Arrays.asList(steel</span><span class="s0">, </span><span class="s1">tools</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">70</span><span class="s0">, </span><span class="s3">20</span><span class="s0">, </span><span class="s3">20</span><span class="s1">))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testConstructor() {</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().isEmpty())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionValue().isEmpty())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">constructionSector.getExpense())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(steel</span><span class="s0">, </span><span class="s1">tools</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">constructionSector.getInputGoods())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">70</span><span class="s0">, </span><span class="s3">20</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getInputAmount())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testaddOnce() {</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().contains(farm))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">1</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue().size())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().size()</span>
+                <span class="s1">== constructionSector.getConstructionValue().size())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testaddMultiple() {</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(ironMine)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().contains(farm))</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().contains(ironMine))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(farm</span><span class="s0">, </span><span class="s1">ironMine</span><span class="s0">, </span><span class="s1">farm)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionQueue())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">50</span><span class="s0">, </span><span class="s3">300</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().size()</span>
+                <span class="s1">== constructionSector.getConstructionValue().size())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveEmptyQueue() {</span>
+        <span class="s1">assertFalse(constructionSector.remove(farm))</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().isEmpty())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionValue().isEmpty())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveOnceInQueue() {</span>
+        <span class="s1">constructionSector.build(ironMine)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+
+        <span class="s1">assertTrue(constructionSector.remove(farm))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(ironMine</span><span class="s0">, </span><span class="s1">foodIndustry)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionQueue())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">300</span><span class="s0">, </span><span class="s3">450</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveNotInQueue() {</span>
+        <span class="s1">constructionSector.build(ironMine)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+
+        <span class="s1">assertFalse(constructionSector.remove(</span><span class="s0">new </span><span class="s1">Building(</span><span class="s2">&quot;Tools Workshop&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">, new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">, new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">, new </span><span class="s1">ArrayList&lt;&gt;())))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(ironMine</span><span class="s0">, </span><span class="s1">farm</span><span class="s0">, </span><span class="s1">foodIndustry)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionQueue())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">300</span><span class="s0">, </span><span class="s3">50</span><span class="s0">, </span><span class="s3">450</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveOnceFirstInQueue() {</span>
+        <span class="s1">constructionSector.build(ironMine)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(ironMine)</span><span class="s0">;</span>
+
+        <span class="s1">assertTrue(constructionSector.remove(ironMine))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(farm</span><span class="s0">, </span><span class="s1">foodIndustry</span><span class="s0">, </span><span class="s1">ironMine)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionQueue())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">50</span><span class="s0">, </span><span class="s3">450</span><span class="s0">, </span><span class="s3">300</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveMultipleOfOneBuilding() {</span>
+        <span class="s1">constructionSector.build(ironMine)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+
+        <span class="s1">assertTrue(constructionSector.remove(foodIndustry))</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.remove(foodIndustry))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(ironMine</span><span class="s0">, </span><span class="s1">farm)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionQueue())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">300</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testremoveMultiple() {</span>
+        <span class="s1">constructionSector.build(ironMine)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+
+        <span class="s1">assertTrue(constructionSector.remove(ironMine))</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.remove(foodIndustry))</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(farm</span><span class="s0">, </span><span class="s1">foodIndustry)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionQueue())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">50</span><span class="s0">, </span><span class="s3">450</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconsumeOnce() {</span>
+        <span class="s1">constructionSector.consume()</span><span class="s0">;</span>
+
+        <span class="s1">assertEquals(</span><span class="s3">70</span><span class="s0">, </span><span class="s1">steel.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">20</span><span class="s0">, </span><span class="s1">tools.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">20</span><span class="s0">, </span><span class="s1">explosives.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconsumeTwice() {</span>
+        <span class="s1">constructionSector.consume()</span><span class="s0">;</span>
+        <span class="s1">constructionSector.consume()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2 </span><span class="s1">* </span><span class="s3">70</span><span class="s0">, </span><span class="s1">steel.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2 </span><span class="s1">* </span><span class="s3">20</span><span class="s0">, </span><span class="s1">tools.getDemand())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(</span><span class="s3">2 </span><span class="s1">* </span><span class="s3">20</span><span class="s0">, </span><span class="s1">explosives.getDemand())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testpayExpenseOnce() {</span>
+        <span class="s0">int </span><span class="s1">expected = steel.determinePrice() * </span><span class="s3">70</span>
+                <span class="s1">+ tools.determinePrice() * </span><span class="s3">20</span>
+                <span class="s1">+ explosives.determinePrice() * </span><span class="s3">20</span>
+                <span class="s1">+ wages</span><span class="s0">;</span>
+        <span class="s1">constructionSector.payExpense()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">constructionSector.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testpayExpenseTwice() {</span>
+        <span class="s0">int </span><span class="s1">expected = steel.determinePrice() * </span><span class="s3">70</span>
+                <span class="s1">+ tools.determinePrice() * </span><span class="s3">20</span>
+                <span class="s1">+ explosives.determinePrice() * </span><span class="s3">20</span>
+                <span class="s1">+ wages</span><span class="s0">;</span>
+        <span class="s1">constructionSector.payExpense()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">constructionSector.getExpense())</span><span class="s0">;</span>
+        <span class="s1">constructionSector.payExpense()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">constructionSector.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testpayWages() {</span>
+        <span class="s1">constructionSector.payWages()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(wages</span><span class="s0">, </span><span class="s1">constructionSector.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testbuyGoods() {</span>
+        <span class="s1">steel.setDemand(</span><span class="s3">400</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">steel.setSupply(</span><span class="s3">300</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">explosives.setDemand(</span><span class="s3">200</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">explosives.setSupply(</span><span class="s3">250</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">expected = steel.determinePrice() * </span><span class="s3">70 </span><span class="s1">+ explosives.determinePrice() * </span><span class="s3">20 </span><span class="s1">+ tools.determinePrice() * </span><span class="s3">20</span><span class="s0">;</span>
+        <span class="s1">constructionSector.buyGoods()</span><span class="s0">;</span>
+        <span class="s1">assertEquals(expected</span><span class="s0">, </span><span class="s1">constructionSector.getExpense())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconstructEmptyQueue() {</span>
+        <span class="s1">assertTrue(constructionSector.construct().isEmpty())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().isEmpty())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionValue().isEmpty())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconstructOneInQueueFinished()  {</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(farm)</span><span class="s0">, </span><span class="s1">constructionSector.construct())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().isEmpty())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionValue().isEmpty())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconstructThreeInQueueFinished()  {</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(farm</span><span class="s0">, </span><span class="s1">farm</span><span class="s0">, </span><span class="s1">farm)</span><span class="s0">, </span><span class="s1">constructionSector.construct())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionQueue().isEmpty())</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.getConstructionValue().isEmpty())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconstructOneUnfinished() {</span>
+        <span class="s1">constructionSector.build(ironMine)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+        <span class="s1">assertTrue(constructionSector.construct().isEmpty())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(ironMine</span><span class="s0">, </span><span class="s1">foodIndustry)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionQueue())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">300 </span><span class="s1">- </span><span class="s3">150</span><span class="s0">, </span><span class="s3">450</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test</span>
+    <span class="s0">public void </span><span class="s1">testconstructFinishedAndUnfinished() {</span>
+        <span class="s1">constructionSector.build(farm)</span><span class="s0">;</span>
+        <span class="s1">constructionSector.build(foodIndustry)</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(farm)</span><span class="s0">, </span><span class="s1">constructionSector.construct())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(foodIndustry)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionQueue())</span><span class="s0">;</span>
+        <span class="s1">assertEquals(Arrays.asList(</span><span class="s3">350</span><span class="s1">)</span><span class="s0">, </span><span class="s1">constructionSector.getConstructionValue())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<html>
+<head>
+<title>checkstyle.xml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #bababa;}
+.s2 { color: #6a8759;}
+.s3 { color: #a9b7c6;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+checkstyle.xml</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;?</span><span class="s1">xml version</span><span class="s2">=&quot;1.0&quot;</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;!DOCTYPE </span><span class="s1">module </span><span class="s0">PUBLIC</span>
+        <span class="s2">&quot;-//Puppy Crawl//DTD Check Configuration 1.3//EN&quot;</span>
+        <span class="s2">&quot;http://checkstyle.sourceforge.net/dtds/configuration_1_3.dtd&quot;</span><span class="s0">&gt;</span>
+
+<span class="s4">&lt;!--</span>
+    <span class="s4">Checkstyle configuration that checks the Google coding conventions from Google Java Style 
+    that can be found at https://google.github.io/styleguide/javaguide.html. 
+    Checkstyle is very configurable. Be sure to read the documentation at 
+    http://checkstyle.sf.net (or in your downloaded distribution). 
+    To completely disable a check, just comment it out or delete it from the file. 
+    Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov. 
+ --&gt;</span>
+
+<span class="s0">&lt;module </span><span class="s1">name </span><span class="s2">= &quot;Checker&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;charset&quot; </span><span class="s1">value</span><span class="s2">=&quot;UTF-8&quot;</span><span class="s0">/&gt;</span>
+
+    <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;severity&quot; </span><span class="s1">value</span><span class="s2">=&quot;error&quot;</span><span class="s0">/&gt;</span>
+
+    <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;fileExtensions&quot; </span><span class="s1">value</span><span class="s2">=&quot;java, properties, xml&quot;</span><span class="s0">/&gt;</span>
+    <span class="s4">&lt;!-- Checks for whitespace                               --&gt;</span>
+    <span class="s4">&lt;!-- See http://checkstyle.sf.net/config_whitespace.html --&gt;</span>
+    <span class="s4">&lt;!--&lt;module name=&quot;FileTabCharacter&quot;&gt; 
+        &lt;property name=&quot;eachLine&quot; value=&quot;true&quot;/&gt; 
+    &lt;/module&gt;--&gt;</span>
+
+    <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;SuppressWarningsFilter&quot; </span><span class="s0">/&gt;</span>
+
+    <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;TreeWalker&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;SuppressWarningsHolder&quot; </span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;SuppressWarnings&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;(?!methodlength).*&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;LineLength&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;max&quot; </span><span class="s1">value</span><span class="s2">=&quot;120&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;ignorePattern&quot; </span><span class="s1">value</span><span class="s2">=&quot;^package.*|^import.*|a href|href|http://|https://|ftp://&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;OuterTypeFilename&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;IllegalTokenText&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;STRING_LITERAL, CHAR_LITERAL&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;message&quot; </span><span class="s1">value</span><span class="s2">=&quot;Consider using special escape sequence instead of octal value or Unicode escaped value.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;AvoidEscapedUnicodeCharacters&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowEscapesForControlCharacters&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowByTailComment&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowNonPrintableEscapes&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;OneTopLevelClass&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;NoLineWrap&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;EmptyBlock&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;option&quot; </span><span class="s1">value</span><span class="s2">=&quot;TEXT&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;VisibilityModifier&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowPublicFinalFields&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;protectedAllowed&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;packageAllowed&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;NeedBraces&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;LeftCurly&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;RightCurly&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;RightCurlySame&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_DO&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;RightCurly&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;RightCurlyAlone&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;option&quot; </span><span class="s1">value</span><span class="s2">=&quot;alone&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT, INSTANCE_INIT&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;WhitespaceAround&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowEmptyConstructors&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowEmptyMethods&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowEmptyTypes&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowEmptyLoops&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;ws.notFollowed&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;ws.notPreceded&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;WhitespaceAround: ''{0}'' is not preceded with whitespace.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;OneStatementPerLine&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;MultipleVariableDeclarations&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;ArrayTypeStyle&quot;</span><span class="s0">/&gt;</span>
+        <span class="s4">&lt;!--</span>
+        <span class="s4">&lt;module name=&quot;MissingSwitchDefault&quot;/&gt; 
+        &lt;module name=&quot;FallThrough&quot;/&gt;--&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;UpperEll&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;ModifierOrder&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;EmptyLineSeparator&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowNoEmptyLineBetweenFields&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;SeparatorWrap&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;SeparatorWrapDot&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;DOT&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;option&quot; </span><span class="s1">value</span><span class="s2">=&quot;nl&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;SeparatorWrap&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;SeparatorWrapComma&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;COMMA&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;option&quot; </span><span class="s1">value</span><span class="s2">=&quot;EOL&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;SeparatorWrap&quot;</span><span class="s0">&gt;</span>
+            <span class="s4">&lt;!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/258 --&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;SeparatorWrapEllipsis&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;ELLIPSIS&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;option&quot; </span><span class="s1">value</span><span class="s2">=&quot;EOL&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;SeparatorWrap&quot;</span><span class="s0">&gt;</span>
+            <span class="s4">&lt;!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/259 --&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;SeparatorWrapArrayDeclarator&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;ARRAY_DECLARATOR&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;option&quot; </span><span class="s1">value</span><span class="s2">=&quot;EOL&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;SeparatorWrap&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;SeparatorWrapMethodRef&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;METHOD_REF&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;option&quot; </span><span class="s1">value</span><span class="s2">=&quot;nl&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;PackageName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;^[a-z]+(\.[a-z][a-z0-9]*)*$&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Package name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;TypeName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Type name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;MemberName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;^[a-z][a-z0-9][a-zA-Z0-9]*$&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Member name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;ParameterName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Parameter name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;CatchParameterName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Catch parameter name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;LocalVariableName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;VARIABLE_DEF&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Local variable name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;ClassTypeParameterName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Class type name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;MethodTypeParameterName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Method type name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;InterfaceTypeParameterName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Interface type name ''{0}'' does not adhere to coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;NoFinalizer&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;GenericWhitespace&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;ws.followed&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;GenericWhitespace ''{0}'' is followed by whitespace.&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;ws.preceded&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;GenericWhitespace ''{0}'' is preceded with whitespace.&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;ws.illegalFollow&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;GenericWhitespace ''{0}'' should followed by whitespace.&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;ws.notPreceded&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;GenericWhitespace ''{0}'' is not preceded with whitespace.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;Indentation&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;basicOffset&quot; </span><span class="s1">value</span><span class="s2">=&quot;4&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;braceAdjustment&quot; </span><span class="s1">value</span><span class="s2">=&quot;0&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;caseIndent&quot; </span><span class="s1">value</span><span class="s2">=&quot;4&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;throwsIndent&quot; </span><span class="s1">value</span><span class="s2">=&quot;8&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;lineWrappingIndentation&quot; </span><span class="s1">value</span><span class="s2">=&quot;8&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;arrayInitIndent&quot; </span><span class="s1">value</span><span class="s2">=&quot;4&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;AbbreviationAsWordInName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;ignoreFinal&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowedAbbreviationLength&quot; </span><span class="s1">value</span><span class="s2">=&quot;2&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;OverloadMethodsDeclarationOrder&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;MethodParamPad&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;NoWhitespaceBefore&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;COMMA, SEMI, POST_INC, POST_DEC, DOT, ELLIPSIS, METHOD_REF&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowLineBreaks&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;ParenPad&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;OperatorWrap&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;option&quot; </span><span class="s1">value</span><span class="s2">=&quot;NL&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF &quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;AnnotationLocation&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;AnnotationLocationMostCases&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;AnnotationLocation&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;id&quot; </span><span class="s1">value</span><span class="s2">=&quot;AnnotationLocationVariables&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;VARIABLE_DEF&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;allowSamelineMultipleAnnotations&quot; </span><span class="s1">value</span><span class="s2">=&quot;true&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;NonEmptyAtclauseDescription&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;AtclauseOrder&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tagOrder&quot; </span><span class="s1">value</span><span class="s2">=&quot;@param, @return, @throws, @deprecated&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;target&quot; </span><span class="s1">value</span><span class="s2">=&quot;CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;MethodName&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;format&quot; </span><span class="s1">value</span><span class="s2">=&quot;^[a-z][a-z0-9][a-zA-Z0-9]*$&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;message </span><span class="s1">key</span><span class="s2">=&quot;name.invalidPattern&quot;</span>
+                     <span class="s1">value</span><span class="s2">=&quot;Method name ''{0}'' does not follow coding style.&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;EmptyCatchBlock&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;exceptionVariableName&quot; </span><span class="s1">value</span><span class="s2">=&quot;expected&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+        <span class="s0">&lt;module </span><span class="s1">name</span><span class="s2">=&quot;MethodLength&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;tokens&quot; </span><span class="s1">value</span><span class="s2">=&quot;METHOD_DEF, CTOR_DEF&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;max&quot; </span><span class="s1">value</span><span class="s2">=&quot;25&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;property </span><span class="s1">name</span><span class="s2">=&quot;countEmpty&quot; </span><span class="s1">value</span><span class="s2">=&quot;false&quot;</span><span class="s0">/&gt;</span>
+        <span class="s0">&lt;/module&gt;</span>
+    <span class="s0">&lt;/module&gt;</span>
+<span class="s0">&lt;/module&gt;</span></pre>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>Industries.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Industries.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Iterator</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Industries {</span>
+    <span class="s2">// This class represents all the buildings that have been constructed</span>
+
+    <span class="s0">private </span><span class="s1">List&lt;Building&gt; industries</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">Industries() {</span>
+        <span class="s1">industries = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Building&gt; getAllBuildings() {</span>
+        <span class="s0">return </span><span class="s1">industries</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return the name of all buildings in the order they were added</span>
+    <span class="s0">public </span><span class="s1">List&lt;String&gt; getAllBuildingNames() {</span>
+        <span class="s1">List&lt;String&gt; result = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries) {</span>
+            <span class="s1">result.add(b.getName())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return the size of all buildings in the order they were added</span>
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getAllSize() {</span>
+        <span class="s1">List&lt;Integer&gt; result = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries) {</span>
+            <span class="s1">result.add(b.getSize())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return lists of input goods of all buildings in the order they were added</span>
+    <span class="s0">public </span><span class="s1">List&lt;List&lt;Goods&gt;&gt; getAllInputGoods() {</span>
+        <span class="s1">List&lt;List&lt;Goods&gt;&gt; result = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries) {</span>
+            <span class="s1">result.add(b.getInputGoods())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return lists of amount of input goods of all buildings in the order they were added</span>
+    <span class="s0">public </span><span class="s1">List&lt;List&lt;Integer&gt;&gt; getAllInputGoodsAmount() {</span>
+        <span class="s1">List&lt;List&lt;Integer&gt;&gt; result = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries) {</span>
+            <span class="s1">result.add(b.getInputAmount())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return lists of output goods of all buildings in the order they were added</span>
+    <span class="s0">public </span><span class="s1">List&lt;List&lt;Goods&gt;&gt; getAllOutputGoods() {</span>
+        <span class="s1">List&lt;List&lt;Goods&gt;&gt; result = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries) {</span>
+            <span class="s1">result.add(b.getOutputGoods())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return lists of amount of output goods of all buildings in the order they were added</span>
+    <span class="s0">public </span><span class="s1">List&lt;List&lt;Integer&gt;&gt; getAllOutputGoodsAmount() {</span>
+        <span class="s1">List&lt;List&lt;Integer&gt;&gt; result = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries) {</span>
+            <span class="s1">result.add(b.getOutputAmount())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return expenses of all buildings in the order they were added</span>
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getAllExpenses() {</span>
+        <span class="s1">List&lt;Integer&gt; result = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries) {</span>
+            <span class="s1">result.add(b.getExpense())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: return income of all buildings in the order they were added</span>
+    <span class="s0">public </span><span class="s1">List&lt;Integer&gt; getAllIncome() {</span>
+        <span class="s1">List&lt;Integer&gt; result = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries) {</span>
+            <span class="s1">result.add(b.getIncome())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: remove buildings with size 0 from industries</span>
+    <span class="s0">public void </span><span class="s1">removeEmptyBuildings() {</span>
+        <span class="s0">for </span><span class="s1">(Iterator&lt;Building&gt; iterator = industries.iterator()</span><span class="s0">; </span><span class="s1">iterator.hasNext()</span><span class="s0">;</span><span class="s1">) {</span>
+            <span class="s1">Building building = iterator.next()</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(building.getSize() == </span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s1">iterator.remove()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// REQUIRES: building of same name is not already in industries</span>
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: add building to industries and return true if industries.size() has changes; otherwise return false</span>
+    <span class="s0">public boolean </span><span class="s1">add(Building b) {</span>
+        <span class="s0">if </span><span class="s1">(getAllBuildingNames().contains(b.getName())) {</span>
+            <span class="s0">return false;</span>
+        <span class="s1">}</span>
+        <span class="s1">industries.add(b)</span><span class="s0">;</span>
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

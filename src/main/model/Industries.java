@@ -89,6 +89,14 @@ public class Industries {
         return result;
     }
 
+    public List<Integer> getAllProfit() {
+        List<Integer> result = new ArrayList<>();
+        for (Building b : industries) {
+            result.add(b.determineProfit());
+        }
+        return result;
+    }
+
     // MODIFIES: this
     // EFFECTS: remove buildings with size 0 from industries
     public void removeEmptyBuildings() {

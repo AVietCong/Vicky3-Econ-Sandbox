@@ -1,0 +1,569 @@
+<html>
+<head>
+<title>SandboxArea.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+SandboxArea.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">ui</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">model.*</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.*</span><span class="s0">;</span>
+
+<span class="s2">// Economic Sandbox</span>
+
+<span class="s0">public class </span><span class="s1">SandboxArea {</span>
+    <span class="s0">private </span><span class="s1">Scanner input</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">turn</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Goods&gt; allGoods</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Building&gt; allBuildings</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Building&gt; constructionReport</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">demandForGrain</span><span class="s0">;</span>
+
+    <span class="s0">private </span><span class="s1">Industries industries</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Market market</span><span class="s0">;</span>
+
+    <span class="s0">private </span><span class="s1">Goods clothes</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods fabric</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods furniture</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods grain</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods groceries</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods services</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods wood</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods coal</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods dye</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods explosives</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods fertilizer</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods glass</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods iron</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods lead</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods steel</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods sulfur</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Goods tools</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Goods&gt; consumerGoods</span><span class="s0">;</span>
+
+    <span class="s0">private </span><span class="s1">Building foodIndustry</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building textileMill</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building furnitureManufactory</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building glassWork</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building toolingWorkshop</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building chemicalPlant</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building steelMill</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building farm</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building ranch</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building coalMine</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building ironMine</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building leadMine</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building sulfurMine</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building cottonPlantation</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building dyePlantation</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building urbanCenter</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Building loggingCamp</span><span class="s0">;</span>
+
+    <span class="s0">private </span><span class="s1">ConstructionSector constructionSector</span><span class="s0">;</span>
+
+    <span class="s2">// run the sandbox area</span>
+    <span class="s0">public </span><span class="s1">SandboxArea() {</span>
+        <span class="s1">runSandbox()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: handle user input in main menu</span>
+    <span class="s0">private void </span><span class="s1">runSandbox() {</span>
+        <span class="s0">boolean </span><span class="s1">keepGoing = </span><span class="s0">true;</span>
+        <span class="s1">String command = </span><span class="s0">null;</span>
+
+        <span class="s1">turn = </span><span class="s3">1</span><span class="s0">;</span>
+        <span class="s1">init()</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">(keepGoing) {</span>
+            <span class="s1">displayMenu()</span><span class="s0">;</span>
+            <span class="s1">command = input.next()</span><span class="s0">;</span>
+            <span class="s1">command = command.toLowerCase()</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(command.equals(</span><span class="s4">&quot;exit&quot;</span><span class="s1">)) {</span>
+                <span class="s1">keepGoing = </span><span class="s0">false;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">processCommand(command)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n </span><span class="s4">Exiting Sandbox&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: display main menu options</span>
+    <span class="s0">private void </span><span class="s1">displayMenu() {</span>
+        <span class="s0">if </span><span class="s1">(turn == </span><span class="s3">1</span><span class="s1">) {</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n </span><span class="s4">Welcome to the economic sandbox!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n </span><span class="s4">Week &quot; </span><span class="s1">+ turn)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : constructionReport) {</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t</span><span class="s4">&quot; </span><span class="s1">+ b.getName() + </span><span class="s4">&quot; has been constructed!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">market -&gt; View Market Report&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">industry -&gt; View Industry Report&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">construction -&gt; View/Add/Remove Buildings from Construction Queue&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">down size -&gt; Reduce a building's level&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">next turn -&gt; Fast Foward 1 Week&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">exit -&gt; Exit Sandbox&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: process user input</span>
+    <span class="s0">private void </span><span class="s1">processCommand(String command) {</span>
+        <span class="s0">if </span><span class="s1">(command.equals(</span><span class="s4">&quot;market&quot;</span><span class="s1">)) {</span>
+            <span class="s1">printMarketReport()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(command.equals(</span><span class="s4">&quot;industry&quot;</span><span class="s1">)) {</span>
+            <span class="s1">printIndustryReport()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(command.equals(</span><span class="s4">&quot;construction&quot;</span><span class="s1">)) {</span>
+            <span class="s1">handleConstructionMenu()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(command.equals(</span><span class="s4">&quot;down size&quot;</span><span class="s1">)) {</span>
+            <span class="s1">handleDownSize()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(command.equals(</span><span class="s4">&quot;next turn&quot;</span><span class="s1">)) {</span>
+            <span class="s1">processTurn()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;Selection not valid&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: handle user input in downsize menu</span>
+    <span class="s0">private void </span><span class="s1">handleDownSize() {</span>
+        <span class="s0">boolean </span><span class="s1">finished = </span><span class="s0">false;</span>
+        <span class="s1">String command = </span><span class="s0">null;</span>
+        <span class="s0">int </span><span class="s1">choice</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">(!finished) {</span>
+            <span class="s1">displayDownsizeOptions()</span><span class="s0">;</span>
+            <span class="s1">command = input.next()</span><span class="s0">;</span>
+            <span class="s1">command = command.toLowerCase()</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(command.equals(</span><span class="s4">&quot;back&quot;</span><span class="s1">)) {</span>
+                <span class="s1">finished = </span><span class="s0">true;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">choice = Integer.parseInt(command)</span><span class="s0">;</span>
+                <span class="s1">processDownSizeCommand(choice)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: process downsize action from user</span>
+    <span class="s0">private void </span><span class="s1">processDownSizeCommand(</span><span class="s0">int </span><span class="s1">choice) {</span>
+        <span class="s0">int </span><span class="s1">levels</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(choice &gt;= industries.getAllBuildings().size() || choice &lt; </span><span class="s3">0</span><span class="s1">) {</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;Selection not valid&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n </span><span class="s4">Choose number of levels to downsize&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">levels = input.nextInt()</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(industries.getAllBuildings().get(choice).downsize(levels)) {</span>
+                <span class="s1">System.out.println(</span><span class="s4">&quot;Downsize successful&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">System.out.println(</span><span class="s4">&quot;Can't downsize lower than 0&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: display all buildings that can be downsized</span>
+    <span class="s0">private void </span><span class="s1">displayDownsizeOptions() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; industries.getAllBuildingNames().size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">System.out.println(i + </span><span class="s4">&quot;</span><span class="s0">\t</span><span class="s4">&quot; </span><span class="s1">+ industries.getAllBuildingNames().get(i))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n </span><span class="s4">Choose Building to Remove&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">back -&gt; back to Construction Menu&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: process the economy in preparation for next turn</span>
+    <span class="s0">private void </span><span class="s1">processTurn() {</span>
+        <span class="s1">constructAndDestroyBuildings()</span><span class="s0">;</span>
+        <span class="s1">exchangeGoods()</span><span class="s0">;</span>
+        <span class="s1">cleanupMarket()</span><span class="s0">;</span>
+        <span class="s1">demandForGrain += </span><span class="s3">5</span><span class="s0">;</span>
+        <span class="s1">consumeAndProduce()</span><span class="s0">;</span>
+        <span class="s1">grain.addDemand(demandForGrain)</span><span class="s0">;</span>
+        <span class="s1">market.removeInactiveGoods()</span><span class="s0">;</span>
+        <span class="s1">turn += </span><span class="s3">1</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: change the demand and supply of goods in market</span>
+    <span class="s0">private void </span><span class="s1">consumeAndProduce() {</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries.getAllBuildings()) {</span>
+            <span class="s1">b.consume()</span><span class="s0">;</span>
+            <span class="s1">b.produce()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: reset demand and supply for all but consumer goods</span>
+    <span class="s0">private void </span><span class="s1">cleanupMarket() {</span>
+        <span class="s1">market = </span><span class="s0">new </span><span class="s1">Market()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Goods goods : allGoods) {</span>
+            <span class="s0">if </span><span class="s1">(consumerGoods.contains(goods)) {</span>
+                <span class="s1">goods.addDemand(</span><span class="s3">5</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">goods.setDemand(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s1">goods.setSupply(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">market.addGoods(goods)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: set income and expenses of buildings</span>
+    <span class="s0">private void </span><span class="s1">exchangeGoods() {</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries.getAllBuildings()) {</span>
+            <span class="s1">b.payExpense()</span><span class="s0">;</span>
+            <span class="s1">b.sellGoods()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: construct new buildings remove buildings with size 0 from industry</span>
+    <span class="s0">private void </span><span class="s1">constructAndDestroyBuildings() {</span>
+        <span class="s0">if </span><span class="s1">(!constructionSector.getConstructionQueue().isEmpty()) {</span>
+            <span class="s1">constructionSector.consume()</span><span class="s0">;</span>
+            <span class="s1">constructionSector.payExpense()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">List&lt;Building&gt; constructedBuilding = constructionSector.construct()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : constructedBuilding) {</span>
+            <span class="s0">if </span><span class="s1">(industries.getAllBuildings().contains(b)) {</span>
+                <span class="s1">b.expand()</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">industries.add(b)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">industries.removeEmptyBuildings()</span><span class="s0">;</span>
+        <span class="s1">constructionReport = constructedBuilding</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: handle user input in the construction menu</span>
+    <span class="s0">private void </span><span class="s1">handleConstructionMenu() {</span>
+        <span class="s0">boolean </span><span class="s1">finished = </span><span class="s0">false;</span>
+        <span class="s1">String command = </span><span class="s0">null;</span>
+
+        <span class="s0">while </span><span class="s1">(!finished) {</span>
+            <span class="s1">displayConstructionMenu()</span><span class="s0">;</span>
+            <span class="s1">command = input.next()</span><span class="s0">;</span>
+            <span class="s1">command = command.toLowerCase()</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(command.equals(</span><span class="s4">&quot;back&quot;</span><span class="s1">)) {</span>
+                <span class="s1">finished = </span><span class="s0">true;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">processConstructionCommand(command)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: process user command in construction menu</span>
+    <span class="s0">private void </span><span class="s1">processConstructionCommand(String command) {</span>
+        <span class="s0">if </span><span class="s1">(command.equals(</span><span class="s4">&quot;build&quot;</span><span class="s1">)) {</span>
+            <span class="s1">handleBuild()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(command.equals(</span><span class="s4">&quot;remove&quot;</span><span class="s1">)) {</span>
+            <span class="s1">handleRemove()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;Selection not valid&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: handle user command in Remove menu</span>
+    <span class="s0">private void </span><span class="s1">handleRemove() {</span>
+        <span class="s0">boolean </span><span class="s1">finished = </span><span class="s0">false;</span>
+        <span class="s1">String command = </span><span class="s0">null;</span>
+        <span class="s0">int </span><span class="s1">choice</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">(!finished) {</span>
+            <span class="s1">displayRemoveOptions()</span><span class="s0">;</span>
+            <span class="s1">command = input.next()</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(command.equals(</span><span class="s4">&quot;back&quot;</span><span class="s1">)) {</span>
+                <span class="s1">finished = </span><span class="s0">true;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">choice = Integer.parseInt(command)</span><span class="s0">;</span>
+                <span class="s1">doRemove(choice)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: process user command in Remove menu</span>
+    <span class="s0">private void </span><span class="s1">doRemove(</span><span class="s0">int </span><span class="s1">index) {</span>
+        <span class="s0">if </span><span class="s1">(index &gt;= allBuildings.size() || index &lt; </span><span class="s3">0</span><span class="s1">) {</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;Selection is not valid&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s0">if </span><span class="s1">(constructionSector.remove(allBuildings.get(index))) {</span>
+                <span class="s1">System.out.println(</span><span class="s4">&quot;Remove Successfully&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">System.out.println(</span><span class="s4">&quot;Building is not in Queue&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: display all options to remove from construction queue</span>
+    <span class="s0">private void </span><span class="s1">displayRemoveOptions() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; allBuildings.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">System.out.println(i + </span><span class="s4">&quot;</span><span class="s0">\t</span><span class="s4">&quot; </span><span class="s1">+ allBuildings.get(i).getName())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n </span><span class="s4">Choose Building to Remove&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">back -&gt; back to Construction Menu&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: handle user command in the Build menu</span>
+    <span class="s0">private void </span><span class="s1">handleBuild() {</span>
+        <span class="s0">boolean </span><span class="s1">finished = </span><span class="s0">false;</span>
+        <span class="s1">String command = </span><span class="s0">null;</span>
+        <span class="s0">int </span><span class="s1">choice</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">(!finished) {</span>
+            <span class="s1">displayConstructionOptions()</span><span class="s0">;</span>
+            <span class="s1">command = input.next()</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(command.equals(</span><span class="s4">&quot;back&quot;</span><span class="s1">)) {</span>
+                <span class="s1">finished = </span><span class="s0">true;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">choice = Integer.parseInt(command)</span><span class="s0">;</span>
+                <span class="s1">doBuild(choice)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: process user command in the Build menu</span>
+    <span class="s0">private void </span><span class="s1">doBuild(</span><span class="s0">int </span><span class="s1">index) {</span>
+        <span class="s0">if </span><span class="s1">(index &gt;= allBuildings.size() || index &lt; </span><span class="s3">0</span><span class="s1">) {</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;Selection is not valid&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">constructionSector.build(allBuildings.get(index))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: display all options that can be built</span>
+    <span class="s0">private void </span><span class="s1">displayConstructionOptions() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; allBuildings.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">System.out.println(i + </span><span class="s4">&quot;</span><span class="s0">\t</span><span class="s4">&quot; </span><span class="s1">+ allBuildings.get(i).getName())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n </span><span class="s4">Choose Building to Construct&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">back -&gt; back to Construction Menu&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: display construction queue and further options in Construction menu</span>
+    <span class="s0">private void </span><span class="s1">displayConstructionMenu() {</span>
+        <span class="s1">List&lt;Building&gt; constructionQueue = constructionSector.getConstructionQueue()</span><span class="s0">;</span>
+        <span class="s1">List&lt;Integer&gt; progressQueue = constructionSector.getConstructionValue()</span><span class="s0">;</span>
+
+        <span class="s1">System.out.println(</span><span class="s4">&quot;Name</span><span class="s0">\t </span><span class="s4">Remaining Progress&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; constructionQueue.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">System.out.println(constructionQueue.get(i).getName() + </span><span class="s4">&quot;</span><span class="s0">\t</span><span class="s4">&quot; </span><span class="s1">+ progressQueue.get(i))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">build -&gt; build or expand a building&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">remove -&gt; remove building from queue&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\t </span><span class="s4">back -&gt; back to main menu&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: display a list of industries with its expenses and profits</span>
+    <span class="s0">private void </span><span class="s1">printIndustryReport() {</span>
+        <span class="s1">List&lt;String&gt; names = industries.getAllBuildingNames()</span><span class="s0">;</span>
+        <span class="s1">List&lt;Integer&gt; size = industries.getAllSize()</span><span class="s0">;</span>
+        <span class="s1">List&lt;Integer&gt; expenses = industries.getAllExpenses()</span><span class="s0">;</span>
+        <span class="s1">List&lt;Integer&gt; income = industries.getAllIncome()</span><span class="s0">;</span>
+
+        <span class="s1">String industryReportTitleTemplate = </span><span class="s4">&quot;%-20s %3s %10s %10s%n&quot;</span><span class="s0">;</span>
+        <span class="s1">String industryReportTemplate = </span><span class="s4">&quot;%-20s %3s %10s %10s%n&quot;</span><span class="s0">;</span>
+        <span class="s1">System.out.printf(industryReportTitleTemplate</span><span class="s0">, </span><span class="s4">&quot;Industry&quot;</span><span class="s0">, </span><span class="s4">&quot;Size&quot;</span><span class="s0">, </span><span class="s4">&quot;Expense&quot;</span><span class="s0">, </span><span class="s4">&quot;Income&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; names.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">System.out.printf(industryReportTemplate</span><span class="s0">, </span><span class="s1">names.get(i)</span><span class="s0">, </span><span class="s1">size.get(i)</span><span class="s0">, </span><span class="s1">expenses.get(i)</span><span class="s0">, </span><span class="s1">income.get(i))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// EFFECTS: display a list of Goods with its supply, demand and price modifier</span>
+    <span class="s0">private void </span><span class="s1">printMarketReport() {</span>
+        <span class="s1">List&lt;String&gt; names = market.getAvailableGoods()</span><span class="s0">;</span>
+        <span class="s1">List&lt;Integer&gt; demand = market.getDemandOfGoods()</span><span class="s0">;</span>
+        <span class="s1">List&lt;Integer&gt; supply = market.getSupplyOfGoods()</span><span class="s0">;</span>
+        <span class="s1">List&lt;Double&gt; priceModifiers = market.getPriceModifiers()</span><span class="s0">;</span>
+
+        <span class="s1">String marketReportTitleTemplate = </span><span class="s4">&quot;%-10s %7s %7s %6s%n&quot;</span><span class="s0">;</span>
+        <span class="s1">String marketReportTemplate = </span><span class="s4">&quot;%-10s %7s %7s %8.2f%n&quot;</span><span class="s0">;</span>
+        <span class="s1">System.out.printf(marketReportTitleTemplate</span><span class="s0">, </span><span class="s4">&quot;Goods&quot;</span><span class="s0">, </span><span class="s4">&quot;Demand&quot;</span><span class="s0">, </span><span class="s4">&quot;Supply&quot;</span><span class="s0">, </span><span class="s4">&quot;Price Modifier&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; names.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">System.out.printf(marketReportTemplate</span><span class="s0">, </span><span class="s1">names.get(i)</span><span class="s0">, </span><span class="s1">demand.get(i)</span><span class="s0">, </span><span class="s1">supply.get(i)</span><span class="s0">, </span><span class="s1">priceModifiers.get(i))</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// Set up starting situation to that of Sweden in Victoria 3</span>
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: initializes starting conditions</span>
+    <span class="s0">private void </span><span class="s1">init() {</span>
+        <span class="s1">initGoods()</span><span class="s0">;</span>
+        <span class="s1">allGoods = Arrays.asList(clothes</span><span class="s0">, </span><span class="s1">fabric</span><span class="s0">, </span><span class="s1">furniture</span><span class="s0">, </span><span class="s1">grain</span><span class="s0">, </span><span class="s1">groceries</span><span class="s0">, </span><span class="s1">services</span><span class="s0">, </span><span class="s1">wood</span><span class="s0">, </span><span class="s1">coal</span><span class="s0">, </span><span class="s1">dye</span><span class="s0">,</span>
+                <span class="s1">explosives</span><span class="s0">, </span><span class="s1">fertilizer</span><span class="s0">, </span><span class="s1">glass</span><span class="s0">, </span><span class="s1">iron</span><span class="s0">, </span><span class="s1">lead</span><span class="s0">, </span><span class="s1">steel</span><span class="s0">, </span><span class="s1">sulfur</span><span class="s0">, </span><span class="s1">tools)</span><span class="s0">;</span>
+        <span class="s1">initIndustryBuildings()</span><span class="s0">;</span>
+        <span class="s1">initAgricultureBuildings()</span><span class="s0">;</span>
+        <span class="s1">initOtherBuildings()</span><span class="s0">;</span>
+        <span class="s1">allBuildings = Arrays.asList(foodIndustry</span><span class="s0">, </span><span class="s1">textileMill</span><span class="s0">, </span><span class="s1">furnitureManufactory</span><span class="s0">, </span><span class="s1">glassWork</span><span class="s0">, </span><span class="s1">toolingWorkshop</span><span class="s0">,</span>
+                <span class="s1">chemicalPlant</span><span class="s0">, </span><span class="s1">steelMill</span><span class="s0">, </span><span class="s1">urbanCenter</span><span class="s0">, </span><span class="s1">farm</span><span class="s0">, </span><span class="s1">ranch</span><span class="s0">, </span><span class="s1">cottonPlantation</span><span class="s0">, </span><span class="s1">dyePlantation</span><span class="s0">, </span><span class="s1">coalMine</span><span class="s0">, </span><span class="s1">ironMine</span><span class="s0">,</span>
+                <span class="s1">leadMine</span><span class="s0">, </span><span class="s1">sulfurMine)</span><span class="s0">;</span>
+        <span class="s1">constructionSector = </span><span class="s0">new </span><span class="s1">ConstructionSector(Arrays.asList(steel</span><span class="s0">, </span><span class="s1">tools</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">70</span><span class="s0">, </span><span class="s3">20</span><span class="s0">, </span><span class="s3">20</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">setupIndustry()</span><span class="s0">;</span>
+        <span class="s1">setupMarket()</span><span class="s0">;</span>
+        <span class="s1">setDemandForConsumerGoods()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : industries.getAllBuildings()) {</span>
+            <span class="s1">b.consume()</span><span class="s0">;</span>
+            <span class="s1">b.produce()</span><span class="s0">;</span>
+            <span class="s1">b.payExpense()</span><span class="s0">;</span>
+            <span class="s1">b.sellGoods()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">market.removeInactiveGoods()</span><span class="s0">;</span>
+        <span class="s1">input = </span><span class="s0">new </span><span class="s1">Scanner(System.in)</span><span class="s0">;</span>
+        <span class="s1">input.useDelimiter(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">constructionReport = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: add all goods to the market</span>
+    <span class="s0">private void </span><span class="s1">setupMarket() {</span>
+        <span class="s1">market = </span><span class="s0">new </span><span class="s1">Market()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Goods goods : allGoods) {</span>
+            <span class="s1">market.addGoods(goods)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: set demand of consumer goods</span>
+    <span class="s0">private void </span><span class="s1">setDemandForConsumerGoods() {</span>
+        <span class="s1">clothes.setDemand(</span><span class="s3">410</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture.setDemand(</span><span class="s3">289</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">demandForGrain = </span><span class="s3">313</span><span class="s0">;</span>
+        <span class="s1">grain.setDemand(demandForGrain)</span><span class="s0">;</span>
+        <span class="s1">services.setDemand(</span><span class="s3">425</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: initializes all goods available for the sandbox</span>
+    <span class="s0">private void </span><span class="s1">initGoods() {</span>
+        <span class="s1">clothes = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Clothes&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">fabric = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Fabric&quot;</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">furniture = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Furniture&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">grain = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Grain&quot;</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">groceries = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Groceries&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">services = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Services&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">wood = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Wood&quot;</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">coal = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Coal&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">dye = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Dye&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">explosives = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Explosives&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">fertilizer = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Fertilizer&quot;</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">glass = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Glass&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">iron = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Iron&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">lead = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Lead&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">steel = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Steel&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">sulfur = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Sulfur&quot;</span><span class="s0">, </span><span class="s3">50</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">tools = </span><span class="s0">new </span><span class="s1">Goods(</span><span class="s4">&quot;Tools&quot;</span><span class="s0">, </span><span class="s3">40</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">consumerGoods = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">consumerGoods.addAll(Arrays.asList(clothes</span><span class="s0">, </span><span class="s1">furniture</span><span class="s0">, </span><span class="s1">groceries</span><span class="s0">, </span><span class="s1">services))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: initializes all agricultural buildings</span>
+    <span class="s0">private void </span><span class="s1">initAgricultureBuildings() {</span>
+        <span class="s1">farm = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Farm&quot;</span><span class="s0">, </span><span class="s3">150</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(fertilizer)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">40</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(grain)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">150</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">ranch = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Livestock Ranch&quot;</span><span class="s0">, </span><span class="s3">150</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(grain)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(fabric</span><span class="s0">, </span><span class="s1">fertilizer)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">40</span><span class="s0">, </span><span class="s3">10</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">cottonPlantation = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Cotton Plantation&quot;</span><span class="s0">, </span><span class="s3">150</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">5</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(fabric)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">40</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">dyePlantation = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Dye Plantation&quot;</span><span class="s0">, </span><span class="s3">150</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">5</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(dye)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">25</span><span class="s1">))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: initializes all industrial buildings</span>
+    <span class="s0">private void </span><span class="s1">initIndustryBuildings() {</span>
+        <span class="s1">foodIndustry = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Food Industry&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(grain</span><span class="s0">, </span><span class="s1">iron)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">50</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(groceries)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">65</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">textileMill = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Textile Mill&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(fabric</span><span class="s0">, </span><span class="s1">dye</span><span class="s0">, </span><span class="s1">tools)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">60</span><span class="s0">, </span><span class="s3">10</span><span class="s0">, </span><span class="s3">5</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(clothes)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">100</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">furnitureManufactory = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Furniture Manufactory&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(wood</span><span class="s0">, </span><span class="s1">fabric</span><span class="s0">, </span><span class="s1">tools)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">50</span><span class="s0">, </span><span class="s3">10</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(furniture)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">110</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">glassWork = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Glass Work&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(lead)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">35</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(glass)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">70</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">toolingWorkshop = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Tooling Workshop&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(wood</span><span class="s0">, </span><span class="s1">steel)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">30</span><span class="s0">, </span><span class="s3">20</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">80</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">chemicalPlant = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Chemical Plant&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(sulfur</span><span class="s0">, </span><span class="s1">iron</span><span class="s0">, </span><span class="s1">coal)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">60</span><span class="s0">, </span><span class="s3">30</span><span class="s0">, </span><span class="s3">15</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(fertilizer</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">110</span><span class="s0">, </span><span class="s3">70</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">steelMill = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Steel Mill&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(iron</span><span class="s0">, </span><span class="s1">coal)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">90</span><span class="s0">, </span><span class="s3">30</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(steel)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">120</span><span class="s1">))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: initializes remaining buildings</span>
+    <span class="s0">private void </span><span class="s1">initOtherBuildings() {</span>
+        <span class="s1">coalMine = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Coal Mine&quot;</span><span class="s0">, </span><span class="s3">300</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">15</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(coal)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">85</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">ironMine = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Iron Mine&quot;</span><span class="s0">, </span><span class="s3">300</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools</span><span class="s0">, </span><span class="s1">coal</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">15</span><span class="s0">, </span><span class="s3">15</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(iron)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">80</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">leadMine = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Lead Mine&quot;</span><span class="s0">, </span><span class="s3">300</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools</span><span class="s0">, </span><span class="s1">coal</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">15</span><span class="s0">, </span><span class="s3">15</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(coal)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">80</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">sulfurMine = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Sulfur Mine&quot;</span><span class="s0">, </span><span class="s3">300</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools</span><span class="s0">, </span><span class="s1">coal</span><span class="s0">, </span><span class="s1">explosives)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">15</span><span class="s0">, </span><span class="s3">15</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(coal)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">80</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">loggingCamp = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Logging Camp&quot;</span><span class="s0">, </span><span class="s3">150</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(tools)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">5</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(wood)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">60</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">urbanCenter = </span><span class="s0">new </span><span class="s1">Building(</span><span class="s4">&quot;Urban Center&quot;</span><span class="s0">, </span><span class="s3">450</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(glass</span><span class="s0">, </span><span class="s1">steel</span><span class="s0">, </span><span class="s1">coal)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">10</span><span class="s0">, </span><span class="s3">10</span><span class="s0">, </span><span class="s3">10</span><span class="s1">)</span><span class="s0">,</span>
+                <span class="s1">Arrays.asList(services)</span><span class="s0">, </span><span class="s1">Arrays.asList(</span><span class="s3">110</span><span class="s1">))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">// MODIFIES: this</span>
+    <span class="s2">// EFFECTS: set up the starting industries</span>
+    <span class="s0">private void </span><span class="s1">setupIndustry() {</span>
+        <span class="s1">industries = </span><span class="s0">new </span><span class="s1">Industries()</span><span class="s0">;</span>
+        <span class="s1">textileMill.setSize(</span><span class="s3">3</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">urbanCenter.setSize(</span><span class="s3">8</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">farm.setSize(</span><span class="s3">11</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">ranch.setSize(</span><span class="s3">5</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">ironMine.setSize(</span><span class="s3">7</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">loggingCamp.setSize(</span><span class="s3">16</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">List&lt;Building&gt; startingIndustries = Arrays.asList(textileMill</span><span class="s0">, </span><span class="s1">toolingWorkshop</span><span class="s0">, </span><span class="s1">urbanCenter</span><span class="s0">, </span><span class="s1">farm</span><span class="s0">,</span>
+                <span class="s1">ranch</span><span class="s0">, </span><span class="s1">ironMine</span><span class="s0">, </span><span class="s1">loggingCamp)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(Building b : startingIndustries) {</span>
+            <span class="s1">industries.add(b)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
