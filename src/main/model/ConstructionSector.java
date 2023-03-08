@@ -3,9 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// This class represents where buildings are queued to be built
+// and also consume goods and pay expenses like buildings
+
 public class ConstructionSector {
-    // This class represents where buildings are queued to be built
-    // and also consume goods and pay expenses like buildings
+
     public static final int WAGES = 5000;
 
     private List<Building> constructionQueue;

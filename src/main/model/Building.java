@@ -2,11 +2,11 @@ package model;
 
 import java.util.List;
 
-public class Building {
+//This class represents the industries of a nation. Buildings take in resources and convert them into more valuable
+//resources that can be consumed by the population or other buildings. Buildings have income and expenses that
+//is determined by prices of input and output goods and building size.
 
-    //This class represents the industries of a nation. Buildings take in resources and convert them into more valuable
-    //resources that can be consumed by the population or other buildings. Buildings have income and expenses that
-    //is determined by prices of input and output goods and building size.
+public class Building {
 
     // INVARIANT: inputGoods.size() == inputAmount.size(), outputGoods.size() == outputAmount.size()
     // a building consume a good in inputGoods with corresponding amount in inputAmount

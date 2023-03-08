@@ -1,12 +1,12 @@
 package model;
 
+// This class represents the resources, goods and services that are traded in a market
+// (e.g: Iron, Grocery, Services).
+// Every good has a base price, that is the price if supply = demand that people are willing to pay
+// goods also have supply and demand to determine how cheaper or more expensive its price is.
+// A good is in shortage if price >= UPPER_PRICE_CAP * basePrice
 
 public class Goods {
-    // This class represents the resources, goods and services that are traded in a market
-    // (e.g: Iron, Grocery, Services).
-    // Every good has a base price, that is the price if supply = demand that people are willing to pay
-    // goods also have supply and demand to determine how cheaper or more expensive its price is.
-    // A good is in shortage if price >= UPPER_PRICE_CAP * basePrice
 
     public static final double UPPER_PRICE_CAP = 1.75;
     public static final double LOWER_PRICE_CAP = 0.25;
@@ -16,14 +16,19 @@ public class Goods {
     private int supply;
     private int demand;
     private boolean shortage;
+    private GoodsType type;
+
+
+    public enum GoodsType { CONSUMER, INDUSTRIAL }
 
     // EFFECTS: construct a resource with given name, base price and 0 supply & demand and no shortage
-    public Goods(String name, int basePrice) {
+    public Goods(String name, int basePrice, GoodsType goodsType) {
         this.name = name;
         this.basePrice = basePrice;
         supply = 0;
         demand = 0;
         shortage = false;
+        type = goodsType;
     }
 
     // getters
@@ -41,6 +46,10 @@ public class Goods {
 
     public int getDemand() {
         return demand;
+    }
+
+    public GoodsType getGoodsType() {
+        return type;
     }
 
     // setters

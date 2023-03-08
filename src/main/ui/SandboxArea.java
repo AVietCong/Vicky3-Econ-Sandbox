@@ -12,7 +12,6 @@ public class SandboxArea {
     private List<Goods> allGoods;
     private List<Building> allBuildings;
     private List<Building> constructionReport;
-    private int demandForGrain;
 
     private Industries industries;
     private Market market;
@@ -34,7 +33,6 @@ public class SandboxArea {
     private Goods steel;
     private Goods sulfur;
     private Goods tools;
-    private List<Goods> consumerGoods;
 
     private Building foodIndustry;
     private Building textileMill;
@@ -174,10 +172,7 @@ public class SandboxArea {
         constructAndDestroyBuildings();
         exchangeGoods();
         cleanupMarket();
-        demandForGrain += 5;
         consumeAndProduce();
-        grain.addDemand(demandForGrain);
-        market.removeInactiveGoods();
         turn += 1;
     }
 
@@ -191,17 +186,14 @@ public class SandboxArea {
     }
 
     // MODIFIES: this
-    // EFFECTS: reset demand and supply for all but consumer goods
+    // EFFECTS: reset demand and supply for all but consumer goods; consumer goods gain 5 demand
     private void cleanupMarket() {
-        market = new Market();
-        for (Goods goods : allGoods) {
-            if (consumerGoods.contains(goods)) {
-                goods.addDemand(5);
-            } else {
-                goods.setDemand(0);
-            }
+        for (Goods goods : market.returnIndustrialGoods()) {
+            goods.setDemand(0);
             goods.setSupply(0);
-            market.addGoods(goods);
+        }
+        for (Goods goods : market.returnConsumerGoods()) {
+            goods.addDemand(5);
         }
     }
 
@@ -378,16 +370,23 @@ public class SandboxArea {
 
     // EFFECTS: display a list of Goods with its supply, demand and price modifier
     private void printMarketReport() {
-        List<String> names = market.getAvailableGoods();
-        List<Integer> demand = market.getDemandOfGoods();
-        List<Integer> supply = market.getSupplyOfGoods();
-        List<Double> priceModifiers = market.getPriceModifiers();
+        Market activeGoods = market.removeInactiveGoods();
+        List<String> names = activeGoods.getAvailableGoods();
+        List<Integer> demand = activeGoods.getDemandOfGoods();
+        List<Integer> supply = activeGoods.getSupplyOfGoods();
+        List<Double> priceModifiers = activeGoods.getPriceModifiers();
+        List<Integer> basePrices = activeGoods.getBasePrices();
+        List<Integer> prices = activeGoods.getPrices();
 
-        String marketReportTitleTemplate = "%-10s %7s %7s %6s%n";
-        String marketReportTemplate = "%-10s %7s %7s %8.2f%n";
-        System.out.printf(marketReportTitleTemplate, "Goods", "Demand", "Supply", "Price Modifier");
+        String marketReportTitleTemplate = "%-10s %7s %7s %6s %7s %10s%n";
+        String marketReportTemplate = "%-10s %7s %7s %8s %12d %10d%n";
+        System.out.printf(marketReportTitleTemplate, "Goods", "Demand", "Supply",
+                "Price Modifier", "Price", "Base Price");
         for (int i = 0; i < names.size(); i++) {
-            System.out.printf(marketReportTemplate, names.get(i), demand.get(i), supply.get(i), priceModifiers.get(i));
+            int modifier = (int) ((priceModifiers.get(i) - 1) * 100);
+            String modifierString = modifier + "%";
+            System.out.printf(marketReportTemplate, names.get(i), demand.get(i), supply.get(i),
+                    modifierString, prices.get(i), basePrices.get(i));
         }
     }
 
@@ -414,7 +413,6 @@ public class SandboxArea {
             b.payExpense();
             b.sellGoods();
         }
-        market.removeInactiveGoods();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         constructionReport = new ArrayList<>();
@@ -434,33 +432,30 @@ public class SandboxArea {
     private void setDemandForConsumerGoods() {
         clothes.setDemand(410);
         furniture.setDemand(289);
-        demandForGrain = 313;
-        grain.setDemand(demandForGrain);
+        grain.setDemand(313);
         services.setDemand(425);
     }
 
     // MODIFIES: this
     // EFFECTS: initializes all goods available for the sandbox
     private void initGoods() {
-        clothes = new Goods("Clothes", 30);
-        fabric = new Goods("Fabric", 20);
-        furniture = new Goods("Furniture", 30);
-        grain = new Goods("Grain", 20);
-        groceries = new Goods("Groceries", 30);
-        services = new Goods("Services", 30);
-        wood = new Goods("Wood", 20);
-        coal = new Goods("Coal", 30);
-        dye = new Goods("Dye", 40);
-        explosives = new Goods("Explosives", 50);
-        fertilizer = new Goods("Fertilizer", 30);
-        glass = new Goods("Glass", 40);
-        iron = new Goods("Iron", 40);
-        lead = new Goods("Lead", 40);
-        steel = new Goods("Steel", 50);
-        sulfur = new Goods("Sulfur", 50);
-        tools = new Goods("Tools", 40);
-        consumerGoods = new ArrayList<>();
-        consumerGoods.addAll(Arrays.asList(clothes, furniture, groceries, services));
+        clothes = new Goods("Clothes", 30, Goods.GoodsType.CONSUMER);
+        fabric = new Goods("Fabric", 20, Goods.GoodsType.INDUSTRIAL);
+        furniture = new Goods("Furniture", 30, Goods.GoodsType.CONSUMER);
+        grain = new Goods("Grain", 20, Goods.GoodsType.INDUSTRIAL);
+        groceries = new Goods("Groceries", 30, Goods.GoodsType.CONSUMER);
+        services = new Goods("Services", 30, Goods.GoodsType.CONSUMER);
+        wood = new Goods("Wood", 20, Goods.GoodsType.INDUSTRIAL);
+        coal = new Goods("Coal", 30, Goods.GoodsType.INDUSTRIAL);
+        dye = new Goods("Dye", 40, Goods.GoodsType.INDUSTRIAL);
+        explosives = new Goods("Explosives", 50, Goods.GoodsType.INDUSTRIAL);
+        fertilizer = new Goods("Fertilizer", 30, Goods.GoodsType.INDUSTRIAL);
+        glass = new Goods("Glass", 40, Goods.GoodsType.INDUSTRIAL);
+        iron = new Goods("Iron", 40, Goods.GoodsType.INDUSTRIAL);
+        lead = new Goods("Lead", 40, Goods.GoodsType.INDUSTRIAL);
+        steel = new Goods("Steel", 50, Goods.GoodsType.INDUSTRIAL);
+        sulfur = new Goods("Sulfur", 50, Goods.GoodsType.INDUSTRIAL);
+        tools = new Goods("Tools", 40, Goods.GoodsType.INDUSTRIAL);
     }
 
     // MODIFIES: this

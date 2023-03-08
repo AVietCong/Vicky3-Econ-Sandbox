@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Market {
-    // The Market is where prices of goods are determined, bought and sold this is represented as a list of Goods.
+// The Market is where prices of goods are determined, bought and sold this is represented as a list of Goods.
 
+public class Market {
 
     private List<Goods> market;
 
@@ -15,6 +15,9 @@ public class Market {
         market = new ArrayList<>();
     }
 
+    public List<Goods> getAllGoods() {
+        return market;
+    }
 
     // INVARIANT: returnList.size() == market.size()
     // EFFECTS: return the name of goods in corresponding position
@@ -54,6 +57,16 @@ public class Market {
             listOfModifiers.add(goods.determinePriceModifier());
         }
         return listOfModifiers;
+    }
+
+    // INVARIANT: returnList.size() == market.size()
+    // EFFECTS: return the price modifiers of goods in corresponding position
+    public List<Integer> getBasePrices() {
+        List<Integer> listOfBasePrice = new ArrayList<>();
+        for (Goods goods : market) {
+            listOfBasePrice.add(goods.getBasePrice());
+        }
+        return listOfBasePrice;
     }
 
     // REQUIRES: Goods of same name isn't already in market;
@@ -98,13 +111,38 @@ public class Market {
     }
 
     // MODIFIES: this
-    // EFFECTS: remove all goods that are considered "inactive" (no demand and supply)
-    public void removeInactiveGoods() {
-        for (Iterator<Goods> iterator = market.iterator(); iterator.hasNext();) {
-            Goods goods = iterator.next();
-            if (goods.getDemand() == 0 && goods.getSupply() == 0) {
-                iterator.remove();
+    // EFFECTS: return a market with only active goods (supply & demand != 0)
+    public Market removeInactiveGoods() {
+        Market activeGoodsMarket = new Market();
+        for (Goods goods : market) {
+            if (goods.getDemand() != 0 || goods.getSupply() != 0) {
+                activeGoodsMarket.addGoods(goods);
             }
         }
+        return activeGoodsMarket;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: return all consumer goods in the market
+    public List<Goods> returnConsumerGoods() {
+        List<Goods> consumerGoods = new ArrayList<>();
+        for (Goods goods : market) {
+            if (goods.getGoodsType() == Goods.GoodsType.CONSUMER) {
+                consumerGoods.add(goods);
+            }
+        }
+        return consumerGoods;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: return all industrial goods in the market
+    public List<Goods> returnIndustrialGoods() {
+        List<Goods> industrialGoods = new ArrayList<>();
+        for (Goods goods : market) {
+            if (goods.getGoodsType() == Goods.GoodsType.INDUSTRIAL) {
+                industrialGoods.add(goods);
+            }
+        }
+        return industrialGoods;
     }
 }

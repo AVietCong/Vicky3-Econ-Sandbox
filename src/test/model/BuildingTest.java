@@ -26,19 +26,19 @@ public class BuildingTest {
 
     @BeforeEach
     public void setup() {
-        fertilizer = new Goods("Fertilizer", 30);
-        grain = new Goods("Grain", 20);
+        fertilizer = new Goods("Fertilizer", 30, Goods.GoodsType.INDUSTRIAL);
+        grain = new Goods("Grain", 20, Goods.GoodsType.CONSUMER);
         farm = new Building("Farm", 50, Arrays.asList(fertilizer), Arrays.asList(15),
                 Arrays.asList(grain), Arrays.asList(90));
 
-        iron = new Goods("Iron", 40);
-        coal = new Goods("Coal", 30);
-        steel = new Goods("Steel", 50);
+        iron = new Goods("Iron", 40, Goods.GoodsType.INDUSTRIAL);
+        coal = new Goods("Coal", 30, Goods.GoodsType.INDUSTRIAL);
+        steel = new Goods("Steel", 50, Goods.GoodsType.INDUSTRIAL);
         steelMill = new Building("Steel Mill", 450, Arrays.asList(iron,coal), Arrays.asList(90, 30),
                 Arrays.asList(steel), Arrays.asList(120));
 
-        sulphur = new Goods("Sulphur", 50);
-        explosives = new Goods("Explosives", 50);
+        sulphur = new Goods("Sulphur", 50, Goods.GoodsType.INDUSTRIAL);
+        explosives = new Goods("Explosives", 50, Goods.GoodsType.INDUSTRIAL);
         chemicalPlant = new Building("Chemical Plant", 450,
                 Arrays.asList(sulphur, iron, coal), Arrays.asList(60, 30, 15),
                 Arrays.asList(fertilizer, explosives), Arrays.asList(110, 70));

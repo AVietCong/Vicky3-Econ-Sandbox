@@ -20,10 +20,10 @@ public class MarketTest {
     @BeforeEach
     public void setup() {
         market = new Market();
-        iron = new Goods("Iron", 40);
-        wood = new Goods("Wood", 20);
-        tools = new Goods("Tools",30);
-        furniture = new Goods("Furniture", 30);
+        iron = new Goods("Iron", 40, Goods.GoodsType.INDUSTRIAL);
+        wood = new Goods("Wood", 20, Goods.GoodsType.INDUSTRIAL);
+        tools = new Goods("Tools",30, Goods.GoodsType.INDUSTRIAL);
+        furniture = new Goods("Furniture", 30, Goods.GoodsType.CONSUMER);
     }
 
     @Test
@@ -36,6 +36,16 @@ public class MarketTest {
         market.addGoods(iron);
         assertEquals(1, market.numberOfGoods());
         assertTrue(market.getAvailableGoods().contains("Iron"));
+    }
+
+    @Test
+    public void testgetAllGoods() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        market.addGoods(tools);
+        market.addGoods(furniture);
+
+        assertEquals(Arrays.asList(iron, wood, tools, furniture), market.getAllGoods());
     }
 
     @Test
@@ -148,6 +158,24 @@ public class MarketTest {
     }
 
     @Test
+    public void testgetBasePrices() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        market.addGoods(tools);
+        iron.addDemand(125);
+        iron.addSupply(100);
+        tools.addDemand(500);
+        tools.addSupply(250);
+        wood.addDemand(50);
+        wood.addSupply(400);
+
+        List expected = Arrays.asList(40, 20, 30);
+
+        List actual = market.getBasePrices();
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testdetermineGDP() {
         market.addGoods(iron);
         market.addGoods(wood);
@@ -177,7 +205,47 @@ public class MarketTest {
         furniture.addSupply(200);
         furniture.addDemand(250);
 
-        market.removeInactiveGoods();
-        assertEquals(Arrays.asList("Iron", "Tools", "Furniture"), market.getAvailableGoods());
+        Market resultMarket = market.removeInactiveGoods();
+        assertEquals(Arrays.asList("Iron", "Tools", "Furniture"), resultMarket.getAvailableGoods());
+    }
+
+    @Test
+    void testreturnConsumerGoods() {
+        Goods services = new Goods("Services", 30, Goods.GoodsType.CONSUMER);
+        market.addGoods(iron);
+        market.addGoods(services);
+        market.addGoods(wood);
+        market.addGoods(tools);
+        market.addGoods(furniture);
+
+        assertEquals(Arrays.asList(services, furniture), market.returnConsumerGoods());
+    }
+
+    @Test
+    void testreturnConsumerGoodsEmpty() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        market.addGoods(tools);
+
+        assertTrue( market.returnConsumerGoods().isEmpty());
+    }
+
+    @Test
+    void testreturnIndustrialGoods() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        market.addGoods(tools);
+        market.addGoods(furniture);
+
+        assertEquals(Arrays.asList(iron, wood, tools), market.returnIndustrialGoods());
+    }
+
+    @Test
+    void testreturnIndustrialGoodsEmpty() {
+        market.addGoods(furniture);
+        Goods services = new Goods("Services", 30, Goods.GoodsType.CONSUMER);
+        market.addGoods(services);
+
+        assertTrue( market.returnIndustrialGoods().isEmpty());
     }
 }

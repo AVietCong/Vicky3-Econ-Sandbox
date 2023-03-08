@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// This class represents all the buildings that have been constructed
+
 public class Industries {
-    // This class represents all the buildings that have been constructed
+
 
     private List<Building> industries;
 

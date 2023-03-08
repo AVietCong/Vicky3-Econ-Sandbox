@@ -27,14 +27,14 @@ public class ConstructionSectorTest {
     @BeforeEach
     public void setup() {
         wages = constructionSector.WAGES;
-        fertilizer = new Goods("Fertilizer", 30);
-        grain = new Goods("Grain", 20);
-        groceries = new Goods("Groceries", 30);
-        steel = new Goods("Steel", 50);
-        iron = new Goods("Iron", 40);
-        coal = new Goods("Coal", 30);
-        explosives = new Goods("Explosives", 50);
-        tools = new Goods("Tools", 40);
+        fertilizer = new Goods("Fertilizer", 30, Goods.GoodsType.INDUSTRIAL);
+        grain = new Goods("Grain", 20, Goods.GoodsType.CONSUMER);
+        groceries = new Goods("Groceries", 30, Goods.GoodsType.CONSUMER);
+        steel = new Goods("Steel", 50, Goods.GoodsType.INDUSTRIAL);
+        iron = new Goods("Iron", 40, Goods.GoodsType.INDUSTRIAL);
+        coal = new Goods("Coal", 30, Goods.GoodsType.INDUSTRIAL);
+        explosives = new Goods("Explosives", 50, Goods.GoodsType.INDUSTRIAL);
+        tools = new Goods("Tools", 40, Goods.GoodsType.INDUSTRIAL);
         farm = new Building("Farm", 50, Arrays.asList(fertilizer), Arrays.asList(15),
                 Arrays.asList(grain), Arrays.asList(90));
         ironMine = new Building("Iron Mine", 300,

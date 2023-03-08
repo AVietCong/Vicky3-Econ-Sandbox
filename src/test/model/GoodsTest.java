@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static model.Goods.GoodsType.CONSUMER;
+import static model.Goods.GoodsType.INDUSTRIAL;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -18,10 +20,10 @@ public class GoodsTest {
 
     @BeforeEach
     public void setup() {
-        iron = new Goods("Iron", 40);
-        wood = new Goods("Wood", 20);
-        tools = new Goods("Tools", 40);
-        furniture = new Goods("Furniture", 30);
+        iron = new Goods("Iron", 40, INDUSTRIAL);
+        wood = new Goods("Wood", 20, INDUSTRIAL);
+        tools = new Goods("Tools", 40, INDUSTRIAL);
+        furniture = new Goods("Furniture", 30, CONSUMER);
         upperPriceCap = Goods.UPPER_PRICE_CAP;
         lowerPriceCap = Goods.LOWER_PRICE_CAP;
     }
@@ -33,6 +35,8 @@ public class GoodsTest {
         assertEquals(0, iron.getDemand());
         assertEquals(0, iron.getSupply());
         assertFalse(iron.isShortage());
+        assertEquals(INDUSTRIAL, iron.getGoodsType());
+        assertEquals(CONSUMER, furniture.getGoodsType());
     }
 
     @Test
