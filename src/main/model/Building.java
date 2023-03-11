@@ -1,12 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.List;
 
 //This class represents the industries of a nation. Buildings take in resources and convert them into more valuable
 //resources that can be consumed by the population or other buildings. Buildings have income and expenses that
 //is determined by prices of input and output goods and building size.
 
-public class Building {
+public class Building implements Writable {
 
     // INVARIANT: inputGoods.size() == inputAmount.size(), outputGoods.size() == outputAmount.size()
     // a building consume a good in inputGoods with corresponding amount in inputAmount
@@ -145,10 +149,6 @@ public class Building {
         return bonus;
     }
 
-    public int determineProfit() {
-        return (getIncome() - getExpense());
-    }
-
     // EFFECTS: determine if building is profitable; return true if income >= expense; otherwise return false
     public boolean isProfitable() {
         if (income >= expense) {
@@ -172,5 +172,33 @@ public class Building {
             return true;
         }
         return false;
+    }
+
+    // EFFECTS: return a JSON Object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("wages", WAGES_PER_LEVEL);
+        json.put("eos", MAXIMUM_EOS_BONUS);
+        json.put("name", name);
+        json.put("size", size);
+        json.put("income", income);
+        json.put("expense",expense);
+        json.put("cost", constructionCost);
+        json.put("input goods", goodsToJson(inputGoods));
+        json.put("input amount", inputAmount);
+        json.put("output goods", goodsToJson(outputGoods));
+        json.put("output amount", outputAmount);
+
+        return json;
+    }
+
+    // EFFECTS: return list of goods as a JSON object
+    private JSONArray goodsToJson(List<Goods> allGoods) {
+        JSONArray jsonArray = new JSONArray();
+        for (Goods goods : allGoods) {
+            jsonArray.put(goods.toJson());
+        }
+        return jsonArray;
     }
 }

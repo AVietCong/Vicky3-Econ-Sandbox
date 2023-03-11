@@ -232,8 +232,7 @@ public class IndustriesTest {
 
         farm.downsize(1);
 
-        industries.removeEmptyBuildings();
-        assertEquals(Arrays.asList("Steel Mill", "Chemical Plant"), industries.getAllBuildingNames());
+        assertEquals(Arrays.asList("Steel Mill", "Chemical Plant"), industries.removeEmptyBuildings().getAllBuildingNames());
     }
 
     @Test
@@ -245,7 +244,26 @@ public class IndustriesTest {
         farm.downsize(1);
         steelMill.downsize(1);
 
-        industries.removeEmptyBuildings();
-        assertEquals(Arrays.asList("Chemical Plant"), industries.getAllBuildingNames());
+        assertEquals(Arrays.asList("Chemical Plant"), industries.removeEmptyBuildings().getAllBuildingNames());
+    }
+
+    @Test
+    public void testtoJson() {
+        industries.add(steelMill);
+        industries.add(farm);
+        assertEquals("{\"industries\":[{\"income\":0,\"wages\":500,\"cost\":450," +
+                "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                "\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}," +
+                "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Coal\",\"type\":\"INDUSTRIAL\"," +
+                "\"supply\":0,\"demand\":0,\"base\":30}]," +
+                "\"size\":1,\"output amount\":[120],\"eos\":1.5,\"name\":\"Steel Mill\",\"expense\":0," +
+                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Steel\"," +
+                "\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}],\"input amount\":[90,30]}," +
+                "{\"income\":0,\"wages\":500,\"cost\":50,\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
+                "\"shortage\":false,\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0," +
+                "\"base\":30}],\"size\":1,\"output amount\":[90],\"eos\":1.5,\"name\":\"Farm\",\"expense\":0," +
+                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Grain\"," +
+                "\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}],\"input amount\":[15]}]}",
+                industries.toJson().toString());
     }
 }

@@ -1,12 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 // The Market is where prices of goods are determined, bought and sold this is represented as a list of Goods.
 
-public class Market {
+public class Market implements Writable {
 
     private List<Goods> market;
 
@@ -144,5 +148,17 @@ public class Market {
             }
         }
         return industrialGoods;
+    }
+
+    // EFFECTS: return Market as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for (Goods goods : market) {
+            jsonArray.put(goods.toJson());
+        }
+        json.put("market", jsonArray);
+        return json;
     }
 }

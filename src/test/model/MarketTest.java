@@ -248,4 +248,25 @@ public class MarketTest {
 
         assertTrue( market.returnIndustrialGoods().isEmpty());
     }
+
+    @Test
+    void testtoJson() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        market.addGoods(tools);
+        iron.addDemand(125);
+        iron.addSupply(100);
+        tools.addDemand(500);
+        tools.addSupply(250);
+        wood.addDemand(50);
+        wood.addSupply(400);
+        System.out.println(tools.determinePriceModifier());
+        assertEquals("{\"market\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":100,\"demand\":125,\"base\":40},"+
+                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Wood\",\"type\":\"INDUSTRIAL\",\"supply\":400,\"demand\":50,\"base\":20}," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Tools\",\"type\":\"INDUSTRIAL\",\"supply\":250,\"demand\":500,\"base\":30}]}",
+                market.toJson().toString());
+    }
 }

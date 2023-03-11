@@ -1,12 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 // This class represents all the buildings that have been constructed
 
-public class Industries {
+public class Industries implements Writable {
 
 
     private List<Building> industries;
@@ -91,23 +95,16 @@ public class Industries {
         return result;
     }
 
-    public List<Integer> getAllProfit() {
-        List<Integer> result = new ArrayList<>();
-        for (Building b : industries) {
-            result.add(b.determineProfit());
-        }
-        return result;
-    }
-
     // MODIFIES: this
-    // EFFECTS: remove buildings with size 0 from industries
-    public void removeEmptyBuildings() {
-        for (Iterator<Building> iterator = industries.iterator(); iterator.hasNext();) {
-            Building building = iterator.next();
-            if (building.getSize() == 0) {
-                iterator.remove();
+    // EFFECTS: return industry with only active building (size != 0)
+    public Industries removeEmptyBuildings() {
+        Industries activeBuildings = new Industries();
+        for (Building building : industries) {
+            if (building.getSize() != 0) {
+                activeBuildings.add(building);
             }
         }
+        return activeBuildings;
     }
 
     // REQUIRES: building of same name is not already in industries
@@ -119,5 +116,17 @@ public class Industries {
         }
         industries.add(b);
         return true;
+    }
+
+    // EFFECT: return industries as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for (Building building : industries) {
+            jsonArray.put(building.toJson());
+        }
+        json.put("industries", jsonArray);
+        return json;
     }
 }

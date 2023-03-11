@@ -1,14 +1,21 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
-// Economic Sandbox
+// Economic Sandbox.json
 
 public class SandboxArea {
+    private static final String JSON_STORE = "./data/Sandbox.json";
     private Scanner input;
     private int turn;
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
     private List<Goods> allGoods;
     private List<Building> allBuildings;
     private List<Building> constructionReport;
@@ -55,7 +62,10 @@ public class SandboxArea {
     private ConstructionSector constructionSector;
 
     // run the sandbox area
-    public SandboxArea() {
+    public SandboxArea() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
         runSandbox();
     }
 
@@ -80,7 +90,7 @@ public class SandboxArea {
             }
         }
 
-        System.out.println("\n Exiting Sandbox");
+        System.out.println("\n Exiting Sandbox.json");
     }
 
     // EFFECTS: display main menu options
@@ -97,7 +107,7 @@ public class SandboxArea {
         System.out.println("\t construction -> View/Add/Remove Buildings from Construction Queue");
         System.out.println("\t down size -> Reduce a building's level");
         System.out.println("\t next turn -> Fast Foward 1 Week");
-        System.out.println("\t exit -> Exit Sandbox");
+        System.out.println("\t exit -> Exit Sandbox.json");
     }
 
     // MODIFIES: this
@@ -117,6 +127,7 @@ public class SandboxArea {
             System.out.println("Selection not valid");
         }
     }
+
 
     // MODIFIES: this
     // EFFECTS: handle user input in downsize menu
@@ -221,7 +232,6 @@ public class SandboxArea {
                 industries.add(b);
             }
         }
-        industries.removeEmptyBuildings();
         constructionReport = constructedBuilding;
     }
 
@@ -279,10 +289,10 @@ public class SandboxArea {
     // MODIFIES: this
     // EFFECTS: process user command in Remove menu
     private void doRemove(int index) {
-        if (index >= allBuildings.size() || index < 0) {
+        if (index >= industries.getAllBuildings().size() || index < 0) {
             System.out.println("Selection is not valid");
         } else {
-            if (constructionSector.remove(allBuildings.get(index))) {
+            if (constructionSector.remove(industries.getAllBuildings().get(index))) {
                 System.out.println("Remove Successfully");
             } else {
                 System.out.println("Building is not in Queue");
@@ -292,8 +302,8 @@ public class SandboxArea {
 
     // EFFECTS: display all options to remove from construction queue
     private void displayRemoveOptions() {
-        for (int i = 0; i < allBuildings.size(); i++) {
-            System.out.println(i + "\t" + allBuildings.get(i).getName());
+        for (int i = 0; i < industries.getAllBuildings().size(); i++) {
+            System.out.println(i + "\t" + industries.getAllBuildingNames().get(i));
         }
         System.out.println("\n Choose Building to Remove");
         System.out.println("\t back -> back to Construction Menu");
@@ -322,17 +332,17 @@ public class SandboxArea {
     // MODIFIES: this
     // EFFECTS: process user command in the Build menu
     private void doBuild(int index) {
-        if (index >= allBuildings.size() || index < 0) {
+        if (index >= industries.getAllBuildings().size() || index < 0) {
             System.out.println("Selection is not valid");
         } else {
-            constructionSector.build(allBuildings.get(index));
+            constructionSector.build(industries.getAllBuildings().get(index));
         }
     }
 
     // EFFECTS: display all options that can be built
     private void displayConstructionOptions() {
-        for (int i = 0; i < allBuildings.size(); i++) {
-            System.out.println(i + "\t" + allBuildings.get(i).getName());
+        for (int i = 0; i < industries.getAllBuildings().size(); i++) {
+            System.out.println(i + "\t" + industries.getAllBuildings().get(i).getName());
         }
         System.out.println("\n Choose Building to Construct");
         System.out.println("\t back -> back to Construction Menu");
@@ -355,10 +365,11 @@ public class SandboxArea {
 
     // EFFECTS: display a list of industries with its expenses and profits
     private void printIndustryReport() {
-        List<String> names = industries.getAllBuildingNames();
-        List<Integer> size = industries.getAllSize();
-        List<Integer> expenses = industries.getAllExpenses();
-        List<Integer> income = industries.getAllIncome();
+        Industries activeBuildings = industries.removeEmptyBuildings();
+        List<String> names = activeBuildings.getAllBuildingNames();
+        List<Integer> size = activeBuildings.getAllSize();
+        List<Integer> expenses = activeBuildings.getAllExpenses();
+        List<Integer> income = activeBuildings.getAllIncome();
 
         String industryReportTitleTemplate = "%-20s %3s %10s %10s%n";
         String industryReportTemplate = "%-20s %3s %10s %10s%n";
@@ -527,17 +538,20 @@ public class SandboxArea {
     // MODIFIES: this
     // EFFECTS: set up the starting industries
     private void setupIndustry() {
+        List<Building> startingIndustries = Arrays.asList(textileMill, toolingWorkshop, urbanCenter, farm,
+                ranch, ironMine, loggingCamp);
         industries = new Industries();
+        for (Building b : allBuildings) {
+            industries.add(b);
+            if (!startingIndustries.contains(b)) {
+                b.downsize(1);
+            }
+        }
         textileMill.setSize(3);
         urbanCenter.setSize(8);
         farm.setSize(11);
         ranch.setSize(5);
         ironMine.setSize(7);
         loggingCamp.setSize(16);
-        List<Building> startingIndustries = Arrays.asList(textileMill, toolingWorkshop, urbanCenter, farm,
-                ranch, ironMine, loggingCamp);
-        for (Building b : startingIndustries) {
-            industries.add(b);
-        }
     }
 }

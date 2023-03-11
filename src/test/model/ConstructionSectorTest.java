@@ -25,7 +25,7 @@ public class ConstructionSectorTest {
     int wages;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         wages = constructionSector.WAGES;
         fertilizer = new Goods("Fertilizer", 30, Goods.GoodsType.INDUSTRIAL);
         grain = new Goods("Grain", 20, Goods.GoodsType.CONSUMER);
@@ -48,7 +48,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertTrue(constructionSector.getConstructionQueue().isEmpty());
         assertTrue(constructionSector.getConstructionValue().isEmpty());
         assertEquals(0, constructionSector.getExpense());
@@ -57,7 +57,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testaddOnce() {
+    void testaddOnce() {
         constructionSector.build(farm);
         assertTrue(constructionSector.getConstructionQueue().contains(farm));
         assertEquals(1, constructionSector.getConstructionValue().size());
@@ -66,7 +66,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testaddMultiple() {
+    void testaddMultiple() {
         constructionSector.build(farm);
         constructionSector.build(ironMine);
         constructionSector.build(farm);
@@ -79,14 +79,14 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testremoveEmptyQueue() {
+    void testremoveEmptyQueue() {
         assertFalse(constructionSector.remove(farm));
         assertTrue(constructionSector.getConstructionQueue().isEmpty());
         assertTrue(constructionSector.getConstructionValue().isEmpty());
     }
 
     @Test
-    public void testremoveOnceInQueue() {
+    void testremoveOnceInQueue() {
         constructionSector.build(ironMine);
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
@@ -97,7 +97,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testremoveNotInQueue() {
+    void testremoveNotInQueue() {
         constructionSector.build(ironMine);
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
@@ -109,7 +109,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testremoveOnceFirstInQueue() {
+    void testremoveOnceFirstInQueue() {
         constructionSector.build(ironMine);
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
@@ -121,7 +121,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testremoveMultipleOfOneBuilding() {
+    void testremoveMultipleOfOneBuilding() {
         constructionSector.build(ironMine);
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
@@ -134,7 +134,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testremoveMultiple() {
+    void testremoveMultiple() {
         constructionSector.build(ironMine);
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
@@ -147,7 +147,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testconsumeOnce() {
+    void testconsumeOnce() {
         constructionSector.consume();
 
         assertEquals(70, steel.getDemand());
@@ -156,7 +156,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testconsumeTwice() {
+    void testconsumeTwice() {
         constructionSector.consume();
         constructionSector.consume();
         assertEquals(2 * 70, steel.getDemand());
@@ -165,7 +165,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testpayExpenseOnce() {
+    void testpayExpenseOnce() {
         int expected = steel.determinePrice() * 70
                 + tools.determinePrice() * 20
                 + explosives.determinePrice() * 20
@@ -175,7 +175,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testpayExpenseTwice() {
+    void testpayExpenseTwice() {
         int expected = steel.determinePrice() * 70
                 + tools.determinePrice() * 20
                 + explosives.determinePrice() * 20
@@ -187,14 +187,14 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testpayWages() {
+    void testpayWages() {
         constructionSector.payWages();
         assertEquals(wages, constructionSector.getExpense());
     }
 
 
     @Test
-    public void testbuyGoods() {
+    void testbuyGoods() {
         steel.setDemand(400);
         steel.setSupply(300);
         explosives.setDemand(200);
@@ -206,14 +206,14 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testconstructEmptyQueue() {
+    void testconstructEmptyQueue() {
         assertTrue(constructionSector.construct().isEmpty());
         assertTrue(constructionSector.getConstructionQueue().isEmpty());
         assertTrue(constructionSector.getConstructionValue().isEmpty());
     }
 
     @Test
-    public void testconstructOneInQueueFinished()  {
+    void testconstructOneInQueueFinished()  {
         constructionSector.build(farm);
         assertEquals(Arrays.asList(farm), constructionSector.construct());
         assertTrue(constructionSector.getConstructionQueue().isEmpty());
@@ -221,7 +221,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testconstructThreeInQueueFinished()  {
+    void testconstructThreeInQueueFinished()  {
         constructionSector.build(farm);
         constructionSector.build(farm);
         constructionSector.build(farm);
@@ -231,7 +231,7 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testconstructOneUnfinished() {
+    void testconstructOneUnfinished() {
         constructionSector.build(ironMine);
         constructionSector.build(foodIndustry);
         assertTrue(constructionSector.construct().isEmpty());
@@ -240,11 +240,40 @@ public class ConstructionSectorTest {
     }
 
     @Test
-    public void testconstructFinishedAndUnfinished() {
+    void testconstructFinishedAndUnfinished() {
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
         assertEquals(Arrays.asList(farm), constructionSector.construct());
         assertEquals(Arrays.asList(foodIndustry), constructionSector.getConstructionQueue());
         assertEquals(Arrays.asList(350), constructionSector.getConstructionValue());
+    }
+
+    @Test
+    void testtoJson() {
+        constructionSector.build(farm);
+        constructionSector.build(foodIndustry);
+        constructionSector.payExpense();
+        assertEquals("{\"wages\":5000,\"input\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Steel\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Tools\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Explosives\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}]," +
+                        "\"expense\":10300,\"value\":[50,450],\"input amount\":[70,20,20]," +
+                        "\"queue\":[{\"income\":0,\"wages\":500,\"cost\":50," +
+                        "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":30}]," +
+                        "\"size\":1,\"output amount\":[90],\"eos\":1.5,\"name\":\"Farm\",\"expense\":0," +
+                        "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}]," +
+                        "\"input amount\":[15]},{\"income\":0,\"wages\":500,\"cost\":450," +
+                        "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}]," +
+                        "\"size\":1,\"output amount\":[65],\"eos\":1.5,\"name\":\"Food Industry\",\"expense\":0," +
+                        "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"name\":\"Groceries\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":30}]," +
+                        "\"input amount\":[20,10]}]}", constructionSector.toJson().toString());
     }
 }

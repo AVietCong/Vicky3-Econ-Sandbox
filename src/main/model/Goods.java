@@ -6,7 +6,10 @@ package model;
 // goods also have supply and demand to determine how cheaper or more expensive its price is.
 // A good is in shortage if price >= UPPER_PRICE_CAP * basePrice
 
-public class Goods {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Goods implements Writable {
 
     public static final double UPPER_PRICE_CAP = 1.75;
     public static final double LOWER_PRICE_CAP = 0.25;
@@ -17,6 +20,21 @@ public class Goods {
     private int demand;
     private boolean shortage;
     private GoodsType type;
+
+    // EFFECT: return good as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("upper cap", UPPER_PRICE_CAP);
+        json.put("lower cap", LOWER_PRICE_CAP);
+        json.put("name", name);
+        json.put("base", basePrice);
+        json.put("supply", supply);
+        json.put("demand", demand);
+        json.put("type", type);
+        json.put("shortage", shortage);
+        return json;
+    }
 
 
     public enum GoodsType { CONSUMER, INDUSTRIAL }
@@ -119,5 +137,4 @@ public class Goods {
     public boolean isShortage() {
         return shortage;
     }
-
 }

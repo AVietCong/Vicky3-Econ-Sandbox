@@ -1,12 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // This class represents where buildings are queued to be built
 // and also consume goods and pay expenses like buildings
 
-public class ConstructionSector {
+public class ConstructionSector implements Writable {
 
     public static final int WAGES = 5000;
 
@@ -115,5 +119,37 @@ public class ConstructionSector {
             constructionValue.remove(index);
             return true;
         }
+    }
+
+    // EFFECTS: return this a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("wages", WAGES);
+        json.put("expense", expense);
+        json.put("queue", queueToJson());
+        json.put("value", constructionValue);
+        json.put("input", inputGoodsToJson());
+        json.put("input amount", inputAmount);
+
+        return json;
+    }
+
+    // EFFECTS: return building queue as a JSON object
+    private JSONArray queueToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Building building : constructionQueue) {
+            jsonArray.put(building.toJson());
+        }
+        return jsonArray;
+    }
+
+    // EFFECTS: return list of goods as a JSON object
+    private JSONArray inputGoodsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Goods goods : inputGoods) {
+            jsonArray.put(goods.toJson());
+        }
+        return jsonArray;
     }
 }

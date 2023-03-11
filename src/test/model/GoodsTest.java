@@ -172,4 +172,12 @@ public class GoodsTest {
 
         assertEquals((int) (lowerPriceCap * furniture.getBasePrice()), furniture.determinePrice());
     }
+
+    @Test
+    void testtoJson() {
+        furniture.addSupply(500);
+        furniture.addDemand(300);
+        assertEquals("{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                "\"name\":\"Furniture\",\"type\":\"CONSUMER\",\"supply\":500,\"demand\":300,\"base\":30}",furniture.toJson().toString());
+    }
 }

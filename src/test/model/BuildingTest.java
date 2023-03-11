@@ -25,7 +25,7 @@ public class BuildingTest {
     int wagePerLevel;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         fertilizer = new Goods("Fertilizer", 30, Goods.GoodsType.INDUSTRIAL);
         grain = new Goods("Grain", 20, Goods.GoodsType.CONSUMER);
         farm = new Building("Farm", 50, Arrays.asList(fertilizer), Arrays.asList(15),
@@ -47,7 +47,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertEquals("Farm", farm.getName());
         assertEquals(50, farm.getConstructionCost());
         assertEquals(1, farm.getSize());
@@ -60,13 +60,13 @@ public class BuildingTest {
     }
 
     @Test
-    public void testsetSize() {
+    void testsetSize() {
         farm.setSize(10);
         assertEquals(10, farm.getSize());
     }
 
     @Test
-    public void testconsumeOnce() {
+    void testconsumeOnce() {
         farm.consume();
         assertEquals(15, fertilizer.getDemand());
 
@@ -76,24 +76,31 @@ public class BuildingTest {
     }
 
     @Test
-    public void testconsumeTwice() {
+    void testconsumeTwice() {
         steelMill.consume();
         steelMill.consume();
         assertEquals(2 * 90, iron.getDemand());
         assertEquals(2 * 30, coal.getDemand());
     }
 
+    @Test
+    void testconsumeZero() {
+        steelMill.downsize(1);
+        steelMill.consume();
+        assertEquals(0, iron.getDemand());
+        assertEquals(0, coal.getDemand());
+    }
 
 
     @Test
-    public void testconsumeTwoBuildingsSameResource() {
+    void testconsumeTwoBuildingsSameResource() {
         steelMill.consume();
         chemicalPlant.consume();
         assertEquals(120, iron.getDemand());
     }
 
     @Test
-    public void testconsumeLevel51() {
+    void testconsumeLevel51() {
         for (int i = 0; i < 50; i++) {
             farm.expand();
         }
@@ -105,7 +112,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testconsumeMaxEoS() {
+    void testconsumeMaxEoS() {
         for (int i = 0; i < 60; i++) {
             farm.expand();
         }
@@ -117,7 +124,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testconsumeNormalLevel() {
+    void testconsumeNormalLevel() {
         for (int i = 0; i < 30; i++) {
             farm.expand();
         }
@@ -129,20 +136,26 @@ public class BuildingTest {
     }
 
     @Test
-    public void testproduceOnce() {
+    void testproduceOnce() {
         farm.produce();
         assertEquals(90, grain.getSupply());
     }
 
     @Test
-    public void testproduceTwice() {
+    void testproduceTwice() {
         farm.produce();
         farm.produce();
         assertEquals(2 * 90, grain.getSupply());
     }
 
     @Test
-    public void testproduceLevel51() {
+    void testproduceZero() {
+        farm.downsize(1);
+        assertEquals(0, grain.getSupply());
+    }
+
+    @Test
+    void testproduceLevel51() {
         for (int i = 0; i < 50; i++) {
             farm.expand();
         }
@@ -154,7 +167,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testproduceMaxEoS() {
+    void testproduceMaxEoS() {
         for (int i = 0; i < 60; i++) {
             farm.expand();
         }
@@ -166,7 +179,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testproduceNormalLevel() {
+    void testproduceNormalLevel() {
         for (int i = 0; i < 30; i++) {
             farm.expand();
         }
@@ -178,7 +191,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testisProfitable() {
+    void testisProfitable() {
         // Cheap Input -> Expensive Output | Expected to be profitable
         fertilizer.setDemand(100);
         fertilizer.setSupply(125);
@@ -207,21 +220,21 @@ public class BuildingTest {
     }
 
     @Test
-    public void testexpandOnce() {
+    void testexpandOnce() {
         assertEquals(1, steelMill.getSize());
         steelMill.expand();
         assertEquals(2, steelMill.getSize());
     }
 
     @Test
-    public void testexpandTwice() {
+    void testexpandTwice() {
         steelMill.expand();
         steelMill.expand();
         assertEquals(3, steelMill.getSize());
     }
 
     @Test
-    public void testdownsizeNormal() {
+    void testdownsizeNormal() {
         for (int i = 0; i < 9; i++) {
             steelMill.expand();
         }
@@ -230,7 +243,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testdownsizeOneLevel() {
+    void testdownsizeOneLevel() {
         for (int i = 0; i < 9; i++) {
             steelMill.expand();
         }
@@ -239,7 +252,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testdownsizeToZero() {
+    void testdownsizeToZero() {
         for (int i = 0; i < 9; i++) {
             steelMill.expand();
         }
@@ -248,7 +261,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testdownsizeInvalid() {
+    void testdownsizeInvalid() {
         for (int i = 0; i < 9; i++) {
             steelMill.expand();
         }
@@ -257,12 +270,12 @@ public class BuildingTest {
     }
 
     @Test
-    public void testdetermineEoSLevelOne() {
+    void testdetermineEoSLevelOne() {
         assertEquals(1.0, chemicalPlant.determineEoS());
     }
 
     @Test
-    public void testdetermineEoSNormal() {
+    void testdetermineEoSNormal() {
         for (int i = 0; i < 10; i++) {
             chemicalPlant.expand();
         }
@@ -270,7 +283,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testdetermineEoSMaxLevel() {
+    void testdetermineEoSMaxLevel() {
         for (int i = 0; i < 51; i++) {
             chemicalPlant.expand();
         }
@@ -278,13 +291,19 @@ public class BuildingTest {
     }
 
     @Test
-    public void testpayExpenseOnce() {
+    void testpayExpenseOnce() {
         farm.payExpense();
         assertEquals(15 * 30 + wagePerLevel, farm.getExpense());
     }
 
     @Test
-    public void testpayExpenseTwice() {
+    void testpayExpenseZero() {
+        farm.downsize(1);
+        assertEquals(0, farm.getExpense());
+    }
+
+    @Test
+    void testpayExpenseTwice() {
         farm.payExpense();
         assertEquals(15 * 30 + wagePerLevel, farm.getExpense());
         farm.payExpense();
@@ -292,7 +311,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testpayExpenseSize11() {
+    void testpayExpenseSize11() {
         for (int i = 0; i < 10; i++) {
             farm.expand();
         }
@@ -304,7 +323,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testgainIncome() {
+    void testgainIncome() {
         farm.gainIncome();
         assertEquals(90 * 20, farm.getIncome());
         farm.gainIncome();
@@ -312,13 +331,19 @@ public class BuildingTest {
     }
 
     @Test
-    public void testpayWagesSize1() {
+    void tesgainIncomeZero() {
+        farm.downsize(1);
+        assertEquals(0, farm.getIncome());
+    }
+
+    @Test
+    void testpayWagesSize1() {
         chemicalPlant.payWages();
         assertEquals(wagePerLevel, chemicalPlant.getExpense());
     }
 
     @Test
-    public void testpayWagesSize11() {
+    void testpayWagesSize11() {
         for (int i = 0; i < 10; i++) {
             chemicalPlant.expand();
         }
@@ -328,7 +353,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testbuyGoodsSize1() {
+    void testbuyGoodsSize1() {
         iron.setDemand(400);
         iron.setSupply(300);
         coal.setDemand(200);
@@ -342,7 +367,7 @@ public class BuildingTest {
     }
 
     @Test
-    public void testbuyGoodsSize11() {
+    void testbuyGoodsSize11() {
         for (int i = 0; i < 10; i++) {
             steelMill.expand();
         }
@@ -359,8 +384,29 @@ public class BuildingTest {
         assertEquals(expected, steelMill.getExpense());
     }
 
-    @Test
-    public void testDetermineProfitNoProfit() {
 
+    @Test
+    void testtoJson() {
+        for (int i = 0; i < 10; i++) {
+            steelMill.expand();
+        }
+        iron.setDemand(400);
+        iron.setSupply(300);
+        coal.setDemand(200);
+        coal.setSupply(250);
+        steel.setDemand(200);
+        steel.setSupply(100);
+        steelMill.sellGoods();
+        steelMill.payExpense();
+
+        assertEquals("{\"income\":126324,\"wages\":500,\"cost\":450,\"input goods\":" +
+                "[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Iron\"," +
+                "\"type\":\"INDUSTRIAL\",\"supply\":300,\"demand\":400,\"base\":40}," +
+                "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Coal\"," +
+                "\"type\":\"INDUSTRIAL\",\"supply\":250,\"demand\":200,\"base\":30}]," +
+                "\"size\":11,\"output amount\":[120],\"eos\":1.5,\"name\":\"Steel Mill\",\"expense\":68662," +
+                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Steel\"," +
+                "\"type\":\"INDUSTRIAL\",\"supply\":100,\"demand\":200,\"base\":50}],\"input amount\":[90,30]}",
+        steelMill.toJson().toString());
     }
 }
