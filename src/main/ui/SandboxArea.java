@@ -20,8 +20,10 @@ public class SandboxArea {
     private List<Building> allBuildings;
     private List<Building> constructionReport;
 
+    private Economy economy;
     private Industries industries;
     private Market market;
+    private ConstructionSector constructionSector;
 
     private Goods clothes;
     private Goods fabric;
@@ -58,8 +60,6 @@ public class SandboxArea {
     private Building dyePlantation;
     private Building urbanCenter;
     private Building loggingCamp;
-
-    private ConstructionSector constructionSector;
 
     // run the sandbox area
     public SandboxArea() throws FileNotFoundException {
@@ -154,12 +154,12 @@ public class SandboxArea {
     // EFFECTS: process downsize action from user
     private void processDownSizeCommand(int choice) {
         int levels;
-        if (choice >= industries.getAllBuildings().size() || choice < 0) {
+        if (choice >= economy.getIndustries().getAllBuildings().size() || choice < 0) {
             System.out.println("Selection not valid");
         } else {
             System.out.println("\n Choose number of levels to downsize");
             levels = input.nextInt();
-            if (industries.getAllBuildings().get(choice).downsize(levels)) {
+            if (economy.getIndustries().getAllBuildings().get(choice).downsize(levels)) {
                 System.out.println("Downsize successful");
             } else {
                 System.out.println("Can't downsize lower than 0");
@@ -169,8 +169,8 @@ public class SandboxArea {
 
     // EFFECTS: display all buildings that can be downsized
     private void displayDownsizeOptions() {
-        for (int i = 0; i < industries.getAllBuildingNames().size(); i++) {
-            System.out.println(i + "\t" + industries.getAllBuildingNames().get(i));
+        for (int i = 0; i < economy.getIndustries().getAllBuildingNames().size(); i++) {
+            System.out.println(i + "\t" + economy.getIndustries().getAllBuildingNames().get(i));
         }
         System.out.println("\n Choose Building to Remove");
         System.out.println("\t back -> back to Construction Menu");
@@ -190,7 +190,7 @@ public class SandboxArea {
     // MODIFIES: this
     // EFFECTS: change the demand and supply of goods in market
     private void consumeAndProduce() {
-        for (Building b : industries.getAllBuildings()) {
+        for (Building b : economy.getIndustries().getAllBuildings()) {
             b.consume();
             b.produce();
         }
@@ -199,11 +199,12 @@ public class SandboxArea {
     // MODIFIES: this
     // EFFECTS: reset demand and supply for all but consumer goods; consumer goods gain 5 demand
     private void cleanupMarket() {
-        for (Goods goods : market.returnIndustrialGoods()) {
+        for (Goods goods : economy.getMarket().returnIndustrialGoods()) {
             goods.setDemand(0);
             goods.setSupply(0);
         }
-        for (Goods goods : market.returnConsumerGoods()) {
+        for (Goods goods : economy.getMarket().returnConsumerGoods()) {
+            goods.setSupply(0);
             goods.addDemand(5);
         }
     }
@@ -211,25 +212,25 @@ public class SandboxArea {
     // MODIFIES: this
     // EFFECTS: set income and expenses of buildings
     private void exchangeGoods() {
-        for (Building b : industries.getAllBuildings()) {
+        for (Building b : economy.getIndustries().getAllBuildings()) {
             b.payExpense();
-            b.sellGoods();
+            b.gainIncome();
         }
     }
 
     // MODIFIES: this
     // EFFECTS: construct new buildings remove buildings with size 0 from industry
     private void constructAndDestroyBuildings() {
-        if (!constructionSector.getConstructionQueue().isEmpty()) {
-            constructionSector.consume();
-            constructionSector.payExpense();
+        if (!economy.getConstructionSector().getConstructionQueue().isEmpty()) {
+            economy.getConstructionSector().consume();
+            economy.getConstructionSector().payExpense();
         }
-        List<Building> constructedBuilding = constructionSector.construct();
+        List<Building> constructedBuilding = economy.getConstructionSector().construct();
         for (Building b : constructedBuilding) {
-            if (industries.getAllBuildings().contains(b)) {
+            if (economy.getIndustries().getAllBuildings().contains(b)) {
                 b.expand();
             } else {
-                industries.add(b);
+                economy.getIndustries().add(b);
             }
         }
         constructionReport = constructedBuilding;
@@ -289,10 +290,10 @@ public class SandboxArea {
     // MODIFIES: this
     // EFFECTS: process user command in Remove menu
     private void doRemove(int index) {
-        if (index >= industries.getAllBuildings().size() || index < 0) {
+        if (index >= economy.getIndustries().getAllBuildings().size() || index < 0) {
             System.out.println("Selection is not valid");
         } else {
-            if (constructionSector.remove(industries.getAllBuildings().get(index))) {
+            if (economy.getConstructionSector().remove(industries.getAllBuildings().get(index))) {
                 System.out.println("Remove Successfully");
             } else {
                 System.out.println("Building is not in Queue");
@@ -302,8 +303,8 @@ public class SandboxArea {
 
     // EFFECTS: display all options to remove from construction queue
     private void displayRemoveOptions() {
-        for (int i = 0; i < industries.getAllBuildings().size(); i++) {
-            System.out.println(i + "\t" + industries.getAllBuildingNames().get(i));
+        for (int i = 0; i < economy.getIndustries().getAllBuildings().size(); i++) {
+            System.out.println(i + "\t" + economy.getIndustries().getAllBuildingNames().get(i));
         }
         System.out.println("\n Choose Building to Remove");
         System.out.println("\t back -> back to Construction Menu");
@@ -332,17 +333,17 @@ public class SandboxArea {
     // MODIFIES: this
     // EFFECTS: process user command in the Build menu
     private void doBuild(int index) {
-        if (index >= industries.getAllBuildings().size() || index < 0) {
+        if (index >= economy.getIndustries().getAllBuildings().size() || index < 0) {
             System.out.println("Selection is not valid");
         } else {
-            constructionSector.build(industries.getAllBuildings().get(index));
+            economy.getConstructionSector().build(economy.getIndustries().getAllBuildings().get(index));
         }
     }
 
     // EFFECTS: display all options that can be built
     private void displayConstructionOptions() {
-        for (int i = 0; i < industries.getAllBuildings().size(); i++) {
-            System.out.println(i + "\t" + industries.getAllBuildings().get(i).getName());
+        for (int i = 0; i < economy.getIndustries().getAllBuildings().size(); i++) {
+            System.out.println(i + "\t" + economy.getIndustries().getAllBuildings().get(i).getName());
         }
         System.out.println("\n Choose Building to Construct");
         System.out.println("\t back -> back to Construction Menu");
@@ -350,8 +351,8 @@ public class SandboxArea {
 
     // EFFECTS: display construction queue and further options in Construction menu
     private void displayConstructionMenu() {
-        List<Building> constructionQueue = constructionSector.getConstructionQueue();
-        List<Integer> progressQueue = constructionSector.getConstructionValue();
+        List<Building> constructionQueue = economy.getConstructionSector().getConstructionQueue();
+        List<Integer> progressQueue = economy.getConstructionSector().getConstructionValue();
 
         System.out.println("Name\t Remaining Progress");
         for (int i = 0; i < constructionQueue.size(); i++) {
@@ -365,7 +366,7 @@ public class SandboxArea {
 
     // EFFECTS: display a list of industries with its expenses and profits
     private void printIndustryReport() {
-        Industries activeBuildings = industries.removeEmptyBuildings();
+        Industries activeBuildings = economy.getIndustries().removeEmptyBuildings();
         List<String> names = activeBuildings.getAllBuildingNames();
         List<Integer> size = activeBuildings.getAllSize();
         List<Integer> expenses = activeBuildings.getAllExpenses();
@@ -381,7 +382,7 @@ public class SandboxArea {
 
     // EFFECTS: display a list of Goods with its supply, demand and price modifier
     private void printMarketReport() {
-        Market activeGoods = market.removeInactiveGoods();
+        Market activeGoods = economy.getMarket().removeInactiveGoods();
         List<String> names = activeGoods.getAvailableGoods();
         List<Integer> demand = activeGoods.getDemandOfGoods();
         List<Integer> supply = activeGoods.getSupplyOfGoods();
@@ -422,8 +423,9 @@ public class SandboxArea {
             b.consume();
             b.produce();
             b.payExpense();
-            b.sellGoods();
+            b.gainIncome();
         }
+        economy = new Economy(industries, market, constructionSector);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         constructionReport = new ArrayList<>();

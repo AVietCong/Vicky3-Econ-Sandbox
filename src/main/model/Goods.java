@@ -154,6 +154,7 @@ public class Goods implements Writable {
                 && getDemand() == goods.getDemand() && getName().equals(goods.getName()) && type == goods.type;
     }
 
+    // EFFECTS: return hash code
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getBasePrice(), getSupply(), getDemand(), type);

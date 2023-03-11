@@ -131,6 +131,7 @@ public class Industries implements Writable {
         return json;
     }
 
+    // EFFECTS: return true if list of buildings are the same
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -143,6 +144,7 @@ public class Industries implements Writable {
         return Objects.equals(industries, that.industries);
     }
 
+    // EFFECTS: return hash code
     @Override
     public int hashCode() {
         return Objects.hash(industries);

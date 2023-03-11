@@ -163,6 +163,7 @@ public class Market implements Writable {
         return json;
     }
 
+    // EFFECTS: return true if list of goods are equal
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -175,6 +176,7 @@ public class Market implements Writable {
         return Objects.equals(market, market1.market);
     }
 
+    // EFFECTS: return hash code
     @Override
     public int hashCode() {
         return Objects.hash(market);

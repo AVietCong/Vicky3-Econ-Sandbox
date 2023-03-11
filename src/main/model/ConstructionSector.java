@@ -154,6 +154,7 @@ public class ConstructionSector implements Writable {
         return jsonArray;
     }
 
+    // EFFECTS: return true if two construction queue is equal in every field.
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -169,6 +170,7 @@ public class ConstructionSector implements Writable {
                 && getInputAmount().equals(that.getInputAmount());
     }
 
+    // EFFECTS: return hashCode
     @Override
     public int hashCode() {
         return Objects.hash(getConstructionQueue(), getConstructionValue(), getInputGoods(), getInputAmount(),

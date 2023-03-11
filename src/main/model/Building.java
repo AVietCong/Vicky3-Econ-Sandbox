@@ -203,6 +203,7 @@ public class Building implements Writable {
         return jsonArray;
     }
 
+    // EFFECTS: return true if every field of two buildings are equal
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -221,6 +222,7 @@ public class Building implements Writable {
                 && getOutputAmount().equals(building.getOutputAmount());
     }
 
+    // EFFECTS: return hash code
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getSize(), getIncome(), getExpense(), getConstructionCost(), getInputGoods(),
