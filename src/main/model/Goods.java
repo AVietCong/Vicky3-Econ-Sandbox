@@ -9,17 +9,19 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class Goods implements Writable {
 
     public static final double UPPER_PRICE_CAP = 1.75;
     public static final double LOWER_PRICE_CAP = 0.25;
     private final String name;
     private final int basePrice;
+    private final GoodsType type;
 
     private int supply;
     private int demand;
-    private boolean shortage;
-    private GoodsType type;
+    //private boolean shortage;
 
     // EFFECT: return good as a JSON object
     @Override
@@ -32,7 +34,7 @@ public class Goods implements Writable {
         json.put("supply", supply);
         json.put("demand", demand);
         json.put("type", type);
-        json.put("shortage", shortage);
+        //json.put("shortage", shortage);
         return json;
     }
 
@@ -45,7 +47,7 @@ public class Goods implements Writable {
         this.basePrice = basePrice;
         supply = 0;
         demand = 0;
-        shortage = false;
+        //shortage = false;
         type = goodsType;
     }
 
@@ -75,9 +77,9 @@ public class Goods implements Writable {
         supply = amount;
     }
 
-    public void setShortage(boolean s) {
-        shortage = s;
-    }
+    //public void setShortage(boolean s) {
+    //     shortage = s;
+    //}
 
     public void setDemand(int amount) {
         demand = amount;
@@ -134,7 +136,26 @@ public class Goods implements Writable {
 
     // MODIFIES: this
     // EFFECTS: determine and return whether a good is in shortage
-    public boolean isShortage() {
-        return shortage;
+    // public boolean isShortage() {
+    //    return shortage;
+    //}
+
+    // EFFECTS: return true if given Goods has the same name, supply & demand, basePrice and type
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Goods goods = (Goods) o;
+        return getBasePrice() == goods.getBasePrice() && getSupply() == goods.getSupply()
+                && getDemand() == goods.getDemand() && getName().equals(goods.getName()) && type == goods.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getBasePrice(), getSupply(), getDemand(), type);
     }
 }

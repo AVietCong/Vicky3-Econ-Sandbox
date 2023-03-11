@@ -6,6 +6,7 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 // This class represents where buildings are queued to be built
 // and also consume goods and pay expenses like buildings
@@ -16,8 +17,8 @@ public class ConstructionSector implements Writable {
 
     private List<Building> constructionQueue;
     private List<Integer> constructionValue;
-    private List<Goods> inputGoods;
-    private List<Integer> inputAmount;
+    private final List<Goods> inputGoods;
+    private final List<Integer> inputAmount;
     private int expense;
 
     // EFFECTS: create a new construction sector with size 1, empty construction queue
@@ -151,5 +152,26 @@ public class ConstructionSector implements Writable {
             jsonArray.put(goods.toJson());
         }
         return jsonArray;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ConstructionSector that = (ConstructionSector) o;
+        return getExpense() == that.getExpense() && Objects.equals(getConstructionQueue(),
+                that.getConstructionQueue()) && Objects.equals(getConstructionValue(),
+                that.getConstructionValue()) && getInputGoods().equals(that.getInputGoods())
+                && getInputAmount().equals(that.getInputAmount());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getConstructionQueue(), getConstructionValue(), getInputGoods(), getInputAmount(),
+                getExpense());
     }
 }

@@ -20,6 +20,7 @@ public class ConstructionSectorTest {
     Goods iron;
     Goods coal;
     Building farm;
+    Building otherFarm;
     Building ironMine;
     Building foodIndustry;
     int wages;
@@ -36,6 +37,8 @@ public class ConstructionSectorTest {
         explosives = new Goods("Explosives", 50, Goods.GoodsType.INDUSTRIAL);
         tools = new Goods("Tools", 40, Goods.GoodsType.INDUSTRIAL);
         farm = new Building("Farm", 50, Arrays.asList(fertilizer), Arrays.asList(15),
+                Arrays.asList(grain), Arrays.asList(90));
+        otherFarm = new Building("Farm", 450, Arrays.asList(fertilizer), Arrays.asList(15),
                 Arrays.asList(grain), Arrays.asList(90));
         ironMine = new Building("Iron Mine", 300,
                 Arrays.asList(tools, coal, explosives), Arrays.asList(15, 15, 10),
@@ -253,27 +256,96 @@ public class ConstructionSectorTest {
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
         constructionSector.payExpense();
-        assertEquals("{\"wages\":5000,\"input\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+        assertEquals("{\"wages\":5000,\"input\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Steel\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}," +
-                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Tools\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}," +
-                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Explosives\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}]," +
                         "\"expense\":10300,\"value\":[50,450],\"input amount\":[70,20,20]," +
                         "\"queue\":[{\"income\":0,\"wages\":500,\"cost\":50," +
-                        "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":30}]," +
                         "\"size\":1,\"output amount\":[90],\"eos\":1.5,\"name\":\"Farm\",\"expense\":0," +
-                        "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}]," +
                         "\"input amount\":[15]},{\"income\":0,\"wages\":500,\"cost\":450," +
-                        "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}," +
-                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}]," +
                         "\"size\":1,\"output amount\":[65],\"eos\":1.5,\"name\":\"Food Industry\",\"expense\":0," +
-                        "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Groceries\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":30}]," +
                         "\"input amount\":[20,10]}]}", constructionSector.toJson().toString());
+    }
+
+    @Test
+    void testEquals() {
+        constructionSector.build(farm);
+        constructionSector.build(foodIndustry);
+        constructionSector.payExpense();
+
+        assertTrue(constructionSector.equals(constructionSector));
+        assertFalse(constructionSector.equals(null));
+        assertFalse(constructionSector.equals("Construction Sector"));
+
+        ConstructionSector expectedEqual = new ConstructionSector(Arrays.asList(steel, tools, explosives),
+                Arrays.asList(70, 20, 20));
+        expectedEqual.build(farm);
+        expectedEqual.build(foodIndustry);
+        expectedEqual.payExpense();
+        assertTrue(constructionSector.equals(expectedEqual));
+
+        ConstructionSector differentInputGoods = new ConstructionSector(Arrays.asList(grain, tools, explosives),
+                Arrays.asList(70, 20, 20));
+        expectedEqual.build(farm);
+        expectedEqual.build(foodIndustry);
+        expectedEqual.payExpense();
+        assertFalse(constructionSector.equals(differentInputGoods));
+
+        ConstructionSector differentInputAmount = new ConstructionSector(Arrays.asList(steel, tools, explosives),
+                Arrays.asList(70, 10, 20));
+        expectedEqual.build(farm);
+        expectedEqual.build(foodIndustry);
+        expectedEqual.payExpense();
+        assertFalse(constructionSector.equals(differentInputAmount));
+
+        ConstructionSector differentExpense = new ConstructionSector(Arrays.asList(steel, tools, explosives),
+                Arrays.asList(70, 20, 20));
+        expectedEqual.build(farm);
+        expectedEqual.build(foodIndustry);
+        assertFalse(constructionSector.equals(differentExpense));
+
+        ConstructionSector differentQueue = new ConstructionSector(Arrays.asList(steel, tools, explosives),
+                Arrays.asList(70, 20, 20));
+        expectedEqual.build(ironMine);
+        expectedEqual.build(foodIndustry);
+        expectedEqual.payExpense();
+        assertFalse(constructionSector.equals(differentQueue));
+
+        constructionSector.remove(farm);
+        constructionSector.build(ironMine);
+        ConstructionSector differentValue = new ConstructionSector(Arrays.asList(steel, tools, explosives),
+                Arrays.asList(70, 20, 20));
+        expectedEqual.build(foodIndustry);
+        expectedEqual.build(ironMine);
+        expectedEqual.payExpense();
+        expectedEqual.construct();
+        assertFalse(constructionSector.equals(differentValue));
+    }
+
+    @Test
+    void testHashCode() {
+        constructionSector.build(farm);
+        constructionSector.build(foodIndustry);
+        constructionSector.payExpense();
+        ConstructionSector expectedEqual = new ConstructionSector(Arrays.asList(steel, tools, explosives),
+                Arrays.asList(70, 20, 20));
+        expectedEqual.build(farm);
+        expectedEqual.build(foodIndustry);
+        expectedEqual.payExpense();
+
+        assertEquals(constructionSector.hashCode(), expectedEqual.hashCode());
     }
 }

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.List;
+import java.util.Objects;
 
 //This class represents the industries of a nation. Buildings take in resources and convert them into more valuable
 //resources that can be consumed by the population or other buildings. Buildings have income and expenses that
@@ -21,10 +22,10 @@ public class Building implements Writable {
     protected int income;
     protected int expense;
     protected int constructionCost;
-    protected List<Goods> inputGoods;
-    protected List<Integer> inputAmount;
-    protected List<Goods> outputGoods;
-    protected List<Integer> outputAmount;
+    protected final List<Goods> inputGoods;
+    protected final List<Integer> inputAmount;
+    protected final List<Goods> outputGoods;
+    protected final List<Integer> outputAmount;
 
     // REQUIRES: constructionCost > 0, all lists != null and size() > 0
     // EFFECTS: create building with given name, input and output process and construction cost
@@ -183,7 +184,7 @@ public class Building implements Writable {
         json.put("name", name);
         json.put("size", size);
         json.put("income", income);
-        json.put("expense",expense);
+        json.put("expense", expense);
         json.put("cost", constructionCost);
         json.put("input goods", goodsToJson(inputGoods));
         json.put("input amount", inputAmount);
@@ -200,5 +201,29 @@ public class Building implements Writable {
             jsonArray.put(goods.toJson());
         }
         return jsonArray;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Building building = (Building) o;
+        return getSize() == building.getSize() && getIncome() == building.getIncome()
+                && getExpense() == building.getExpense()
+                && getConstructionCost() == building.getConstructionCost()
+                && getName().equals(building.getName()) && getInputGoods().equals(building.getInputGoods())
+                && getInputAmount().equals(building.getInputAmount())
+                && getOutputGoods().equals(building.getOutputGoods())
+                && getOutputAmount().equals(building.getOutputAmount());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSize(), getIncome(), getExpense(), getConstructionCost(), getInputGoods(),
+                getInputAmount(), getOutputGoods(), getOutputAmount());
     }
 }

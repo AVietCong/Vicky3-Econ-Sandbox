@@ -261,12 +261,66 @@ public class MarketTest {
         wood.addDemand(50);
         wood.addSupply(400);
         System.out.println(tools.determinePriceModifier());
-        assertEquals("{\"market\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+        assertEquals("{\"market\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":100,\"demand\":125,\"base\":40},"+
-                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Wood\",\"type\":\"INDUSTRIAL\",\"supply\":400,\"demand\":50,\"base\":20}," +
-                        "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                        "{\"upper cap\":1.75,\"lower cap\":0.25," +
                         "\"name\":\"Tools\",\"type\":\"INDUSTRIAL\",\"supply\":250,\"demand\":500,\"base\":30}]}",
                 market.toJson().toString());
+    }
+
+    @Test
+    void testEquals() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        iron.addDemand(125);
+        iron.addSupply(100);
+        wood.addDemand(50);
+        wood.addSupply(400);
+
+        assertTrue(market.equals(market));
+        assertFalse(market.equals(null));
+        assertFalse(market.equals("Market"));
+
+        Market expectedEqual = new Market();
+        Goods good1 = new Goods("Iron", 40, Goods.GoodsType.INDUSTRIAL);
+        good1.setSupply(100);
+        good1.setDemand(125);
+        Goods good2 = new Goods("Wood", 20, Goods.GoodsType.INDUSTRIAL);
+        good2.setDemand(50);
+        good2.setSupply(400);
+        expectedEqual.addGoods(good1);
+        expectedEqual.addGoods(good2);
+        assertEquals(expectedEqual, market);
+
+        Market differentGoods = new Market();
+        Goods good3 = new Goods("Furniture", 30, Goods.GoodsType.CONSUMER);
+        good3.setSupply(200);
+        good3.setDemand(250);
+        expectedEqual.addGoods(good3);
+        expectedEqual.addGoods(good2);
+        assertFalse(market.equals(differentGoods));
+    }
+
+    @Test
+    void testHashCode() {
+        market.addGoods(iron);
+        market.addGoods(wood);
+        iron.addDemand(125);
+        iron.addSupply(100);
+        wood.addDemand(50);
+        wood.addSupply(400);
+
+        Market expectedEqual = new Market();
+        Goods good1 = new Goods("Iron", 40, Goods.GoodsType.INDUSTRIAL);
+        good1.setSupply(100);
+        good1.setDemand(125);
+        Goods good2 = new Goods("Wood", 20, Goods.GoodsType.INDUSTRIAL);
+        good2.setDemand(50);
+        good2.setSupply(400);
+        expectedEqual.addGoods(good1);
+        expectedEqual.addGoods(good2);
+        assertEquals(market.hashCode(), expectedEqual.hashCode());
     }
 }

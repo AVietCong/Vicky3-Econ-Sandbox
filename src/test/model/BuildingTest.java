@@ -400,13 +400,64 @@ public class BuildingTest {
         steelMill.payExpense();
 
         assertEquals("{\"income\":126324,\"wages\":500,\"cost\":450,\"input goods\":" +
-                "[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Iron\"," +
+                "[{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Iron\"," +
                 "\"type\":\"INDUSTRIAL\",\"supply\":300,\"demand\":400,\"base\":40}," +
-                "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Coal\"," +
+                "{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Coal\"," +
                 "\"type\":\"INDUSTRIAL\",\"supply\":250,\"demand\":200,\"base\":30}]," +
                 "\"size\":11,\"output amount\":[120],\"eos\":1.5,\"name\":\"Steel Mill\",\"expense\":68662," +
-                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Steel\"," +
+                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Steel\"," +
                 "\"type\":\"INDUSTRIAL\",\"supply\":100,\"demand\":200,\"base\":50}],\"input amount\":[90,30]}",
         steelMill.toJson().toString());
+    }
+
+    @Test
+    void testEquals() {
+        assertTrue(steelMill.equals(steelMill));
+        assertFalse(steelMill.equals(null));
+        assertFalse(steelMill.equals("String"));
+
+        Building expectedEqual = new Building("Steel Mill", 450, Arrays.asList(iron,coal),
+                Arrays.asList(90, 30), Arrays.asList(steel), Arrays.asList(120));
+        assertTrue(steelMill.equals(expectedEqual));
+
+        Building differentName = new Building("Iron Mine", 450, Arrays.asList(iron,coal),
+                Arrays.asList(90, 30), Arrays.asList(steel), Arrays.asList(120));
+        assertFalse(steelMill.equals(differentName));
+
+        Building differentCost = new Building("Steel Mill", 300, Arrays.asList(iron,coal),
+                Arrays.asList(90, 30), Arrays.asList(steel), Arrays.asList(120));
+        assertFalse(steelMill.equals(differentCost));
+
+        Building differentInputGoods = new Building("Steel Mill", 450, Arrays.asList(coal,iron),
+                Arrays.asList(90, 30), Arrays.asList(steel), Arrays.asList(120));
+        assertFalse(steelMill.equals(differentInputGoods));
+
+        Building differentInputAmount = new Building("Steel Mill", 450, Arrays.asList(iron,coal),
+                Arrays.asList(100, 30), Arrays.asList(steel), Arrays.asList(120));
+        assertFalse(steelMill.equals(differentInputAmount));
+
+        Building differentOutputGoods = new Building("Steel Mill", 450, Arrays.asList(iron,coal),
+                Arrays.asList(90, 30), Arrays.asList(grain), Arrays.asList(120));
+        assertFalse(steelMill.equals(differentOutputGoods));
+
+        Building differentOutputAmount = new Building("Steel Mill", 450, Arrays.asList(iron,coal),
+                Arrays.asList(90, 30), Arrays.asList(steel), Arrays.asList(150));
+        assertFalse(steelMill.equals(differentOutputAmount));
+
+        expectedEqual.setSize(3);
+        assertFalse(steelMill.equals(expectedEqual));  // different sizes
+
+        expectedEqual.payExpense();
+        assertFalse(steelMill.equals(expectedEqual));  // different expense
+
+        expectedEqual.gainIncome();
+        assertFalse(steelMill.equals(expectedEqual)); // different income
+    }
+
+    @Test
+    void testHashCode() {
+        Building expectedEqual = new Building("Steel Mill", 450, Arrays.asList(iron,coal),
+                Arrays.asList(90, 30), Arrays.asList(steel), Arrays.asList(120));
+        assertEquals(steelMill.hashCode(), expectedEqual.hashCode());
     }
 }

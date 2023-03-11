@@ -1,8 +1,10 @@
 package persistence;
 
+import model.ConstructionSector;
 import model.Goods;
 import model.Industries;
 import model.Market;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -28,10 +30,16 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of market to file
-    public void write(Market market, Industries industries) {
-        JSONObject json = market.toJson();
-        saveToFile(json.toString(TAB));
+    // EFFECTS: writes JSON representation of the state of sandbox to file
+    public void write(Market market, Industries industries, ConstructionSector constructionSector) {
+        JSONObject jsonSandbox = new JSONObject();
+        JSONObject jsonMarket = market.toJson();
+        JSONObject jsonIndustries = industries.toJson();
+        JSONObject jsonConstruction = constructionSector.toJson();
+        jsonSandbox.put("market", jsonMarket);
+        jsonSandbox.put("industries", jsonIndustries);
+        jsonSandbox.put("construction", jsonConstruction);
+        saveToFile(jsonSandbox.toString(TAB));
     }
 
     public void close() {

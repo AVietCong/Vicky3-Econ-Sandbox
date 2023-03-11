@@ -7,6 +7,7 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 // The Market is where prices of goods are determined, bought and sold this is represented as a list of Goods.
 
@@ -160,5 +161,22 @@ public class Market implements Writable {
         }
         json.put("market", jsonArray);
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Market market1 = (Market) o;
+        return Objects.equals(market, market1.market);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(market);
     }
 }

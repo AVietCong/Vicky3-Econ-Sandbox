@@ -34,7 +34,7 @@ public class GoodsTest {
         assertEquals(40, iron.getBasePrice());
         assertEquals(0, iron.getDemand());
         assertEquals(0, iron.getSupply());
-        assertFalse(iron.isShortage());
+        //assertFalse(iron.isShortage());
         assertEquals(INDUSTRIAL, iron.getGoodsType());
         assertEquals(CONSUMER, furniture.getGoodsType());
     }
@@ -75,11 +75,11 @@ public class GoodsTest {
 
     @Test
     public void testsetShortage() {
-        iron.setShortage(true);
-        assertTrue(iron.isShortage());
+        //iron.setShortage(true);
+        //assertTrue(iron.isShortage());
 
-        iron.setShortage(false);
-        assertFalse(iron.isShortage());
+        //iron.setShortage(false);
+        //assertFalse(iron.isShortage());
     }
 
     @Test
@@ -112,13 +112,13 @@ public class GoodsTest {
         furniture.addDemand(174);
         int actualFurniturePrice = (int) (furniture.getBasePrice() * (1.0 + (0.75 * (174 - 100) / 100)));
         assertEquals(actualFurniturePrice, furniture.determinePrice());
-        assertFalse(furniture.isShortage());
+        //assertFalse(furniture.isShortage());
 
         iron.addSupply(200);
         iron.addDemand(300);
         int actualIronPrice = (int) (iron.getBasePrice() * (1.0 + (0.75 * (300 - 200) / 200)));
         assertEquals(actualIronPrice, iron.determinePrice());
-        assertFalse(iron.isShortage());
+        //assertFalse(iron.isShortage());
     }
 
 
@@ -177,7 +177,57 @@ public class GoodsTest {
     void testtoJson() {
         furniture.addSupply(500);
         furniture.addDemand(300);
-        assertEquals("{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+        assertEquals("{\"upper cap\":1.75,\"lower cap\":0.25," +
                 "\"name\":\"Furniture\",\"type\":\"CONSUMER\",\"supply\":500,\"demand\":300,\"base\":30}",furniture.toJson().toString());
+    }
+
+    @Test
+    void testEquals() {
+        iron.setSupply(300);
+        iron.setDemand(200);
+        assertTrue(iron.equals(iron));
+        assertFalse(iron.equals(null));
+        assertFalse(iron.equals("Iron"));
+
+        Goods expectedEqual = new Goods("Iron", 40, INDUSTRIAL);
+        expectedEqual.setDemand(200);
+        expectedEqual.setSupply(300);
+        assertTrue(iron.equals(expectedEqual));
+
+        Goods differentName = new Goods("Wood", 40, INDUSTRIAL);
+        differentName.setDemand(200);
+        differentName.setSupply(300);
+        assertFalse(iron.equals(differentName));
+
+        Goods differentBasePrice = new Goods("Iron", 30, INDUSTRIAL);
+        differentBasePrice.setDemand(200);
+        differentBasePrice.setSupply(300);
+        assertFalse(iron.equals(differentBasePrice));
+
+        Goods differentType = new Goods("Iron", 40, CONSUMER);
+        differentBasePrice.setDemand(200);
+        differentBasePrice.setSupply(300);
+        assertFalse(iron.equals(differentType));
+
+        Goods differentDemand = new Goods("Iron", 40, INDUSTRIAL);
+        differentDemand.setDemand(300);
+        differentDemand.setSupply(300);
+        assertFalse(iron.equals(differentDemand));
+
+        Goods differentSupply = new Goods("Iron", 40, INDUSTRIAL);
+        differentSupply.setDemand(200);
+        differentSupply.setSupply(400);
+        assertFalse(iron.equals(differentSupply));
+    }
+
+    @Test
+    void testHashCode() {
+        Goods oneGood = new Goods("Iron", 40, INDUSTRIAL);
+        oneGood.setDemand(100);
+        oneGood.setSupply(150);
+
+        iron.setDemand(100);
+        iron.setSupply(150);
+        assertEquals(iron.hashCode(), oneGood.hashCode());
     }
 }

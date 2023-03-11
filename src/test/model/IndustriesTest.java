@@ -48,19 +48,19 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertTrue(industries.getAllBuildingNames().isEmpty());
     }
 
     @Test
-    public void testaddNewBuiding() {
+    void testaddNewBuiding() {
         assertTrue(industries.add(farm));
         assertTrue(industries.getAllBuildingNames().size() == 1);
         assertTrue(industries.getAllBuildingNames().contains("Farm"));
     }
 
     @Test
-    public void testaddExistingBuiding() {
+    void testaddExistingBuiding() {
         industries.add(farm);
 
         assertFalse(industries.add(new Building("Farm", 100,
@@ -71,13 +71,13 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllBuildingsOneBuilding() {
+    void testgetAllBuildingsOneBuilding() {
         industries.add(farm);
         assertEquals(Arrays.asList(farm), industries.getAllBuildings());
     }
 
     @Test
-    public void testgetAllBuildingsMultipleBuilding() {
+    void testgetAllBuildingsMultipleBuilding() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -85,13 +85,13 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllBuildingNamesOneBuilding() {
+    void testgetAllBuildingNamesOneBuilding() {
         industries.add(farm);
         assertEquals(Arrays.asList("Farm"), industries.getAllBuildingNames());
     }
 
     @Test
-    public void testgetAllBuildingNamesMultipleBuilding() {
+    void testgetAllBuildingNamesMultipleBuilding() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -99,14 +99,14 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllSizeOneBuilding() {
+    void testgetAllSizeOneBuilding() {
         farm.setSize(10);
         industries.add(farm);
         assertEquals(Arrays.asList(10), industries.getAllSize());
     }
 
     @Test
-    public void testgetAllSizeMultipleBuilding() {
+    void testgetAllSizeMultipleBuilding() {
         steelMill.setSize(5);
         farm.setSize(6);
         chemicalPlant.setSize(2);
@@ -117,13 +117,13 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllInputGoodsOneBuilding() {
+    void testgetAllInputGoodsOneBuilding() {
         industries.add(farm);
         assertEquals(Arrays.asList(Arrays.asList(fertilizer)), industries.getAllInputGoods());
     }
 
     @Test
-    public void testgetAllInputGoodsMultipleBuilding() {
+    void testgetAllInputGoodsMultipleBuilding() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -134,13 +134,13 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllInputGoodsAmountOneBuilding() {
+    void testgetAllInputGoodsAmountOneBuilding() {
         industries.add(farm);
         assertEquals(Arrays.asList(Arrays.asList(15)), industries.getAllInputGoodsAmount());
     }
 
     @Test
-    public void testgetAllInputGoodsAmountMultipleBuilding() {
+    void testgetAllInputGoodsAmountMultipleBuilding() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -151,13 +151,13 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllOutputGoodsOneBuilding() {
+    void testgetAllOutputGoodsOneBuilding() {
         industries.add(farm);
         assertEquals(Arrays.asList(Arrays.asList(grain)), industries.getAllOutputGoods());
     }
 
     @Test
-    public void testgetAllOutputGoodsMultipleBuilding() {
+    void testgetAllOutputGoodsMultipleBuilding() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -168,13 +168,13 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllOutputGoodsAmountOneBuilding() {
+    void testgetAllOutputGoodsAmountOneBuilding() {
         industries.add(farm);
         assertEquals(Arrays.asList(Arrays.asList(90)), industries.getAllOutputGoodsAmount());
     }
 
     @Test
-    public void testgetAllOutputGoodsAmountMultipleBuilding() {
+    void testgetAllOutputGoodsAmountMultipleBuilding() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -185,7 +185,7 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllExpensesOneBuilding() {
+    void testgetAllExpensesOneBuilding() {
         industries.add(farm);
         farm.payExpense();
         int expected = farm.getExpense();
@@ -193,7 +193,7 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllExpensesMultipleBuilding() {
+    void testgetAllExpensesMultipleBuilding() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -205,7 +205,7 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllIncomeOneBuilding() {
+    void testgetAllIncomeOneBuilding() {
         industries.add(farm);
         farm.sellGoods();
         int expected = farm.getIncome();
@@ -213,7 +213,7 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testgetAllIncomeMultipleBuilding() {
+    void testgetAllIncomeMultipleBuilding() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -225,7 +225,7 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testremoveEmptyBuildings() {
+    void testremoveEmptyBuildings() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -236,7 +236,7 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testremoveMultipleEmptyBuildings() {
+    void testremoveMultipleEmptyBuildings() {
         industries.add(steelMill);
         industries.add(farm);
         industries.add(chemicalPlant);
@@ -248,22 +248,52 @@ public class IndustriesTest {
     }
 
     @Test
-    public void testtoJson() {
+    void testtoJson() {
         industries.add(steelMill);
         industries.add(farm);
         assertEquals("{\"industries\":[{\"income\":0,\"wages\":500,\"cost\":450," +
-                "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false," +
+                "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
                 "\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}," +
-                "{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Coal\",\"type\":\"INDUSTRIAL\"," +
+                "{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Coal\",\"type\":\"INDUSTRIAL\"," +
                 "\"supply\":0,\"demand\":0,\"base\":30}]," +
                 "\"size\":1,\"output amount\":[120],\"eos\":1.5,\"name\":\"Steel Mill\",\"expense\":0," +
-                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Steel\"," +
+                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Steel\"," +
                 "\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}],\"input amount\":[90,30]}," +
                 "{\"income\":0,\"wages\":500,\"cost\":50,\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
-                "\"shortage\":false,\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0," +
+                "\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0," +
                 "\"base\":30}],\"size\":1,\"output amount\":[90],\"eos\":1.5,\"name\":\"Farm\",\"expense\":0," +
-                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"shortage\":false,\"name\":\"Grain\"," +
+                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Grain\"," +
                 "\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}],\"input amount\":[15]}]}",
                 industries.toJson().toString());
+    }
+
+    @Test
+    void testEquals() {
+        industries.add(steelMill);
+        industries.add(farm);
+        assertTrue(industries.equals(industries));
+        assertFalse(industries.equals(null));
+        assertFalse(industries.equals("Test"));
+
+        Industries expectedEquals = new Industries();
+        expectedEquals.add(steelMill);
+        expectedEquals.add(farm);
+        assertTrue(industries.equals(industries));
+
+        Industries differentBuildings = new Industries();
+        differentBuildings.add(steelMill);
+        differentBuildings.add(chemicalPlant);
+        assertFalse(industries.equals(differentBuildings));
+    }
+
+    @Test
+    void testHashCode() {
+        industries.add(steelMill);
+        industries.add(farm);
+        Industries expectedEquals = new Industries();
+        expectedEquals.add(steelMill);
+        expectedEquals.add(farm);
+
+        assertEquals(industries.hashCode(), expectedEquals.hashCode());
     }
 }
