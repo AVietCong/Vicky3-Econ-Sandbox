@@ -183,8 +183,8 @@ public class GoodsTest {
 
     @Test
     void testEquals() {
-        iron.setSupply(300);
         iron.setDemand(200);
+        iron.setSupply(300);
         assertTrue(iron.equals(iron));
         assertFalse(iron.equals(null));
         assertFalse(iron.equals("Iron"));
@@ -210,7 +210,7 @@ public class GoodsTest {
         assertFalse(iron.equals(differentType));
 
         Goods differentDemand = new Goods("Iron", 40, INDUSTRIAL);
-        differentDemand.setDemand(300);
+        differentDemand.setDemand(250);
         differentDemand.setSupply(300);
         assertFalse(iron.equals(differentDemand));
 

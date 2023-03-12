@@ -454,6 +454,11 @@ public class BuildingTest {
                 Arrays.asList(90, 30), Arrays.asList(steel), Arrays.asList(150));
         assertFalse(steelMill.equals(differentOutputAmount));
 
+        Building differentExpense = new Building("Steel Mill", 450, Arrays.asList(iron,coal),
+                Arrays.asList(90, 30), Arrays.asList(steel), Arrays.asList(120));
+        differentExpense.payExpense();
+        assertFalse(steelMill.equals(differentExpense));
+
         expectedEqual.setSize(3);
         assertFalse(steelMill.equals(expectedEqual));  // different sizes
 

@@ -219,7 +219,8 @@ public class Building implements Writable {
             return false;
         }
         Building building = (Building) o;
-        return getSize() == building.getSize() && getIncome() == building.getIncome()
+        return getSize() == building.getSize()
+                && getIncome() == building.getIncome()
                 && getExpense() == building.getExpense()
                 && getConstructionCost() == building.getConstructionCost()
                 && getName().equals(building.getName()) && getInputGoods().equals(building.getInputGoods())

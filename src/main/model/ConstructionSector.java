@@ -176,9 +176,10 @@ public class ConstructionSector implements Writable {
             return false;
         }
         ConstructionSector that = (ConstructionSector) o;
-        return getExpense() == that.getExpense() && Objects.equals(getConstructionQueue(),
-                that.getConstructionQueue()) && Objects.equals(getConstructionValue(),
-                that.getConstructionValue()) && getInputGoods().equals(that.getInputGoods())
+        return getExpense() == that.getExpense()
+                && Objects.equals(getConstructionQueue(), that.getConstructionQueue())
+                && Objects.equals(getConstructionValue(), that.getConstructionValue())
+                && getInputGoods().equals(that.getInputGoods())
                 && getInputAmount().equals(that.getInputAmount());
     }
 

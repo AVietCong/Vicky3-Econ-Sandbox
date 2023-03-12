@@ -148,8 +148,11 @@ public class Goods implements Writable {
             return false;
         }
         Goods goods = (Goods) o;
-        return getBasePrice() == goods.getBasePrice() && getSupply() == goods.getSupply()
-                && getDemand() == goods.getDemand() && getName().equals(goods.getName()) && type == goods.type;
+        return getBasePrice() == goods.getBasePrice()
+                && getSupply() == goods.getSupply()
+                && getDemand() == goods.getDemand()
+                && getName().equals(goods.getName())
+                && type == goods.type;
     }
 
     // EFFECTS: return hash code
