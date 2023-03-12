@@ -31,7 +31,7 @@ Although I'm planning on majoring Computer Science, I have always had an interes
 - As a user, I want to be able to remove buildings from my construction queue.
 - As a user, I want to be able to view a report of price changes in my market.
 - As a user, when I choose to quit the application, I have the option to save or not save the state of the sandbox to file
-- As a user, I want to have the option to load a file or start a new environment when I start the application.
+- As a user, I want to have the option to load a file during any stage of the application.
 ---
 ## Citations
 - Persistence code is based on UBC CPSC210 sample application at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
