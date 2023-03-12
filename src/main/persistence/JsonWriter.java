@@ -32,10 +32,14 @@ public class JsonWriter {
         saveToFile(jsonSandbox.toString(TAB));
     }
 
+    // MODIFIES: this
+    // EFFECTS: closes writer
     public void close() {
         writer.close();
     }
 
+    // MODIFIES: this
+    // EFFECTS: writes string to file
     private void saveToFile(String json) {
         writer.print(json);
     }

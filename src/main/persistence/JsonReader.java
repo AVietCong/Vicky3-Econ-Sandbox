@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+// Represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
     private String source;
     private Market market;
@@ -127,6 +128,7 @@ public class JsonReader {
         addAmount(inputAmount, jsonObject.getJSONArray("input amount"));
         addAmount(outputAmount, jsonObject.getJSONArray("output amount"));
         Building building = new Building(name, constructionCost, inputGoods, inputAmount, outputGoods, outputAmount);
+        building.setSize(size);
         building.setExpense(expense);
         building.setIncome(income);
         industry.add(building);

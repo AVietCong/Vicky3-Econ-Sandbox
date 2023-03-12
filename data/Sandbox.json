@@ -1,0 +1,832 @@
+{
+    "market": {"market": [
+        {
+            "name": "Clothes",
+            "type": "CONSUMER",
+            "supply": 306,
+            "demand": 430,
+            "base": 30
+        },
+        {
+            "name": "Fabric",
+            "type": "INDUSTRIAL",
+            "supply": 208,
+            "demand": 183,
+            "base": 20
+        },
+        {
+            "name": "Furniture",
+            "type": "CONSUMER",
+            "supply": 0,
+            "demand": 309,
+            "base": 30
+        },
+        {
+            "name": "Grain",
+            "type": "INDUSTRIAL",
+            "supply": 1815,
+            "demand": 52,
+            "base": 20
+        },
+        {
+            "name": "Groceries",
+            "type": "CONSUMER",
+            "supply": 0,
+            "demand": 20,
+            "base": 30
+        },
+        {
+            "name": "Services",
+            "type": "CONSUMER",
+            "supply": 941,
+            "demand": 445,
+            "base": 30
+        },
+        {
+            "name": "Wood",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 30,
+            "base": 20
+        },
+        {
+            "name": "Coal",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 226,
+            "base": 30
+        },
+        {
+            "name": "Dye",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 30,
+            "base": 40
+        },
+        {
+            "name": "Explosives",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 74,
+            "base": 50
+        },
+        {
+            "name": "Fertilizer",
+            "type": "INDUSTRIAL",
+            "supply": 52,
+            "demand": 484,
+            "base": 30
+        },
+        {
+            "name": "Glass",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 85,
+            "base": 40
+        },
+        {
+            "name": "Iron",
+            "type": "INDUSTRIAL",
+            "supply": 593,
+            "demand": 90,
+            "base": 40
+        },
+        {
+            "name": "Lead",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 0,
+            "base": 40
+        },
+        {
+            "name": "Steel",
+            "type": "INDUSTRIAL",
+            "supply": 120,
+            "demand": 105,
+            "base": 50
+        },
+        {
+            "name": "Sulfur",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 0,
+            "base": 50
+        },
+        {
+            "name": "Tools",
+            "type": "INDUSTRIAL",
+            "supply": 80,
+            "demand": 126,
+            "base": 40
+        }
+    ]},
+    "construction": {
+        "input": [
+            {
+                "name": "Steel",
+                "type": "INDUSTRIAL",
+                "supply": 120,
+                "demand": 105,
+                "base": 50
+            },
+            {
+                "name": "Tools",
+                "type": "INDUSTRIAL",
+                "supply": 80,
+                "demand": 126,
+                "base": 40
+            },
+            {
+                "name": "Explosives",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 74,
+                "base": 50
+            }
+        ],
+        "expense": 12710,
+        "value": [
+            300,
+            300
+        ],
+        "input amount": [
+            70,
+            20,
+            20
+        ],
+        "queue": [
+            {
+                "income": 0,
+                "cost": 450,
+                "input goods": [
+                    {
+                        "name": "Sulfur",
+                        "type": "INDUSTRIAL",
+                        "supply": 0,
+                        "demand": 0,
+                        "base": 50
+                    },
+                    {
+                        "name": "Iron",
+                        "type": "INDUSTRIAL",
+                        "supply": 593,
+                        "demand": 90,
+                        "base": 40
+                    },
+                    {
+                        "name": "Coal",
+                        "type": "INDUSTRIAL",
+                        "supply": 0,
+                        "demand": 226,
+                        "base": 30
+                    }
+                ],
+                "size": 0,
+                "output amount": [
+                    110,
+                    70
+                ],
+                "name": "Chemical Plant",
+                "expense": 0,
+                "output goods": [
+                    {
+                        "name": "Fertilizer",
+                        "type": "INDUSTRIAL",
+                        "supply": 52,
+                        "demand": 484,
+                        "base": 30
+                    },
+                    {
+                        "name": "Explosives",
+                        "type": "INDUSTRIAL",
+                        "supply": 0,
+                        "demand": 74,
+                        "base": 50
+                    }
+                ],
+                "input amount": [
+                    60,
+                    30,
+                    15
+                ]
+            },
+            {
+                "income": 0,
+                "cost": 300,
+                "input goods": [
+                    {
+                        "name": "Tools",
+                        "type": "INDUSTRIAL",
+                        "supply": 80,
+                        "demand": 126,
+                        "base": 40
+                    },
+                    {
+                        "name": "Explosives",
+                        "type": "INDUSTRIAL",
+                        "supply": 0,
+                        "demand": 74,
+                        "base": 50
+                    }
+                ],
+                "size": 0,
+                "output amount": [85],
+                "name": "Coal Mine",
+                "expense": 0,
+                "output goods": [{
+                    "name": "Coal",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 226,
+                    "base": 30
+                }],
+                "input amount": [
+                    15,
+                    10
+                ]
+            }
+        ]
+    },
+    "industry": {"industries": [
+        {
+            "income": 0,
+            "cost": 450,
+            "input goods": [
+                {
+                    "name": "Grain",
+                    "type": "INDUSTRIAL",
+                    "supply": 1815,
+                    "demand": 52,
+                    "base": 20
+                },
+                {
+                    "name": "Iron",
+                    "type": "INDUSTRIAL",
+                    "supply": 593,
+                    "demand": 90,
+                    "base": 40
+                }
+            ],
+            "size": 0,
+            "output amount": [65],
+            "name": "Food Industry",
+            "expense": 0,
+            "output goods": [{
+                "name": "Groceries",
+                "type": "CONSUMER",
+                "supply": 0,
+                "demand": 20,
+                "base": 30
+            }],
+            "input amount": [
+                50,
+                20
+            ]
+        },
+        {
+            "income": 11628,
+            "cost": 450,
+            "input goods": [
+                {
+                    "name": "Fabric",
+                    "type": "INDUSTRIAL",
+                    "supply": 208,
+                    "demand": 183,
+                    "base": 20
+                },
+                {
+                    "name": "Dye",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 30,
+                    "base": 40
+                },
+                {
+                    "name": "Tools",
+                    "type": "INDUSTRIAL",
+                    "supply": 80,
+                    "demand": 126,
+                    "base": 40
+                }
+            ],
+            "size": 3,
+            "output amount": [100],
+            "name": "Textile Mill",
+            "expense": 7742,
+            "output goods": [{
+                "name": "Clothes",
+                "type": "CONSUMER",
+                "supply": 306,
+                "demand": 430,
+                "base": 30
+            }],
+            "input amount": [
+                60,
+                10,
+                5
+            ]
+        },
+        {
+            "income": 0,
+            "cost": 450,
+            "input goods": [
+                {
+                    "name": "Wood",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 30,
+                    "base": 20
+                },
+                {
+                    "name": "Fabric",
+                    "type": "INDUSTRIAL",
+                    "supply": 208,
+                    "demand": 183,
+                    "base": 20
+                },
+                {
+                    "name": "Tools",
+                    "type": "INDUSTRIAL",
+                    "supply": 80,
+                    "demand": 126,
+                    "base": 40
+                }
+            ],
+            "size": 0,
+            "output amount": [110],
+            "name": "Furniture Manufactory",
+            "expense": 0,
+            "output goods": [{
+                "name": "Furniture",
+                "type": "CONSUMER",
+                "supply": 0,
+                "demand": 309,
+                "base": 30
+            }],
+            "input amount": [
+                50,
+                10,
+                10
+            ]
+        },
+        {
+            "income": 0,
+            "cost": 450,
+            "input goods": [{
+                "name": "Lead",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 0,
+                "base": 40
+            }],
+            "size": 0,
+            "output amount": [70],
+            "name": "Glass Work",
+            "expense": 0,
+            "output goods": [{
+                "name": "Glass",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 85,
+                "base": 40
+            }],
+            "input amount": [35]
+        },
+        {
+            "income": 5120,
+            "cost": 450,
+            "input goods": [
+                {
+                    "name": "Wood",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 30,
+                    "base": 20
+                },
+                {
+                    "name": "Steel",
+                    "type": "INDUSTRIAL",
+                    "supply": 120,
+                    "demand": 105,
+                    "base": 50
+                }
+            ],
+            "size": 1,
+            "output amount": [80],
+            "name": "Tooling Workshop",
+            "expense": 2890,
+            "output goods": [{
+                "name": "Tools",
+                "type": "INDUSTRIAL",
+                "supply": 80,
+                "demand": 126,
+                "base": 40
+            }],
+            "input amount": [
+                30,
+                20
+            ]
+        },
+        {
+            "income": 0,
+            "cost": 450,
+            "input goods": [
+                {
+                    "name": "Sulfur",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 0,
+                    "base": 50
+                },
+                {
+                    "name": "Iron",
+                    "type": "INDUSTRIAL",
+                    "supply": 593,
+                    "demand": 90,
+                    "base": 40
+                },
+                {
+                    "name": "Coal",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 226,
+                    "base": 30
+                }
+            ],
+            "size": 0,
+            "output amount": [
+                110,
+                70
+            ],
+            "name": "Chemical Plant",
+            "expense": 0,
+            "output goods": [
+                {
+                    "name": "Fertilizer",
+                    "type": "INDUSTRIAL",
+                    "supply": 52,
+                    "demand": 484,
+                    "base": 30
+                },
+                {
+                    "name": "Explosives",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 74,
+                    "base": 50
+                }
+            ],
+            "input amount": [
+                60,
+                30,
+                15
+            ]
+        },
+        {
+            "income": 8040,
+            "cost": 450,
+            "input goods": [
+                {
+                    "name": "Iron",
+                    "type": "INDUSTRIAL",
+                    "supply": 593,
+                    "demand": 90,
+                    "base": 40
+                },
+                {
+                    "name": "Coal",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 226,
+                    "base": 30
+                }
+            ],
+            "size": 1,
+            "output amount": [120],
+            "name": "Steel Mill",
+            "expense": 2960,
+            "output goods": [{
+                "name": "Steel",
+                "type": "INDUSTRIAL",
+                "supply": 120,
+                "demand": 105,
+                "base": 50
+            }],
+            "input amount": [
+                90,
+                30
+            ]
+        },
+        {
+            "income": 6591,
+            "cost": 450,
+            "input goods": [
+                {
+                    "name": "Glass",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 85,
+                    "base": 40
+                },
+                {
+                    "name": "Steel",
+                    "type": "INDUSTRIAL",
+                    "supply": 120,
+                    "demand": 105,
+                    "base": 50
+                },
+                {
+                    "name": "Coal",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 226,
+                    "base": 30
+                }
+            ],
+            "size": 8,
+            "output amount": [110],
+            "name": "Urban Center",
+            "expense": 20178,
+            "output goods": [{
+                "name": "Services",
+                "type": "CONSUMER",
+                "supply": 941,
+                "demand": 445,
+                "base": 30
+            }],
+            "input amount": [
+                10,
+                10,
+                10
+            ]
+        },
+        {
+            "income": 9075,
+            "cost": 150,
+            "input goods": [{
+                "name": "Fertilizer",
+                "type": "INDUSTRIAL",
+                "supply": 52,
+                "demand": 484,
+                "base": 30
+            }],
+            "size": 11,
+            "output amount": [150],
+            "name": "Farm",
+            "expense": 30668,
+            "output goods": [{
+                "name": "Grain",
+                "type": "INDUSTRIAL",
+                "supply": 1815,
+                "demand": 52,
+                "base": 20
+            }],
+            "input amount": [40]
+        },
+        {
+            "income": 6240,
+            "cost": 150,
+            "input goods": [{
+                "name": "Grain",
+                "type": "INDUSTRIAL",
+                "supply": 1815,
+                "demand": 52,
+                "base": 20
+            }],
+            "size": 5,
+            "output amount": [
+                40,
+                10
+            ],
+            "name": "Livestock Ranch",
+            "expense": 2760,
+            "output goods": [
+                {
+                    "name": "Fabric",
+                    "type": "INDUSTRIAL",
+                    "supply": 208,
+                    "demand": 183,
+                    "base": 20
+                },
+                {
+                    "name": "Fertilizer",
+                    "type": "INDUSTRIAL",
+                    "supply": 52,
+                    "demand": 484,
+                    "base": 30
+                }
+            ],
+            "input amount": [10]
+        },
+        {
+            "income": 0,
+            "cost": 150,
+            "input goods": [{
+                "name": "Tools",
+                "type": "INDUSTRIAL",
+                "supply": 80,
+                "demand": 126,
+                "base": 40
+            }],
+            "size": 0,
+            "output amount": [40],
+            "name": "Cotton Plantation",
+            "expense": 0,
+            "output goods": [{
+                "name": "Fabric",
+                "type": "INDUSTRIAL",
+                "supply": 208,
+                "demand": 183,
+                "base": 20
+            }],
+            "input amount": [5]
+        },
+        {
+            "income": 0,
+            "cost": 150,
+            "input goods": [{
+                "name": "Tools",
+                "type": "INDUSTRIAL",
+                "supply": 80,
+                "demand": 126,
+                "base": 40
+            }],
+            "size": 0,
+            "output amount": [25],
+            "name": "Dye Plantation",
+            "expense": 0,
+            "output goods": [{
+                "name": "Dye",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 30,
+                "base": 40
+            }],
+            "input amount": [5]
+        },
+        {
+            "income": 0,
+            "cost": 300,
+            "input goods": [
+                {
+                    "name": "Tools",
+                    "type": "INDUSTRIAL",
+                    "supply": 80,
+                    "demand": 126,
+                    "base": 40
+                },
+                {
+                    "name": "Explosives",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 74,
+                    "base": 50
+                }
+            ],
+            "size": 0,
+            "output amount": [85],
+            "name": "Coal Mine",
+            "expense": 0,
+            "output goods": [{
+                "name": "Coal",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 226,
+                "base": 30
+            }],
+            "input amount": [
+                15,
+                10
+            ]
+        },
+        {
+            "income": 5936,
+            "cost": 300,
+            "input goods": [
+                {
+                    "name": "Tools",
+                    "type": "INDUSTRIAL",
+                    "supply": 80,
+                    "demand": 126,
+                    "base": 40
+                },
+                {
+                    "name": "Coal",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 226,
+                    "base": 30
+                },
+                {
+                    "name": "Explosives",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 74,
+                    "base": 50
+                }
+            ],
+            "size": 7,
+            "output amount": [80],
+            "name": "Iron Mine",
+            "expense": 22865,
+            "output goods": [{
+                "name": "Iron",
+                "type": "INDUSTRIAL",
+                "supply": 593,
+                "demand": 90,
+                "base": 40
+            }],
+            "input amount": [
+                15,
+                15,
+                10
+            ]
+        },
+        {
+            "income": 0,
+            "cost": 300,
+            "input goods": [
+                {
+                    "name": "Tools",
+                    "type": "INDUSTRIAL",
+                    "supply": 80,
+                    "demand": 126,
+                    "base": 40
+                },
+                {
+                    "name": "Coal",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 226,
+                    "base": 30
+                },
+                {
+                    "name": "Explosives",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 74,
+                    "base": 50
+                }
+            ],
+            "size": 0,
+            "output amount": [80],
+            "name": "Lead Mine",
+            "expense": 0,
+            "output goods": [{
+                "name": "Coal",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 226,
+                "base": 30
+            }],
+            "input amount": [
+                15,
+                15,
+                10
+            ]
+        },
+        {
+            "income": 0,
+            "cost": 300,
+            "input goods": [
+                {
+                    "name": "Tools",
+                    "type": "INDUSTRIAL",
+                    "supply": 80,
+                    "demand": 126,
+                    "base": 40
+                },
+                {
+                    "name": "Coal",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 226,
+                    "base": 30
+                },
+                {
+                    "name": "Explosives",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 74,
+                    "base": 50
+                }
+            ],
+            "size": 0,
+            "output amount": [80],
+            "name": "Sulfur Mine",
+            "expense": 0,
+            "output goods": [{
+                "name": "Coal",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 226,
+                "base": 30
+            }],
+            "input amount": [
+                15,
+                15,
+                10
+            ]
+        }
+    ]}
+}

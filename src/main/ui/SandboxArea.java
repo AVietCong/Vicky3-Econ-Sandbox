@@ -6,6 +6,7 @@ import persistence.JsonWriter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 // Economic Sandbox.json
@@ -90,7 +91,7 @@ public class SandboxArea {
             }
         }
 
-        System.out.println("\n Exiting Sandbox.json");
+        System.out.println("\n Exiting Sandbox");
     }
 
     // EFFECTS: display main menu options
@@ -105,9 +106,11 @@ public class SandboxArea {
         System.out.println("\t market -> View Market Report");
         System.out.println("\t industry -> View Industry Report");
         System.out.println("\t construction -> View/Add/Remove Buildings from Construction Queue");
-        System.out.println("\t down size -> Reduce a building's level");
-        System.out.println("\t next turn -> Fast Foward 1 Week");
-        System.out.println("\t exit -> Exit Sandbox.json");
+        System.out.println("\t down size -> Reduce a Building's Level");
+        System.out.println("\t next turn -> Fast Forward 1 Week");
+        System.out.println("\t save -> Save Sandbox to File");
+        System.out.println("\t load -> Load Sandbox to File");
+        System.out.println("\t exit -> Exit Sandbox");
     }
 
     // MODIFIES: this
@@ -123,11 +126,37 @@ public class SandboxArea {
             handleDownSize();
         } else if (command.equals("next turn")) {
             processTurn();
+        } else if (command.equals("save")) {
+            saveSandbox();
+        } else if (command.equals("load")) {
+            loadSandbox();
         } else {
             System.out.println("Selection not valid");
         }
     }
 
+    // EFFECTS: save sandbox to file
+    private void saveSandbox() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(economy);
+            jsonWriter.close();
+            System.out.println("Saved current state of economy to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads economy from file
+    private void loadSandbox() {
+        try {
+            economy = jsonReader.read();
+            System.out.println("Loaded last state of economy from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
 
     // MODIFIES: this
     // EFFECTS: handle user input in downsize menu
