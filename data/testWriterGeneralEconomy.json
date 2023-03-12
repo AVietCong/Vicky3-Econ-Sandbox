@@ -1,0 +1,196 @@
+{
+    "market": {"market": [
+        {
+            "name": "Fertilizer",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 0,
+            "base": 30
+        },
+        {
+            "name": "Grain",
+            "type": "CONSUMER",
+            "supply": 0,
+            "demand": 0,
+            "base": 20
+        },
+        {
+            "name": "Groceries",
+            "type": "CONSUMER",
+            "supply": 0,
+            "demand": 0,
+            "base": 30
+        },
+        {
+            "name": "Steel",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 0,
+            "base": 50
+        },
+        {
+            "name": "Iron",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 0,
+            "base": 40
+        },
+        {
+            "name": "Coal",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 0,
+            "base": 30
+        },
+        {
+            "name": "Explosives",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 0,
+            "base": 50
+        },
+        {
+            "name": "Tools",
+            "type": "INDUSTRIAL",
+            "supply": 0,
+            "demand": 0,
+            "base": 40
+        }
+    ]},
+    "construction": {
+        "input": [
+            {
+                "name": "Steel",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 0,
+                "base": 50
+            },
+            {
+                "name": "Tools",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 0,
+                "base": 40
+            },
+            {
+                "name": "Explosives",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 0,
+                "base": 50
+            }
+        ],
+        "expense": 0,
+        "value": [],
+        "input amount": [
+            70,
+            20,
+            20
+        ],
+        "queue": []
+    },
+    "industry": {"industries": [
+        {
+            "income": 0,
+            "cost": 50,
+            "input goods": [{
+                "name": "Fertilizer",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 0,
+                "base": 30
+            }],
+            "size": 1,
+            "output amount": [90],
+            "name": "Farm",
+            "expense": 0,
+            "output goods": [{
+                "name": "Grain",
+                "type": "CONSUMER",
+                "supply": 0,
+                "demand": 0,
+                "base": 20
+            }],
+            "input amount": [15]
+        },
+        {
+            "income": 0,
+            "cost": 300,
+            "input goods": [
+                {
+                    "name": "Tools",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 0,
+                    "base": 40
+                },
+                {
+                    "name": "Coal",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 0,
+                    "base": 30
+                },
+                {
+                    "name": "Explosives",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 0,
+                    "base": 50
+                }
+            ],
+            "size": 1,
+            "output amount": [80],
+            "name": "Iron Mine",
+            "expense": 0,
+            "output goods": [{
+                "name": "Iron",
+                "type": "INDUSTRIAL",
+                "supply": 0,
+                "demand": 0,
+                "base": 40
+            }],
+            "input amount": [
+                15,
+                15,
+                10
+            ]
+        },
+        {
+            "income": 0,
+            "cost": 450,
+            "input goods": [
+                {
+                    "name": "Grain",
+                    "type": "CONSUMER",
+                    "supply": 0,
+                    "demand": 0,
+                    "base": 20
+                },
+                {
+                    "name": "Iron",
+                    "type": "INDUSTRIAL",
+                    "supply": 0,
+                    "demand": 0,
+                    "base": 40
+                }
+            ],
+            "size": 1,
+            "output amount": [65],
+            "name": "Food Industry",
+            "expense": 0,
+            "output goods": [{
+                "name": "Groceries",
+                "type": "CONSUMER",
+                "supply": 0,
+                "demand": 0,
+                "base": 30
+            }],
+            "input amount": [
+                20,
+                10
+            ]
+        }
+    ]}
+}

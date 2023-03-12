@@ -86,6 +86,14 @@ public class Building implements Writable {
         this.size = size;
     }
 
+    public void setIncome(int income) {
+        this.income = income;
+    }
+
+    public void setExpense(int expense) {
+        this.expense = expense;
+    }
+
     // MODIFIES: inputGoods
     // EFFECTS: increase the demand of input goods in market
     public void consume() {
@@ -179,8 +187,6 @@ public class Building implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("wages", WAGES_PER_LEVEL);
-        json.put("eos", MAXIMUM_EOS_BONUS);
         json.put("name", name);
         json.put("size", size);
         json.put("income", income);

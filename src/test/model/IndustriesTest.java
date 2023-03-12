@@ -251,19 +251,16 @@ public class IndustriesTest {
     void testtoJson() {
         industries.add(steelMill);
         industries.add(farm);
-        assertEquals("{\"industries\":[{\"income\":0,\"wages\":500,\"cost\":450," +
-                "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
-                "\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}," +
-                "{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Coal\",\"type\":\"INDUSTRIAL\"," +
-                "\"supply\":0,\"demand\":0,\"base\":30}]," +
-                "\"size\":1,\"output amount\":[120],\"eos\":1.5,\"name\":\"Steel Mill\",\"expense\":0," +
-                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Steel\"," +
-                "\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}],\"input amount\":[90,30]}," +
-                "{\"income\":0,\"wages\":500,\"cost\":50,\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
-                "\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0," +
-                "\"base\":30}],\"size\":1,\"output amount\":[90],\"eos\":1.5,\"name\":\"Farm\",\"expense\":0," +
-                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Grain\"," +
-                "\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}],\"input amount\":[15]}]}",
+        assertEquals("{\"industries\":[{\"income\":0,\"cost\":450," +
+                "\"input goods\":[{\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}," +
+                "{\"name\":\"Coal\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":30}]," +
+                "\"size\":1,\"output amount\":[120],\"name\":\"Steel Mill\",\"expense\":0," +
+                "\"output goods\":[{\"name\":\"Steel\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}]," +
+                "\"input amount\":[90,30]},{\"income\":0,\"cost\":50," +
+                "\"input goods\":[{\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0," +
+                "\"base\":30}],\"size\":1,\"output amount\":[90],\"name\":\"Farm\",\"expense\":0," +
+                "\"output goods\":[{\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}]," +
+                "\"input amount\":[15]}]}",
                 industries.toJson().toString());
     }
 

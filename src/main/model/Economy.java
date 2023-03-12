@@ -1,8 +1,12 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.Objects;
 
-public class Economy {
+public class Economy implements Writable {
 
     private final Industries industries;
     private final Market market;
@@ -26,6 +30,16 @@ public class Economy {
 
     public ConstructionSector getConstructionSector() {
         return constructionSector;
+    }
+
+    // EFFECTS: return Json representation of Economy
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("market", market.toJson());
+        json.put("industry", industries.toJson());
+        json.put("construction", constructionSector.toJson());
+        return json;
     }
 
     // EFFECTS: return true if all fields are equal

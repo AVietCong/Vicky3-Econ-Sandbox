@@ -60,6 +60,24 @@ public class ConstructionSectorTest {
     }
 
     @Test
+    void testsetExpense() {
+        constructionSector.setExpense(5000);
+        assertEquals(5000, constructionSector.getExpense());
+    }
+
+    @Test
+    void testsetConstructionQueue() {
+        constructionSector.setConstructionQueue(Arrays.asList(farm, foodIndustry, ironMine));
+        assertEquals(Arrays.asList(farm, foodIndustry, ironMine), constructionSector.getConstructionQueue());
+    }
+
+    @Test
+    void testsetConstructionValue() {
+        constructionSector.setConstructionValue(Arrays.asList(150, 300, 200));
+        assertEquals(Arrays.asList(150, 300, 200), constructionSector.getConstructionValue());
+    }
+
+    @Test
     void testaddOnce() {
         constructionSector.build(farm);
         assertTrue(constructionSector.getConstructionQueue().contains(farm));
@@ -256,27 +274,19 @@ public class ConstructionSectorTest {
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
         constructionSector.payExpense();
-        assertEquals("{\"wages\":5000,\"input\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
-                        "\"name\":\"Steel\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}," +
-                        "{\"upper cap\":1.75,\"lower cap\":0.25," +
-                        "\"name\":\"Tools\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}," +
-                        "{\"upper cap\":1.75,\"lower cap\":0.25," +
-                        "\"name\":\"Explosives\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}]," +
+        assertEquals("{\"input\":[{\"name\":\"Steel\",\"type\":\"INDUSTRIAL\",\"supply\":0," +
+                        "\"demand\":0,\"base\":50},{\"name\":\"Tools\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}," +
+                        "{\"name\":\"Explosives\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":50}]," +
                         "\"expense\":10300,\"value\":[50,450],\"input amount\":[70,20,20]," +
-                        "\"queue\":[{\"income\":0,\"wages\":500,\"cost\":50," +
-                        "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
-                        "\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":30}]," +
-                        "\"size\":1,\"output amount\":[90],\"eos\":1.5,\"name\":\"Farm\",\"expense\":0," +
-                        "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
-                        "\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}]," +
-                        "\"input amount\":[15]},{\"income\":0,\"wages\":500,\"cost\":450," +
-                        "\"input goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
-                        "\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}," +
-                        "{\"upper cap\":1.75,\"lower cap\":0.25," +
-                        "\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}]," +
-                        "\"size\":1,\"output amount\":[65],\"eos\":1.5,\"name\":\"Food Industry\",\"expense\":0," +
-                        "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25," +
-                        "\"name\":\"Groceries\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":30}]," +
+                        "\"queue\":[{\"income\":0,\"cost\":50," +
+                        "\"input goods\":[{\"name\":\"Fertilizer\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":30}]," +
+                        "\"size\":1,\"output amount\":[90],\"name\":\"Farm\",\"expense\":0," +
+                        "\"output goods\":[{\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}]," +
+                        "\"input amount\":[15]},{\"income\":0,\"cost\":450," +
+                        "\"input goods\":[{\"name\":\"Grain\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":20}," +
+                        "{\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":0,\"demand\":0,\"base\":40}]," +
+                        "\"size\":1,\"output amount\":[65],\"name\":\"Food Industry\",\"expense\":0," +
+                        "\"output goods\":[{\"name\":\"Groceries\",\"type\":\"CONSUMER\",\"supply\":0,\"demand\":0,\"base\":30}]," +
                         "\"input amount\":[20,10]}]}", constructionSector.toJson().toString());
     }
 

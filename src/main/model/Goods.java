@@ -27,8 +27,6 @@ public class Goods implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("upper cap", UPPER_PRICE_CAP);
-        json.put("lower cap", LOWER_PRICE_CAP);
         json.put("name", name);
         json.put("base", basePrice);
         json.put("supply", supply);

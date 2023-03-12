@@ -21,7 +21,7 @@ public class ConstructionSector implements Writable {
     private final List<Integer> inputAmount;
     private int expense;
 
-    // EFFECTS: create a new construction sector with size 1, empty construction queue
+    // EFFECTS: create a new construction sector with empty construction queue
     public ConstructionSector(List<Goods> inputGoods, List<Integer> inputAmount) {
         constructionQueue = new ArrayList<>();
         constructionValue = new ArrayList<>();
@@ -49,6 +49,19 @@ public class ConstructionSector implements Writable {
 
     public List<Integer> getConstructionValue() {
         return constructionValue;
+    }
+
+    //setters
+    public void setExpense(int expense) {
+        this.expense = expense;
+    }
+
+    public void setConstructionQueue(List<Building> queue) {
+        constructionQueue = queue;
+    }
+
+    public void setConstructionValue(List<Integer> value) {
+        constructionValue = value;
     }
 
     // MODIFIES: this
@@ -126,7 +139,6 @@ public class ConstructionSector implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("wages", WAGES);
         json.put("expense", expense);
         json.put("queue", queueToJson());
         json.put("value", constructionValue);

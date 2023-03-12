@@ -163,6 +163,7 @@ public class Market implements Writable {
         return json;
     }
 
+
     // EFFECTS: return true if list of goods are equal
     @Override
     public boolean equals(Object o) {

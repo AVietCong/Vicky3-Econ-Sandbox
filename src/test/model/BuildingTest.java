@@ -66,6 +66,18 @@ public class BuildingTest {
     }
 
     @Test
+    void testsetIncome() {
+        farm.setIncome(3020);
+        assertEquals(3020, farm.getIncome());
+    }
+
+    @Test
+    void testsetExpense() {
+        farm.setExpense(4000);
+        assertEquals(4000, farm.getExpense());
+    }
+
+    @Test
     void testconsumeOnce() {
         farm.consume();
         assertEquals(15, fertilizer.getDemand());
@@ -399,14 +411,12 @@ public class BuildingTest {
         steelMill.sellGoods();
         steelMill.payExpense();
 
-        assertEquals("{\"income\":126324,\"wages\":500,\"cost\":450,\"input goods\":" +
-                "[{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Iron\"," +
-                "\"type\":\"INDUSTRIAL\",\"supply\":300,\"demand\":400,\"base\":40}," +
-                "{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Coal\"," +
-                "\"type\":\"INDUSTRIAL\",\"supply\":250,\"demand\":200,\"base\":30}]," +
-                "\"size\":11,\"output amount\":[120],\"eos\":1.5,\"name\":\"Steel Mill\",\"expense\":68662," +
-                "\"output goods\":[{\"upper cap\":1.75,\"lower cap\":0.25,\"name\":\"Steel\"," +
-                "\"type\":\"INDUSTRIAL\",\"supply\":100,\"demand\":200,\"base\":50}],\"input amount\":[90,30]}",
+        assertEquals("{\"income\":126324,\"cost\":450,\"input goods\":" +
+                "[{\"name\":\"Iron\",\"type\":\"INDUSTRIAL\",\"supply\":300,\"demand\":400,\"base\":40}," +
+                "{\"name\":\"Coal\",\"type\":\"INDUSTRIAL\",\"supply\":250,\"demand\":200,\"base\":30}]," +
+                "\"size\":11,\"output amount\":[120],\"name\":\"Steel Mill\",\"expense\":68662," +
+                "\"output goods\":[{\"name\":\"Steel\",\"type\":\"INDUSTRIAL\",\"supply\":100,\"demand\":200,\"base\":50}]," +
+                "\"input amount\":[90,30]}",
         steelMill.toJson().toString());
     }
 
