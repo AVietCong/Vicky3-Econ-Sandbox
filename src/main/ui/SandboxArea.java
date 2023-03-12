@@ -75,6 +75,7 @@ public class SandboxArea {
     private void runSandbox() {
         boolean keepGoing = true;
         String command = null;
+        String exitCommand = null;
 
         turn = 1;
         init();
@@ -85,6 +86,12 @@ public class SandboxArea {
             command = command.toLowerCase();
 
             if (command.equals("exit")) {
+                displayExitMenu();
+                exitCommand = input.next();
+                exitCommand = exitCommand.toLowerCase();
+                if (exitCommand.equals("yes")) {
+                    saveSandbox();
+                }
                 keepGoing = false;
             } else {
                 processCommand(command);
@@ -92,6 +99,11 @@ public class SandboxArea {
         }
 
         System.out.println("\n Exiting Sandbox");
+    }
+
+    // EFFECTS: display exit menu options
+    private void displayExitMenu() {
+        System.out.println("\n Do you want to save file before exiting? (Yes/No)");
     }
 
     // EFFECTS: display main menu options
@@ -108,7 +120,6 @@ public class SandboxArea {
         System.out.println("\t construction -> View/Add/Remove Buildings from Construction Queue");
         System.out.println("\t down size -> Reduce a Building's Level");
         System.out.println("\t next turn -> Fast Forward 1 Week");
-        System.out.println("\t save -> Save Sandbox to File");
         System.out.println("\t load -> Load Sandbox to File");
         System.out.println("\t exit -> Exit Sandbox");
     }
@@ -126,8 +137,6 @@ public class SandboxArea {
             handleDownSize();
         } else if (command.equals("next turn")) {
             processTurn();
-        } else if (command.equals("save")) {
-            saveSandbox();
         } else if (command.equals("load")) {
             loadSandbox();
         } else {
