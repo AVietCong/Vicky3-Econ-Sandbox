@@ -4,7 +4,7 @@
             "name": "Clothes",
             "type": "CONSUMER",
             "supply": 306,
-            "demand": 415,
+            "demand": 410,
             "base": 30
         },
         {
@@ -18,28 +18,28 @@
             "name": "Furniture",
             "type": "CONSUMER",
             "supply": 0,
-            "demand": 294,
+            "demand": 289,
             "base": 30
         },
         {
             "name": "Grain",
             "type": "INDUSTRIAL",
             "supply": 1815,
-            "demand": 52,
+            "demand": 365,
             "base": 20
         },
         {
             "name": "Groceries",
             "type": "CONSUMER",
             "supply": 0,
-            "demand": 5,
+            "demand": 0,
             "base": 30
         },
         {
             "name": "Services",
             "type": "CONSUMER",
             "supply": 941,
-            "demand": 430,
+            "demand": 425,
             "base": 30
         },
         {
@@ -162,7 +162,7 @@
                     "name": "Grain",
                     "type": "INDUSTRIAL",
                     "supply": 1815,
-                    "demand": 52,
+                    "demand": 365,
                     "base": 20
                 },
                 {
@@ -181,7 +181,7 @@
                 "name": "Groceries",
                 "type": "CONSUMER",
                 "supply": 0,
-                "demand": 5,
+                "demand": 0,
                 "base": 30
             }],
             "input amount": [
@@ -218,12 +218,12 @@
             "size": 3,
             "output amount": [100],
             "name": "Textile Mill",
-            "expense": 7635,
+            "expense": 11139,
             "output goods": [{
                 "name": "Clothes",
                 "type": "CONSUMER",
                 "supply": 306,
-                "demand": 415,
+                "demand": 410,
                 "base": 30
             }],
             "input amount": [
@@ -266,7 +266,7 @@
                 "name": "Furniture",
                 "type": "CONSUMER",
                 "supply": 0,
-                "demand": 294,
+                "demand": 289,
                 "base": 30
             }],
             "input amount": [
@@ -299,7 +299,7 @@
             "input amount": [35]
         },
         {
-            "income": 4560,
+            "income": 800,
             "cost": 450,
             "input goods": [
                 {
@@ -457,7 +457,7 @@
                 "name": "Services",
                 "type": "CONSUMER",
                 "supply": 941,
-                "demand": 430,
+                "demand": 425,
                 "base": 30
             }],
             "input amount": [
@@ -484,7 +484,7 @@
                 "name": "Grain",
                 "type": "INDUSTRIAL",
                 "supply": 1815,
-                "demand": 52,
+                "demand": 365,
                 "base": 20
             }],
             "input amount": [40]
@@ -496,7 +496,7 @@
                 "name": "Grain",
                 "type": "INDUSTRIAL",
                 "supply": 1815,
-                "demand": 52,
+                "demand": 365,
                 "base": 20
             }],
             "size": 5,

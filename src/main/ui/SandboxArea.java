@@ -70,6 +70,7 @@ public class SandboxArea {
         runSandbox();
     }
 
+
     // MODIFIES: this
     // EFFECTS: handle user input in main menu
     private void runSandbox() {
