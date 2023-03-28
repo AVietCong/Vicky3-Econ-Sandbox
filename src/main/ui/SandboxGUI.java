@@ -30,6 +30,8 @@ public class SandboxGUI extends JFrame {
     private JButton constructionButton;
     private JButton nextTurnButton;
     private JLayeredPane interactionArea;
+    private JPanel informationPanel;
+    private String currentMenu;
 
     private java.util.List<Goods> allGoods;
     private java.util.List<Building> allBuildings;
@@ -84,9 +86,13 @@ public class SandboxGUI extends JFrame {
         setIconImage(icon.getImage());
 
         initEconomy();
+        constructionSector.build(farm);
+        constructionSector.build(chemicalPlant);
+        constructionSector.build(ironMine);
 
         initializeGraphics();
         initializeInteraction();
+        currentMenu = null;
     }
 
     private void initEconomy() {
@@ -116,7 +122,8 @@ public class SandboxGUI extends JFrame {
         setSize(1280, 720);
         createButtons();
         initializeInteractionArea();
-        handleMarketReport();
+        informationPanel = new JPanel();
+        interactionArea.add(informationPanel, BorderLayout.CENTER);
 
         setVisible(true);
     }
@@ -180,16 +187,12 @@ public class SandboxGUI extends JFrame {
     }
 
     private void handleConstructionReport() {
-        JPanel informationPanel = new JPanel();
+        interactionArea.remove(informationPanel);
+        informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setPreferredSize(new Dimension(300, 100));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weighty = 0.2;
-        gbc.weightx = 0.1;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        informationPanel.setPreferredSize(new Dimension(200, 100));
+        GridBagConstraints gbc = giveGBConstraints();
 
         addConstructionHeader(gbc, informationPanel);
         gbc.weighty = 0.1;
@@ -198,7 +201,8 @@ public class SandboxGUI extends JFrame {
         addConstructionReport(gbc, informationPanel);
         gbc.weighty = 3.0;
         informationPanel.add(new JLabel(), gbc);
-        interactionArea.add(informationPanel, BorderLayout.WEST, Integer.valueOf(1));
+        refreshInteractionArea();
+        currentMenu = "c";
     }
 
     private void addConstructionReport(GridBagConstraints gbc, JPanel informationPanel) {
@@ -226,19 +230,27 @@ public class SandboxGUI extends JFrame {
     }
 
     private void handleIndustryReport() {
-    }
-
-    private void handleMarketReport() {
-        JPanel informationPanel = new JPanel();
+        interactionArea.remove(informationPanel);
+        informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
         informationPanel.setPreferredSize(new Dimension(300, 100));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weighty = 0.2;
         gbc.weightx = 0.2;
-        gbc.fill = GridBagConstraints.VERTICAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
+
+        currentMenu = "i";
+    }
+
+    private void handleMarketReport() {
+        interactionArea.remove(informationPanel);
+        informationPanel = new JPanel();
+        informationPanel.setLayout(new GridBagLayout());
+        informationPanel.setBackground(Color.LIGHT_GRAY);
+        informationPanel.setPreferredSize(new Dimension(300, 100));
+        GridBagConstraints gbc = giveGBConstraints();
 
         List<Goods> activeGoods = economy.getMarket().removeInactiveGoods().getAllGoods();
         addMarketReportHeader(gbc, informationPanel);
@@ -252,8 +264,8 @@ public class SandboxGUI extends JFrame {
         }
         gbc.weighty = 3.0;
         informationPanel.add(new JLabel(), gbc);
-
-        interactionArea.add(informationPanel, BorderLayout.WEST, Integer.valueOf(1));
+        refreshInteractionArea();
+        currentMenu = "m";
     }
 
     private void addMarketReportHeader(GridBagConstraints gbc, JPanel informationPanel) {
@@ -308,6 +320,21 @@ public class SandboxGUI extends JFrame {
         buttonPanel.add(nextTurnButton);
     }
 
+    private void refreshInteractionArea() {
+        interactionArea.add(informationPanel, BorderLayout.WEST, Integer.valueOf(1));
+        revalidate();
+        repaint();
+    }
+
+    private GridBagConstraints giveGBConstraints() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weighty = 0.2;
+        gbc.weightx = 0.2;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        return gbc;
+    }
+
     // EFFECTS: save sandbox to file
     private void saveSandbox() {
         try {
@@ -347,6 +374,13 @@ public class SandboxGUI extends JFrame {
         exchangeGoods();
         cleanupMarket();
         consumeAndProduce();
+        if (currentMenu == "c") {
+            handleConstructionReport();
+        } else if (currentMenu == "m") {
+            handleMarketReport();
+        } else {
+            handleIndustryReport();
+        }
     }
 
     // MODIFIES: this
