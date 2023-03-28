@@ -426,18 +426,18 @@ public class SandboxArea {
         List<Integer> demand = activeGoods.getDemandOfGoods();
         List<Integer> supply = activeGoods.getSupplyOfGoods();
         List<Double> priceModifiers = activeGoods.getPriceModifiers();
-        List<Integer> basePrices = activeGoods.getBasePrices();
         List<Integer> prices = activeGoods.getPrices();
 
-        String marketReportTitleTemplate = "%-10s %7s %7s %6s %7s %10s%n";
-        String marketReportTemplate = "%-10s %7s %7s %8s %12d %10d%n";
+        String marketReportTitleTemplate = "%-10s %7s %7s %6s %7s%n";
+        String marketReportTemplate = "%-10s %7s %7s %8s %12s%n";
         System.out.printf(marketReportTitleTemplate, "Goods", "Demand", "Supply",
-                "Price Modifier", "Price", "Base Price");
+                "Price Modifier", "Price");
         for (int i = 0; i < names.size(); i++) {
             int modifier = (int) ((priceModifiers.get(i) - 1) * 100);
             String modifierString = modifier + "%";
+            String priceString = "£" + prices.get(i);
             System.out.printf(marketReportTemplate, names.get(i), demand.get(i), supply.get(i),
-                    modifierString, prices.get(i), basePrices.get(i));
+                    modifierString, priceString);
         }
     }
 

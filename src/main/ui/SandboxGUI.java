@@ -20,17 +20,19 @@ public class SandboxGUI extends JFrame {
     private static final String ICON = "./data/Logo.png";
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
-    private static final int BUTTON_PANEL_HEIGHT = 40;
+    private static final int BUTTON_PANEL_HEIGHT = 26;
+    private static final Dimension INFORMATION_PANEL_DIMENSION = new Dimension(420, 100);
     private ImageIcon icon = new ImageIcon(ICON);
-    private Button saveButton;
-    private Button loadButton;
-    private Button marketButton;
-    private Button industryButton;
-    private Button nextTurnButton;
+    private JButton saveButton;
+    private JButton loadButton;
+    private JButton marketButton;
+    private JButton industryButton;
+    private JButton constructionButton;
+    private JButton nextTurnButton;
+    private JLayeredPane interactionArea;
 
     private java.util.List<Goods> allGoods;
     private java.util.List<Building> allBuildings;
-    private List<Building> constructionReport;
 
     private Economy economy;
     private Industries industries;
@@ -108,19 +110,27 @@ public class SandboxGUI extends JFrame {
             b.gainIncome();
         }
         economy = new Economy(industries, market, constructionSector);
-        constructionReport = new ArrayList<>();
     }
 
     private void initializeGraphics() {
         setSize(1280, 720);
         createButtons();
+        initializeInteractionArea();
+        handleMarketReport();
 
         setVisible(true);
     }
 
+    private void initializeInteractionArea() {
+        interactionArea = new JLayeredPane();
+        interactionArea.setLayout(new BorderLayout());
+        add(interactionArea, BorderLayout.CENTER);
+    }
+
+
     private void initializeInteraction() {
         initializeSaveLoadInteraction();
-        initializeEconomyInteraction();
+        initializeReportInteraction();
     }
 
     private void initializeSaveLoadInteraction() {
@@ -137,9 +147,16 @@ public class SandboxGUI extends JFrame {
                 loadSandbox();
             }
         });
+
+        nextTurnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                processTurn();
+            }
+        });
     }
 
-    private void initializeEconomyInteraction() {
+    private void initializeReportInteraction() {
         marketButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,46 +171,140 @@ public class SandboxGUI extends JFrame {
             }
         });
 
-        nextTurnButton.addActionListener(new ActionListener() {
+        constructionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                processTurn();
+                handleConstructionReport();
             }
         });
+    }
+
+    private void handleConstructionReport() {
+        JPanel informationPanel = new JPanel();
+        informationPanel.setLayout(new GridBagLayout());
+        informationPanel.setBackground(Color.LIGHT_GRAY);
+        informationPanel.setPreferredSize(new Dimension(300, 100));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weighty = 0.2;
+        gbc.weightx = 0.1;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        addConstructionHeader(gbc, informationPanel);
+        gbc.weighty = 0.1;
+        gbc.gridy += 1;
+        gbc.gridx = 0;
+        addConstructionReport(gbc, informationPanel);
+        gbc.weighty = 3.0;
+        informationPanel.add(new JLabel(), gbc);
+        interactionArea.add(informationPanel, BorderLayout.WEST, Integer.valueOf(1));
+    }
+
+    private void addConstructionReport(GridBagConstraints gbc, JPanel informationPanel) {
+        List<Building> queue = constructionSector.getConstructionQueue();
+        List<Integer> value = constructionSector.getConstructionValue();
+        for (Building building : queue) {
+            informationPanel.add(new JLabel(building.getName()), gbc);
+            gbc.gridy += 1;
+        }
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        for (Integer remaining : value) {
+            informationPanel.add(new JLabel(String.valueOf(remaining)), gbc);
+            gbc.gridy += 1;
+        }
+    }
+
+    private void addConstructionHeader(GridBagConstraints gbc, JPanel informationPanel) {
+        gbc.ipadx = 15;
+
+        informationPanel.add(new JLabel("Building"), gbc);
+        gbc.ipadx = 5;
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Remaining"), gbc);
     }
 
     private void handleIndustryReport() {
     }
 
     private void handleMarketReport() {
+        JPanel informationPanel = new JPanel();
+        informationPanel.setLayout(new GridBagLayout());
+        informationPanel.setBackground(Color.LIGHT_GRAY);
+        informationPanel.setPreferredSize(new Dimension(300, 100));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weighty = 0.2;
+        gbc.weightx = 0.2;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        List<Goods> activeGoods = economy.getMarket().removeInactiveGoods().getAllGoods();
+        addMarketReportHeader(gbc, informationPanel);
+        gbc.weighty = 0.1;
+        gbc.gridy += 1;
+        gbc.gridx = 0;
+        for (Goods goods : activeGoods) {
+            addRowForGood(goods, gbc, informationPanel);
+            gbc.gridy += 1;
+            gbc.gridx = 0;
+        }
+        gbc.weighty = 3.0;
+        informationPanel.add(new JLabel(), gbc);
+
+        interactionArea.add(informationPanel, BorderLayout.WEST, Integer.valueOf(1));
+    }
+
+    private void addMarketReportHeader(GridBagConstraints gbc, JPanel informationPanel) {
+        gbc.ipadx = 5;
+
+        informationPanel.add(new JLabel("Goods"), gbc);
+        gbc.ipadx = 5;
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Demand"), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Supply"), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Price"), gbc);
+    }
+
+    private void addRowForGood(Goods goods, GridBagConstraints gbc, JPanel informationPanel) {
+        JLabel nameLabel = new JLabel(goods.getName());
+        JLabel demandLabel = new JLabel(String.valueOf(goods.getDemand()));
+        JLabel supplyLabel = new JLabel(String.valueOf(goods.getSupply()));
+        JLabel priceLabel = new JLabel("£" + goods.determinePrice());
+
+        gbc.ipadx = 5;
+        informationPanel.add(nameLabel, gbc);
+        gbc.gridx += 1;
+        gbc.ipadx = 5;
+        informationPanel.add(demandLabel, gbc);
+        gbc.gridx += 1;
+        informationPanel.add(supplyLabel, gbc);
+        gbc.gridx += 1;
+        informationPanel.add(priceLabel, gbc);
     }
 
     private void createButtons() {
-        Dimension buttonDimension = new Dimension(60,BUTTON_PANEL_HEIGHT);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(100, BUTTON_PANEL_HEIGHT));
         buttonPanel.setBackground(Color.LIGHT_GRAY);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
         add(buttonPanel, BorderLayout.NORTH);
 
-        saveButton = new Button("Save");
-        saveButton.setPreferredSize(buttonDimension);
+        saveButton = new JButton("Save");
+        loadButton = new JButton("Load");
+        marketButton = new JButton("Market");
+        industryButton = new JButton("Industry");
+        constructionButton = new JButton("Construction");
+        nextTurnButton = new JButton("Next Turn");
+
         buttonPanel.add(saveButton);
-
-        loadButton = new Button("Load");
-        loadButton.setPreferredSize(buttonDimension);
         buttonPanel.add(loadButton);
-
-        marketButton = new Button("Market");
-        marketButton.setPreferredSize(buttonDimension);
         buttonPanel.add(marketButton);
-
-        industryButton = new Button("Industry");
-        industryButton.setPreferredSize(buttonDimension);
         buttonPanel.add(industryButton);
-
-        nextTurnButton = new Button("Next Turn");
-        nextTurnButton.setPreferredSize(buttonDimension);
+        buttonPanel.add(constructionButton);
         buttonPanel.add(nextTurnButton);
     }
 
@@ -284,7 +395,6 @@ public class SandboxGUI extends JFrame {
                 economy.getIndustries().add(b);
             }
         }
-        constructionReport = constructedBuilding;
     }
 
     // MODIFIES: this
