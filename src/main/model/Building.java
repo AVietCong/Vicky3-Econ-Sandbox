@@ -166,6 +166,11 @@ public class Building implements Writable {
         return false;
     }
 
+    // EFFECTS: return profits of the building (income - expense)
+    public int returnProfits() {
+        return (income - expense);
+    }
+
     // MODIFIES: this
     // EFFECTS: increase the size of building by 1
     public void expand() {

@@ -212,12 +212,45 @@ public class SandboxGUI extends JFrame {
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setPreferredSize(new Dimension(300, 100));
+        informationPanel.setPreferredSize(new Dimension(500, 100));
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
-        economy.getIndustries();
+        addIndustryReportHeader(gbc, informationPanel);
+        gbc.gridx = 0;
+        gbc.gridy += 1;
+        gbc.weighty = 0.1;
+        addRowsForActiveBuilding(gbc, informationPanel);
+        addRowsForInactiveBuilding(gbc, informationPanel);
 
+        gbc.weighty = 3.0;
+        informationPanel.add(new JLabel(), gbc);
+        refreshInteractionArea();
         currentMenu = "i";
+    }
+
+    private void addRowsForInactiveBuilding(GridBagConstraints gbc, JPanel informationPanel) {
+
+    }
+
+    private void addRowsForActiveBuilding(GridBagConstraints gbc, JPanel informationPanel) {
+
+    }
+
+    private void addIndustryReportHeader(GridBagConstraints gbc, JPanel informationPanel) {
+        gbc.ipadx = 20;
+        informationPanel.add(new JLabel("Factory"), gbc);
+        gbc.ipadx = 5;
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Income"), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Expense"), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Profit"), gbc);
+        gbc.gridx += 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 2;
+        informationPanel.add(new JLabel("Build/Remove"), gbc);
+        gbc.gridwidth = 0;
     }
 
     private void handleMarketReport() {

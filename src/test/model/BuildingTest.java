@@ -232,6 +232,19 @@ public class BuildingTest {
     }
 
     @Test
+    void testReturnProfits() {
+        steelMill.setIncome(200);
+        steelMill.setExpense(200);
+        assertEquals(0,steelMill.returnProfits());
+
+        steelMill.setExpense(400);
+        assertEquals(-200, steelMill.returnProfits());
+
+        steelMill.setIncome(500);
+        assertEquals(100, steelMill.returnProfits());
+    }
+
+    @Test
     void testexpandOnce() {
         assertEquals(1, steelMill.getSize());
         steelMill.expand();
