@@ -212,32 +212,78 @@ public class SandboxGUI extends JFrame {
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setPreferredSize(new Dimension(500, 100));
+        informationPanel.setPreferredSize(new Dimension(400, 100));
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
-        addIndustryReportHeader(gbc, informationPanel);
-        gbc.gridx = 0;
-        gbc.gridy += 1;
+        addIndustryReportHeader(gbc);
         gbc.weighty = 0.1;
-        addRowsForActiveBuilding(gbc, informationPanel);
-        addRowsForInactiveBuilding(gbc, informationPanel);
-
+        for (Building building : economy.getIndustries().removeEmptyBuildings().getAllBuildings()) {
+            gbc.gridy += 1;
+            gbc.gridx = 0;
+            addRowsForActiveBuilding(building, gbc);
+        }
+        for (Building building : economy.getIndustries().returnEmptyBuildings().getAllBuildings()) {
+            gbc.gridy += 1;
+            gbc.gridx = 0;
+            addRowsForInactiveBuilding(building, gbc);
+        }
+        gbc.gridy += 1;
         gbc.weighty = 3.0;
         informationPanel.add(new JLabel(), gbc);
         refreshInteractionArea();
         currentMenu = "i";
     }
 
-    private void addRowsForInactiveBuilding(GridBagConstraints gbc, JPanel informationPanel) {
-
+    private void addRowsForInactiveBuilding(Building building,GridBagConstraints gbc) {
+        gbc.ipadx = 10;
+        informationPanel.add(new JLabel(building.getName()), gbc);
+        gbc.gridx += 1;
+        gbc.ipadx = 5;
+        informationPanel.add(new JLabel(), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel(), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel(), gbc);
+        gbc.gridx += 1;
+        addBuildButton(building, gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel(), gbc);
     }
 
-    private void addRowsForActiveBuilding(GridBagConstraints gbc, JPanel informationPanel) {
-
+    private void addRowsForActiveBuilding(Building building, GridBagConstraints gbc) {
+        gbc.ipadx = 10;
+        informationPanel.add(new JLabel(building.getName()), gbc);
+        gbc.gridx += 1;
+        gbc.ipadx = 5;
+        informationPanel.add(new JLabel("£" + building.getIncome()), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("£" + building.getExpense()), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("£" + building.returnProfits()), gbc);
+        gbc.gridx += 1;
+        addBuildButton(building, gbc);
+        gbc.gridx += 1;
+        addRemoveButton(building, gbc);
     }
 
-    private void addIndustryReportHeader(GridBagConstraints gbc, JPanel informationPanel) {
-        gbc.ipadx = 20;
+    private void addRemoveButton(Building building, GridBagConstraints gbc) {
+        JButton removeButton = new JButton("-");
+        informationPanel.add(removeButton, gbc);
+    }
+
+    private void addBuildButton(Building building, GridBagConstraints gbc) {
+        JButton addButton = new JButton("+");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                economy.getConstructionSector().build(building);
+            }
+        });
+        informationPanel.add(addButton, gbc);
+    }
+
+    private void addIndustryReportHeader(GridBagConstraints gbc) {
+        gbc.ipadx = 10;
         informationPanel.add(new JLabel("Factory"), gbc);
         gbc.ipadx = 5;
         gbc.gridx += 1;
@@ -247,10 +293,9 @@ public class SandboxGUI extends JFrame {
         gbc.gridx += 1;
         informationPanel.add(new JLabel("Profit"), gbc);
         gbc.gridx += 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 2;
-        informationPanel.add(new JLabel("Build/Remove"), gbc);
-        gbc.gridwidth = 0;
+        informationPanel.add(new JLabel("Build"), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Remove"), gbc);
     }
 
     private void handleMarketReport() {
@@ -262,12 +307,12 @@ public class SandboxGUI extends JFrame {
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
         List<Goods> activeGoods = economy.getMarket().removeInactiveGoods().getAllGoods();
-        addMarketReportHeader(gbc, informationPanel);
+        addMarketReportHeader(gbc);
         gbc.weighty = 0.1;
         gbc.gridy += 1;
         gbc.gridx = 0;
         for (Goods goods : activeGoods) {
-            addRowForGood(goods, gbc, informationPanel);
+            addRowForGood(goods, gbc);
             gbc.gridy += 1;
             gbc.gridx = 0;
         }
@@ -277,7 +322,7 @@ public class SandboxGUI extends JFrame {
         currentMenu = "m";
     }
 
-    private void addMarketReportHeader(GridBagConstraints gbc, JPanel informationPanel) {
+    private void addMarketReportHeader(GridBagConstraints gbc) {
         gbc.ipadx = 5;
 
         informationPanel.add(new JLabel("Goods"), gbc);
@@ -290,7 +335,7 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(new JLabel("Price"), gbc);
     }
 
-    private void addRowForGood(Goods goods, GridBagConstraints gbc, JPanel informationPanel) {
+    private void addRowForGood(Goods goods, GridBagConstraints gbc) {
         JLabel nameLabel = new JLabel(goods.getName());
         JLabel demandLabel = new JLabel(String.valueOf(goods.getDemand()));
         JLabel supplyLabel = new JLabel(String.valueOf(goods.getSupply()));
@@ -299,7 +344,6 @@ public class SandboxGUI extends JFrame {
         gbc.ipadx = 5;
         informationPanel.add(nameLabel, gbc);
         gbc.gridx += 1;
-        gbc.ipadx = 5;
         informationPanel.add(demandLabel, gbc);
         gbc.gridx += 1;
         informationPanel.add(supplyLabel, gbc);
