@@ -96,12 +96,22 @@ public class Industries implements Writable {
         return result;
     }
 
-    // MODIFIES: this
     // EFFECTS: return industry with only active building (size != 0)
     public Industries removeEmptyBuildings() {
         Industries activeBuildings = new Industries();
         for (Building building : industries) {
             if (building.getSize() != 0) {
+                activeBuildings.add(building);
+            }
+        }
+        return activeBuildings;
+    }
+
+    // EFFECTS: return industry with only inactive building (size == 0)
+    public Industries returnEmptyBuildings() {
+        Industries activeBuildings = new Industries();
+        for (Building building : industries) {
+            if (building.getSize() == 0) {
                 activeBuildings.add(building);
             }
         }

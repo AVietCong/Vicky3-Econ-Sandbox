@@ -248,6 +248,29 @@ public class IndustriesTest {
     }
 
     @Test
+    void testreturnEmptyBuildings() {
+        industries.add(steelMill);
+        industries.add(farm);
+        industries.add(chemicalPlant);
+
+        farm.downsize(1);
+
+        assertEquals(Arrays.asList("Farm"), industries.returnEmptyBuildings().getAllBuildingNames());
+    }
+
+    @Test
+    void testreturnMultipleEmptyBuildings() {
+        industries.add(steelMill);
+        industries.add(farm);
+        industries.add(chemicalPlant);
+
+        farm.downsize(1);
+        steelMill.downsize(1);
+
+        assertEquals(Arrays.asList("Steel Mill", "Farm"), industries.returnEmptyBuildings().getAllBuildingNames());
+    }
+
+    @Test
     void testtoJson() {
         industries.add(steelMill);
         industries.add(farm);

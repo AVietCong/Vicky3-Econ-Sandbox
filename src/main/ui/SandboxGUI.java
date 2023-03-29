@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -95,28 +94,7 @@ public class SandboxGUI extends JFrame {
         currentMenu = null;
     }
 
-    private void initEconomy() {
-        initGoods();
-        allGoods = Arrays.asList(clothes, fabric, furniture, grain, groceries, services, wood, coal, dye,
-                explosives, fertilizer, glass, iron, lead, steel, sulfur, tools);
-        initIndustryBuildings();
-        initAgricultureBuildings();
-        initOtherBuildings();
-        allBuildings = Arrays.asList(foodIndustry, textileMill, furnitureManufactory, glassWork, toolingWorkshop,
-                chemicalPlant, steelMill, urbanCenter, farm, ranch, cottonPlantation, dyePlantation, coalMine, ironMine,
-                leadMine, sulfurMine);
-        constructionSector = new ConstructionSector(Arrays.asList(steel, tools, explosives), Arrays.asList(70, 20, 20));
-        setupIndustry();
-        setupMarket();
-        setDemandForConsumerGoods();
-        for (Building b : industries.getAllBuildings()) {
-            b.consume();
-            b.produce();
-            b.payExpense();
-            b.gainIncome();
-        }
-        economy = new Economy(industries, market, constructionSector);
-    }
+
 
     private void initializeGraphics() {
         setSize(1280, 720);
@@ -192,7 +170,7 @@ public class SandboxGUI extends JFrame {
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
         informationPanel.setPreferredSize(new Dimension(200, 100));
-        GridBagConstraints gbc = giveGBConstraints();
+        GridBagConstraints gbc = giveInfoPanelConstraints();
 
         addConstructionHeader(gbc, informationPanel);
         gbc.weighty = 0.1;
@@ -235,11 +213,9 @@ public class SandboxGUI extends JFrame {
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
         informationPanel.setPreferredSize(new Dimension(300, 100));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weighty = 0.2;
-        gbc.weightx = 0.2;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        GridBagConstraints gbc = giveInfoPanelConstraints();
+
+        economy.getIndustries();
 
         currentMenu = "i";
     }
@@ -250,7 +226,7 @@ public class SandboxGUI extends JFrame {
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
         informationPanel.setPreferredSize(new Dimension(300, 100));
-        GridBagConstraints gbc = giveGBConstraints();
+        GridBagConstraints gbc = giveInfoPanelConstraints();
 
         List<Goods> activeGoods = economy.getMarket().removeInactiveGoods().getAllGoods();
         addMarketReportHeader(gbc, informationPanel);
@@ -326,7 +302,7 @@ public class SandboxGUI extends JFrame {
         repaint();
     }
 
-    private GridBagConstraints giveGBConstraints() {
+    private GridBagConstraints giveInfoPanelConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weighty = 0.2;
         gbc.weightx = 0.2;
@@ -429,6 +405,29 @@ public class SandboxGUI extends JFrame {
                 economy.getIndustries().add(b);
             }
         }
+    }
+
+    private void initEconomy() {
+        initGoods();
+        allGoods = Arrays.asList(clothes, fabric, furniture, grain, groceries, services, wood, coal, dye,
+                explosives, fertilizer, glass, iron, lead, steel, sulfur, tools);
+        initIndustryBuildings();
+        initAgricultureBuildings();
+        initOtherBuildings();
+        allBuildings = Arrays.asList(foodIndustry, textileMill, furnitureManufactory, glassWork, toolingWorkshop,
+                chemicalPlant, steelMill, urbanCenter, farm, ranch, cottonPlantation, dyePlantation, coalMine, ironMine,
+                leadMine, sulfurMine);
+        constructionSector = new ConstructionSector(Arrays.asList(steel, tools, explosives), Arrays.asList(70, 20, 20));
+        setupIndustry();
+        setupMarket();
+        setDemandForConsumerGoods();
+        for (Building b : industries.getAllBuildings()) {
+            b.consume();
+            b.produce();
+            b.payExpense();
+            b.gainIncome();
+        }
+        economy = new Economy(industries, market, constructionSector);
     }
 
     // MODIFIES: this
