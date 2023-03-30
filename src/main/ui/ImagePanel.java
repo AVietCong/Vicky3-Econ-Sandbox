@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 public class ImagePanel extends JPanel {
     private BufferedImage image;
@@ -14,8 +13,8 @@ public class ImagePanel extends JPanel {
     public ImagePanel(String path) {
         try {
             image = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            System.out.println("Image file not found");
+        } catch (IOException ex) {
+            System.out.println("No Image file found");
         }
     }
 
