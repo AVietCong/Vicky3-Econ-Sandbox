@@ -35,6 +35,9 @@ Although I'm planning on majoring Computer Science, I have always had an interes
 ---
 ## Citations
 - Persistence code is based on UBC CPSC210 sample application at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+- Tutorial and inspiration on how to use JPanel, JButton, JProgressBar given by this video: https://youtu.be/Kmgo00avvEw
+- Tutorial and inspiration on how to use GridBagLayout is given by https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
+- Code given to paint an image in JPanel is given by user *Brendan Cashman* on this thread: https://stackoverflow.com/questions/299495/how-to-add-an-image-to-a-jpanel
 
 [^1]: https://store.steampowered.com/app/529340/Victoria_3/
 
