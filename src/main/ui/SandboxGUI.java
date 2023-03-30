@@ -18,6 +18,7 @@ public class SandboxGUI extends JFrame {
 
     private static final String JSON_STORE = Paths.get(".", "data", "Sandbox.json").toString();
     private static final ImageIcon LOGO = new ImageIcon(Paths.get(".", "data", "Logo.png").toString());
+    private static final String MAP = Paths.get(".", "data", "map.jpg").toString();
     private static final ImageIcon NORMAL_PRICE = new ImageIcon(Paths.get(".", "data", "NormalPrice.png").toString());
     private static final ImageIcon LOW_PRICE = new ImageIcon(Paths.get(".", "data", "LowPrice.png").toString());
     private static final ImageIcon HIGH_PRICE = new ImageIcon(Paths.get(".", "data", "HighPrice.png").toString());
@@ -96,7 +97,7 @@ public class SandboxGUI extends JFrame {
 
 
     private void initializeGraphics() {
-        setSize(1280, 720);
+        setSize(1230, 690);
         createButtons();
         initializeInteractionArea();
         informationPanel = new JPanel();
@@ -107,8 +108,12 @@ public class SandboxGUI extends JFrame {
 
     private void initializeInteractionArea() {
         interactionArea = new JLayeredPane();
-        interactionArea.setLayout(new BorderLayout());
+        //interactionArea.setLayout(new BorderLayout());
         add(interactionArea, BorderLayout.CENTER);
+        JPanel map = new ImagePanel(MAP);
+        map.setBounds(0, 0, 1580, 820);
+
+        interactionArea.add(map, 0);
     }
 
 
@@ -168,7 +173,8 @@ public class SandboxGUI extends JFrame {
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setPreferredSize(new Dimension(300, 100));
+        informationPanel.setBounds(0,0, 300, 821);
+        //informationPanel.setPreferredSize(new Dimension(300, 821));
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
         addConstructionHeader(gbc);
@@ -217,7 +223,8 @@ public class SandboxGUI extends JFrame {
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setPreferredSize(new Dimension(500, 100));
+        informationPanel.setBounds(0,0, 500, 821);
+        //informationPanel.setPreferredSize(new Dimension(500, 821));
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
         addIndustryReportHeader(gbc);
@@ -356,7 +363,8 @@ public class SandboxGUI extends JFrame {
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setPreferredSize(new Dimension(300, 100));
+        informationPanel.setBounds(0,0, 300, 821);
+        //informationPanel.setPreferredSize(new Dimension(300, 100));
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
         List<Goods> activeGoods = economy.getMarket().removeInactiveGoods().getAllGoods();
@@ -439,7 +447,7 @@ public class SandboxGUI extends JFrame {
     }
 
     private void refreshInteractionArea() {
-        interactionArea.add(informationPanel, BorderLayout.WEST, Integer.valueOf(1));
+        interactionArea.add(informationPanel, Integer.valueOf(1));
         revalidate();
         repaint();
     }
