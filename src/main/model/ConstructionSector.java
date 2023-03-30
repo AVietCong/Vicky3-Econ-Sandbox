@@ -135,6 +135,17 @@ public class ConstructionSector implements Writable {
         }
     }
 
+    // EFFECTS: return how many buildings of that type is in the construction queue
+    public int numInQueue(Building b) {
+        int result = 0;
+        for (Building building : constructionQueue) {
+            if (building.equals(b)) {
+                result += 1;
+            }
+        }
+        return result;
+    }
+
     // EFFECTS: return this a JSON object
     @Override
     public JSONObject toJson() {
@@ -156,6 +167,7 @@ public class ConstructionSector implements Writable {
         }
         return jsonArray;
     }
+
 
     // EFFECTS: return list of goods as a JSON object
     private JSONArray inputGoodsToJson() {

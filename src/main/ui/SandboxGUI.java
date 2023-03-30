@@ -10,18 +10,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
 public class SandboxGUI extends JFrame {
 
-    private static final String JSON_STORE = "./data/Sandbox.json";
-    private static final String ICON = "./data/Logo.png";
+    private static final String JSON_STORE = Paths.get(".", "data", "Sandbox.json").toString();
+    private static final ImageIcon LOGO = new ImageIcon(Paths.get(".", "data", "Logo.png").toString());
+    private static final ImageIcon NORMAL_PRICE = new ImageIcon(Paths.get(".", "data", "NormalPrice.png").toString());
+    private static final ImageIcon LOW_PRICE = new ImageIcon(Paths.get(".", "data", "LowPrice.png").toString());
+    private static final ImageIcon HIGH_PRICE = new ImageIcon(Paths.get(".", "data", "HighPrice.png").toString());
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
     private static final int BUTTON_PANEL_HEIGHT = 26;
-    private static final Dimension INFORMATION_PANEL_DIMENSION = new Dimension(420, 100);
-    private ImageIcon icon = new ImageIcon(ICON);
     private JButton saveButton;
     private JButton loadButton;
     private JButton marketButton;
@@ -82,12 +84,9 @@ public class SandboxGUI extends JFrame {
         jsonWriter = new JsonWriter(JSON_STORE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setIconImage(icon.getImage());
+        setIconImage(LOGO.getImage());
 
         initEconomy();
-        constructionSector.build(farm);
-        constructionSector.build(chemicalPlant);
-        constructionSector.build(ironMine);
 
         initializeGraphics();
         initializeInteraction();
@@ -169,36 +168,42 @@ public class SandboxGUI extends JFrame {
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setPreferredSize(new Dimension(200, 100));
+        informationPanel.setPreferredSize(new Dimension(300, 100));
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
-        addConstructionHeader(gbc, informationPanel);
+        addConstructionHeader(gbc);
         gbc.weighty = 0.1;
+        gbc.weightx = 0.1;
         gbc.gridy += 1;
         gbc.gridx = 0;
-        addConstructionReport(gbc, informationPanel);
+        addConstructionReport(gbc);
         gbc.weighty = 3.0;
         informationPanel.add(new JLabel(), gbc);
         refreshInteractionArea();
         currentMenu = "c";
     }
 
-    private void addConstructionReport(GridBagConstraints gbc, JPanel informationPanel) {
-        List<Building> queue = constructionSector.getConstructionQueue();
-        List<Integer> value = constructionSector.getConstructionValue();
-        for (Building building : queue) {
-            informationPanel.add(new JLabel(building.getName()), gbc);
+    private void addConstructionReport(GridBagConstraints gbc) {
+        for (int i = 0; i < economy.getConstructionSector().getConstructionQueue().size(); i++) {
+            gbc.fill = GridBagConstraints.VERTICAL;
+            String name = economy.getConstructionSector().getConstructionQueue().get(i).getName();
+            informationPanel.add(new JLabel(name), gbc);
+            gbc.gridx += 1;
+            gbc.weightx = 0.5;
+            JProgressBar progressBar = new JProgressBar();
+            progressBar.setStringPainted(true);
+            double remaining = (double) economy.getConstructionSector().getConstructionValue().get(i);
+            int cost = economy.getConstructionSector().getConstructionQueue().get(i).getConstructionCost();
+            int progress = (int) (100 * (1 - (remaining / cost)));
+            progressBar.setValue(progress);
+            informationPanel.add(progressBar, gbc);
+            gbc.gridx = 0;
             gbc.gridy += 1;
-        }
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        for (Integer remaining : value) {
-            informationPanel.add(new JLabel(String.valueOf(remaining)), gbc);
-            gbc.gridy += 1;
+            gbc.weightx = 0.1;
         }
     }
 
-    private void addConstructionHeader(GridBagConstraints gbc, JPanel informationPanel) {
+    private void addConstructionHeader(GridBagConstraints gbc) {
         gbc.ipadx = 15;
 
         informationPanel.add(new JLabel("Building"), gbc);
@@ -212,7 +217,7 @@ public class SandboxGUI extends JFrame {
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setPreferredSize(new Dimension(400, 100));
+        informationPanel.setPreferredSize(new Dimension(500, 100));
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
         addIndustryReportHeader(gbc);
@@ -245,8 +250,13 @@ public class SandboxGUI extends JFrame {
         gbc.gridx += 1;
         informationPanel.add(new JLabel(), gbc);
         gbc.gridx += 1;
+        addBuildingSizeLabel(building, gbc);
+        gbc.gridx += 1;
         addBuildButton(building, gbc);
         gbc.gridx += 1;
+        if (economy.getConstructionSector().numInQueue(building) != 0) {
+            addRemoveButton(building, gbc);
+        }
         informationPanel.add(new JLabel(), gbc);
     }
 
@@ -259,15 +269,55 @@ public class SandboxGUI extends JFrame {
         gbc.gridx += 1;
         informationPanel.add(new JLabel("£" + building.getExpense()), gbc);
         gbc.gridx += 1;
-        informationPanel.add(new JLabel("£" + building.returnProfits()), gbc);
+        addProfitLabel(building, gbc);
+        gbc.gridx += 1;
+        addBuildingSizeLabel(building, gbc);
         gbc.gridx += 1;
         addBuildButton(building, gbc);
         gbc.gridx += 1;
         addRemoveButton(building, gbc);
     }
 
+    private void addProfitLabel(Building building, GridBagConstraints gbc) {
+        JLabel profitLabel = new JLabel("£" + building.returnProfits());
+        if (building.isProfitable()) {
+            profitLabel.setForeground(Color.GREEN);
+        } else {
+            profitLabel.setForeground(Color.red);
+        }
+        informationPanel.add(profitLabel, gbc);
+    }
+
+    private void addBuildingSizeLabel(Building building, GridBagConstraints gbc) {
+        JLabel sizeLabel;
+        if (economy.getConstructionSector().numInQueue(building) != 0) {
+            String sizeString = building.getSize() + "+" + economy.getConstructionSector().numInQueue(building);
+            sizeLabel = new JLabel(sizeString);
+        } else {
+            sizeLabel = new JLabel(String.valueOf(building.getSize()));
+        }
+        informationPanel.add(sizeLabel, gbc);
+    }
+
     private void addRemoveButton(Building building, GridBagConstraints gbc) {
         JButton removeButton = new JButton("-");
+        if (economy.getConstructionSector().numInQueue(building) > 0) {
+            removeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    economy.getConstructionSector().remove(building);
+                    handleIndustryReport();
+                }
+            });
+        } else {
+            removeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    building.downsize(1);
+                    handleIndustryReport();
+                }
+            });
+        }
         informationPanel.add(removeButton, gbc);
     }
 
@@ -277,6 +327,7 @@ public class SandboxGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 economy.getConstructionSector().build(building);
+                handleIndustryReport();
             }
         });
         informationPanel.add(addButton, gbc);
@@ -292,6 +343,8 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(new JLabel("Expense"), gbc);
         gbc.gridx += 1;
         informationPanel.add(new JLabel("Profit"), gbc);
+        gbc.gridx += 1;
+        informationPanel.add(new JLabel("Size"), gbc);
         gbc.gridx += 1;
         informationPanel.add(new JLabel("Build"), gbc);
         gbc.gridx += 1;
@@ -340,6 +393,7 @@ public class SandboxGUI extends JFrame {
         JLabel demandLabel = new JLabel(String.valueOf(goods.getDemand()));
         JLabel supplyLabel = new JLabel(String.valueOf(goods.getSupply()));
         JLabel priceLabel = new JLabel("£" + goods.determinePrice());
+        setPriceIcon(goods, priceLabel);
 
         gbc.ipadx = 5;
         informationPanel.add(nameLabel, gbc);
@@ -349,6 +403,17 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(supplyLabel, gbc);
         gbc.gridx += 1;
         informationPanel.add(priceLabel, gbc);
+    }
+
+    private void setPriceIcon(Goods goods, JLabel priceLabel) {
+        if (goods.determinePriceModifier() >= 1.25) {
+            priceLabel.setIcon(HIGH_PRICE);
+        } else if (goods.determinePriceModifier() <= 0.75) {
+            priceLabel.setIcon(LOW_PRICE);
+        } else {
+            priceLabel.setIcon(NORMAL_PRICE);
+        }
+        priceLabel.setHorizontalTextPosition(JLabel.LEFT);
     }
 
     private void createButtons() {
@@ -394,7 +459,6 @@ public class SandboxGUI extends JFrame {
             jsonWriter.open();
             jsonWriter.write(economy);
             jsonWriter.close();
-            System.out.println("Saved current state of economy to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -405,7 +469,6 @@ public class SandboxGUI extends JFrame {
     private void loadSandbox() {
         try {
             economy = jsonReader.read();
-            System.out.println("Loaded last state of economy from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

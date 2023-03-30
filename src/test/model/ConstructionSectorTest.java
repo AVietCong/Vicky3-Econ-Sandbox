@@ -270,6 +270,30 @@ public class ConstructionSectorTest {
     }
 
     @Test
+    void testnumInQueueNone() {
+        constructionSector.build(farm);
+        constructionSector.build(foodIndustry);
+        assertEquals(0, constructionSector.numInQueue(ironMine));
+    }
+
+    @Test
+    void testnumInQueueOne() {
+        constructionSector.build(farm);
+        constructionSector.build(foodIndustry);
+        constructionSector.build(foodIndustry);
+        assertEquals(1, constructionSector.numInQueue(farm));
+    }
+
+    @Test
+    void testnumInQueueMultiple() {
+        constructionSector.build(farm);
+        constructionSector.build(foodIndustry);
+        constructionSector.build(ironMine);
+        constructionSector.build(farm);
+        assertEquals(2, constructionSector.numInQueue(farm));
+    }
+
+    @Test
     void testtoJson() {
         constructionSector.build(farm);
         constructionSector.build(foodIndustry);
