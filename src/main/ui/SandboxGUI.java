@@ -96,6 +96,8 @@ public class SandboxGUI extends JFrame {
 
 
 
+    // MODIFIES: this
+    // EFFECTS: initialize the GUI with buttons in the top bar and an interaction area
     private void initializeGraphics() {
         setSize(1230, 690);
         createButtons();
@@ -106,9 +108,10 @@ public class SandboxGUI extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize interaction area map as a background
     private void initializeInteractionArea() {
         interactionArea = new JLayeredPane();
-        //interactionArea.setLayout(new BorderLayout());
         add(interactionArea, BorderLayout.CENTER);
         JPanel map = new ImagePanel(MAP);
         map.setBounds(0, 0, 1580, 820);
@@ -117,11 +120,15 @@ public class SandboxGUI extends JFrame {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: add button interactions in the top bar
     private void initializeInteraction() {
         initializeSaveLoadInteraction();
         initializeReportInteraction();
     }
 
+    // MODIFIES: this
+    // EFFECTS: add interactions to buttons related to data persistence in the top bar
     private void initializeSaveLoadInteraction() {
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -145,6 +152,8 @@ public class SandboxGUI extends JFrame {
         });
     }
 
+    // MODIFIES: this
+    // EFFECTS: add interactions to buttons related to the simulation in the top bar
     private void initializeReportInteraction() {
         marketButton.addActionListener(new ActionListener() {
             @Override
@@ -168,13 +177,14 @@ public class SandboxGUI extends JFrame {
         });
     }
 
+    // MODIFIES: this
+    // EFFECTS: create an information panel of construction queue and display it inside the interaction area
     private void handleConstructionReport() {
         interactionArea.remove(informationPanel);
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setBounds(0,0, 300, 821);
-        //informationPanel.setPreferredSize(new Dimension(300, 821));
+        informationPanel.setBounds(0,0, 300, 785);
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
         addConstructionHeader(gbc);
@@ -189,6 +199,8 @@ public class SandboxGUI extends JFrame {
         currentMenu = "c";
     }
 
+    // MODIFIES: this
+    // EFFECTS: add rows for each building in construction queue and a progress bar to show how much is of it is built
     private void addConstructionReport(GridBagConstraints gbc) {
         for (int i = 0; i < economy.getConstructionSector().getConstructionQueue().size(); i++) {
             gbc.fill = GridBagConstraints.VERTICAL;
@@ -209,6 +221,8 @@ public class SandboxGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: add headers in the construction menu
     private void addConstructionHeader(GridBagConstraints gbc) {
         gbc.ipadx = 15;
 
@@ -218,13 +232,14 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(new JLabel("Remaining"), gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: create an information panel summarizing all industries and display it inside the interaction area
     private void handleIndustryReport() {
         interactionArea.remove(informationPanel);
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setBounds(0,0, 500, 821);
-        //informationPanel.setPreferredSize(new Dimension(500, 821));
+        informationPanel.setBounds(0,0, 500, 785);
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
         addIndustryReportHeader(gbc);
@@ -246,6 +261,8 @@ public class SandboxGUI extends JFrame {
         currentMenu = "i";
     }
 
+    // MODIFIES: this
+    // EFFECTS: add information about all buildings that are of size == 0
     private void addRowsForInactiveBuilding(Building building,GridBagConstraints gbc) {
         gbc.ipadx = 10;
         informationPanel.add(new JLabel(building.getName()), gbc);
@@ -267,6 +284,8 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(new JLabel(), gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add information about all buildings that are of size != 0
     private void addRowsForActiveBuilding(Building building, GridBagConstraints gbc) {
         gbc.ipadx = 10;
         informationPanel.add(new JLabel(building.getName()), gbc);
@@ -285,6 +304,8 @@ public class SandboxGUI extends JFrame {
         addRemoveButton(building, gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: display profits of a building in industry menu and color coded green for profitable, red for not
     private void addProfitLabel(Building building, GridBagConstraints gbc) {
         JLabel profitLabel = new JLabel("£" + building.returnProfits());
         if (building.isProfitable()) {
@@ -295,6 +316,8 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(profitLabel, gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add information about a building in the industry menu
     private void addBuildingSizeLabel(Building building, GridBagConstraints gbc) {
         JLabel sizeLabel;
         if (economy.getConstructionSector().numInQueue(building) != 0) {
@@ -306,6 +329,8 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(sizeLabel, gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add button to downsize buildings or remove buildings from construction queue
     private void addRemoveButton(Building building, GridBagConstraints gbc) {
         JButton removeButton = new JButton("-");
         if (economy.getConstructionSector().numInQueue(building) > 0) {
@@ -328,6 +353,8 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(removeButton, gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add button to build buildings inside industry menu
     private void addBuildButton(Building building, GridBagConstraints gbc) {
         JButton addButton = new JButton("+");
         addButton.addActionListener(new ActionListener() {
@@ -340,6 +367,8 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(addButton, gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add headers for the industry menu
     private void addIndustryReportHeader(GridBagConstraints gbc) {
         gbc.ipadx = 10;
         informationPanel.add(new JLabel("Factory"), gbc);
@@ -358,13 +387,14 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(new JLabel("Remove"), gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: create an information panel summarizing market info and display it inside the interaction area
     private void handleMarketReport() {
         interactionArea.remove(informationPanel);
         informationPanel = new JPanel();
         informationPanel.setLayout(new GridBagLayout());
         informationPanel.setBackground(Color.LIGHT_GRAY);
-        informationPanel.setBounds(0,0, 300, 821);
-        //informationPanel.setPreferredSize(new Dimension(300, 100));
+        informationPanel.setBounds(0,0, 300, 785);
         GridBagConstraints gbc = giveInfoPanelConstraints();
 
         List<Goods> activeGoods = economy.getMarket().removeInactiveGoods().getAllGoods();
@@ -383,6 +413,8 @@ public class SandboxGUI extends JFrame {
         currentMenu = "m";
     }
 
+    // MODIFIES: this
+    // EFFECTS: add the header for the Market menu
     private void addMarketReportHeader(GridBagConstraints gbc) {
         gbc.ipadx = 5;
 
@@ -396,6 +428,8 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(new JLabel("Price"), gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add information about a good in the information panel
     private void addRowForGood(Goods goods, GridBagConstraints gbc) {
         JLabel nameLabel = new JLabel(goods.getName());
         JLabel demandLabel = new JLabel(String.valueOf(goods.getDemand()));
@@ -413,6 +447,7 @@ public class SandboxGUI extends JFrame {
         informationPanel.add(priceLabel, gbc);
     }
 
+    // EFFECTS: assign a price icon to a label to signal how expensive a good is
     private void setPriceIcon(Goods goods, JLabel priceLabel) {
         if (goods.determinePriceModifier() >= 1.25) {
             priceLabel.setIcon(HIGH_PRICE);
@@ -424,6 +459,8 @@ public class SandboxGUI extends JFrame {
         priceLabel.setHorizontalTextPosition(JLabel.LEFT);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add buttons to the top bar
     private void createButtons() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(100, BUTTON_PANEL_HEIGHT));
@@ -446,12 +483,15 @@ public class SandboxGUI extends JFrame {
         buttonPanel.add(nextTurnButton);
     }
 
+    // MODIFIES: this
+    // EFFECTS: refresh the interaction area with the updated information in the information panel
     private void refreshInteractionArea() {
         interactionArea.add(informationPanel, Integer.valueOf(1));
         revalidate();
         repaint();
     }
 
+    // EFFECTS: return GridBagConstraints for headers inside information panel
     private GridBagConstraints giveInfoPanelConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weighty = 0.2;
@@ -555,6 +595,8 @@ public class SandboxGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: create starting economic conditions
     private void initEconomy() {
         initGoods();
         allGoods = Arrays.asList(clothes, fabric, furniture, grain, groceries, services, wood, coal, dye,
